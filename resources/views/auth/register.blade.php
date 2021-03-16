@@ -54,10 +54,10 @@
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
-            <div class="flex gap-4 mt-4">
+           <!--  <div class="flex gap-4 mt-4">
                 <x-jet-input id="condition" class="block mt-1" type="checkbox" name="condition" :value="old('condition')"/>
                 <x-jet-label for="condition" value="{{ __('Aceptar los terminos y condiciones') }}" />
-            </div>
+            </div> -->
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
