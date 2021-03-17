@@ -60,8 +60,16 @@
 
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="number" value="{{ __('Telefono') }}" />
+            <x-jet-input id="number" type="number" class="mt-1 block w-full" wire:model.defer="state.number" />
+            <x-jet-input-error for="number" class="mt-2" />
+        </div>
+
+    
+        <!-- Email -->
+        <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="email" value="{{ __('Email') }}" />
-            <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
+            <x-jet-input disabled id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
         </div>
     </x-slot>
