@@ -18,8 +18,8 @@
                 <div class="w-1/3">
                     <x-jet-label for="gender" value="{{ __('Genero') }}" />
                     <select id="gender" name="gender" class="form-input rounded-md shadow-sm block mt-1 w-full" >
-                        <option value="volvo">Femenino</option>
-                        <option value="saab">Masculino</option>
+                        <option value="femenino">Femenino</option>
+                        <option value="masculino">Masculino</option>
                     </select> 
                 </div>
 
