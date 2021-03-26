@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Advert extends Model
+class Subscription extends Model
 {
     use HasFactory;
 
@@ -16,16 +16,6 @@ class Advert extends Model
 
     public function category(){
         return $this->belongsTo('App\Models\Category','category_id');
-        
-    }
-
-    public function advertStatus(){
-        return $this->belongsTo('App\Models\AdvertStatus','advert_status_id');
-        
-    }
-
-    public function township(){
-        return $this->belongsTo('App\Models\Township','Township_id');
         
     }
 }

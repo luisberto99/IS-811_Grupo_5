@@ -14,48 +14,44 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $category1 = new Category();
-        $category1 ->name = 'hogar';
-        $category1 -> save();
+        Category::Create([
+            'name' => 'Inmuebles'
+            ]);
+        
+        Category::Create([
+            'name' => 'Vehiculos'
+            ]);
 
-        $category2 = new Category();
-        $category2 ->name = 'moda';
-        $category2 -> save();
+        Category::Create([
+            'name' => 'Hogar'
+            ]);
 
-        $category3 = new Category();
-        $category3 ->name = 'servicios';
-        $category3 -> save();
+        Category::Create([
+            'name' => 'Moda'
+            ]);
 
-        $category4= new Category();
-        $category4->name = 'inmuebles';
-        $category4-> save();
+        Category::Create([
+            'name' => 'Futuros Padres'
+            ]);
 
-        $category5 = new Category();
-        $category5 ->name = 'vehículos';
-        $category5 -> save();
+        Category::Create([
+            'name' => 'Mascotas'
+            ]);
 
-        $category6 = new Category();
-        $category6 ->name = ' futuros  padres';
-        $category6 -> save();
+        Category::Create([
+            'name' => 'Electronica'
+            ]);
 
-        $category7 = new Category();
-        $category7 ->name = 'mascotas';
-        $category7 -> save();
+        Category::Create([
+            'name' => 'Servicios'
+            ]);
 
-        $category8 = new Category();
-        $category8 ->name = 'electrónica';
-        $category8 -> save();
+        Category::Create([
+            'name' => 'Negocios'
+            ]);
 
-        $category9 = new Category();
-        $category9 ->name = 'negocios';
-        $category9 -> save();
-
-        $category10 = new Category();
-        $category10 ->name = 'empleo';
-        $category10 -> save();
-
-    
-
+        Category::Create([
+            'name' => 'Empleos'
+            ]);
     }
-
 }
