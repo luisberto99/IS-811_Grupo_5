@@ -6,10 +6,15 @@
     </x-slot>
 
     <div class="py-12">
+        <!--livewire('eliminar-anuncio')-->
+        
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
+                
+                @livewire('formulario-anuncio')
             </div>
         </div>
     </div>
+
+    @yield('js')
 </x-app-layout>
