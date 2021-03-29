@@ -31,9 +31,8 @@ class AdvertController extends Controller
         $AlladdsUser = Advert::where('user_id',$user->id )->get()->count();
         $adsActive = Advert::where('user_id',$user->id )->where('advert_status_id', 1)->get()->count();
         $coment=  AdvertComment::where('advert_id',$id)->whereRaw('parent_id = id')-> get();
-        $photo = AdvertPhoto::where('advert_id',$id)->get();    
+        $photo = AdvertPhoto::where('advert_id',$id)->first();    
        
-        
         
 
         return view('advert.show', compact('advert', 'category', 'coment','adProduct','currency','township','department','user','adsActive','AlladdsUser','photo'));
