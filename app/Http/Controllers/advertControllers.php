@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\http\Request;
 
 use App\Models\Category;
+use App\Models\Advert;
+use App\Models\User;
+use App\View\Components\advert as ComponentsAdvert;
 use Illuminate\Support\Facades\DB;
 
 class advertControllers extends Controller
@@ -58,6 +61,16 @@ public function filter(Request $request){
 
     return view("components.adverts", ['idUser' => $idUser,'adverts' => $adverts]);
     }
+    public function edit($anuncio)
+    {
+        $anuncioAct = Advert::find($anuncio);
+        $anuncioAct->advert_status_id=2;
+        $anuncioAct->update();
+        
+        return redirect()->to('adverts/show');
+    }
+
+
 }
 
 
