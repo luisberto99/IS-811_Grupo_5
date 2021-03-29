@@ -3,6 +3,7 @@
          
         <div class="py-6 w-100">
             <div class="w-50 py-4  sm:px-6 lg:px-8" style="float: left">
+                <h2>CREA UN ANUNCIO</h2>
                 <form action="">
                     <div class="mt-5">
                         <label  class="inline-block w-32 font-bold">Titulo</label>
@@ -19,18 +20,6 @@
                             wire:model="descripciondelAnuncio" cols="60" rows="3"  placeholder="Describa las cualidades de lo que quiere vender" ></textarea> 
                             @error('descripciondelAnuncio') <span class="error text-red-600">la descripcion del anuncio es obligatoria</span> @enderror
                     
-                    </div>
-
-                    <div class="mb-8 mt-5">
-                        <label class="inline-block w-32 font-bold">Estado:</label>
-                        <select name="estado" wire:model="estado" 
-                            class="p-2 px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
-                            <option value='-1'>Seleccione un esatdo</option>
-                                @foreach($estados as $estatu)
-                                    <option value={{ $estatu->id }}> {{ $estatu->status }}</option>
-                                @endforeach
-                        </select>
-                        @error('estado') <br><span class="error text-red-600">el estado es obligatorio</span> @enderror
                     </div>
 
                             

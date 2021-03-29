@@ -52,6 +52,12 @@
                     <x-slot name="UserLink">
                         {{ route('user.show', $idUser)}}
                     </x-slot>
+                    <div class="py-1 w-100">
+                        <div class="w-50 py-4" style="float: left"></div>
+                        <div class="py-1" style="float: right">
+                            <a href="{{route('adverts.edit',$advert->id)}}" class="px-4 bg-gray-400 rounded-lg text-white -bottom-8">Eliminar</a>
+                        </div>
+                      </div>  
                 </x-advert-card>
     
             @endforeach

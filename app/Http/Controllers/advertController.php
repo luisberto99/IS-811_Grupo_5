@@ -20,4 +20,13 @@ class advertController extends Controller
         return view("components.advert", compact('id'));
         
     }
+
+    public function destroy($id)
+    {
+        //return view("advert.advert")-> with("id", $id);
+
+        compact('id');
+        return view("components.advert", compact('id'));
+        
+    }
 }

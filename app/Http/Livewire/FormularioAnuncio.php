@@ -25,7 +25,7 @@ class FormularioAnuncio extends Component
 
     public $titulodelAnuncio = '';
     public $descripciondelAnuncio = '';
-    public $estado;
+    public $estado = 1;
     public $categoria;
     public $departamento;
     public $municipio;
@@ -33,12 +33,12 @@ class FormularioAnuncio extends Component
     public $contenido = '';
     public $moneda;
     public $imagen;
+    
 
     public function resetImputFiels()
     {
         $this->titulodelAnuncio = '';
         $this->descripciondelAnuncio = ''; 
-        $this->estado = -1; 
         $this->categoria = -1;
         $this->departamento = -1;
         $this->municipio = -1;
@@ -54,7 +54,6 @@ class FormularioAnuncio extends Component
         $this->validate([
             'titulodelAnuncio' => 'required',
             'descripciondelAnuncio' => 'required',
-            'estado' => 'required',
             'categoria' => 'required',
             'municipio' => 'required',
             'precio' => 'required',
@@ -125,7 +124,7 @@ class FormularioAnuncio extends Component
         $departaments = Departament::all();
         $townships = Township::all();
         $moneds = Currency::all();
-        return view('livewire.formulario-anuncio', compact('categories', 'departaments', 'townships', 'estados', 'moneds'));
+        return view('livewire.formulario-anuncio', compact('categories', 'departaments', 'townships', 'moneds'));
     }
 
 

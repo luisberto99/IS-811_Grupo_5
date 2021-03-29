@@ -38,3 +38,5 @@ Route::get('advert/{id}', function ($id) {
 Route::get('users/{id}', function ($id) {
     return User::find($id);
 })->name('user.show');
+
+Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('adverts.edit');
