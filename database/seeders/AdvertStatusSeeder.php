@@ -15,11 +15,11 @@ class AdvertStatusSeeder extends Seeder
     public function run()
     {
         AdvertStatus::create([
-            'status'=>'Estado1'
+            'status'=>'Activo'
         ]);
 
         AdvertStatus::create([
-            'status'=>'Estado2'
+            'status'=>'Inactivo'
         ]);
     }
 }

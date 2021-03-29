@@ -14,6 +14,10 @@ module.exports = {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
         },
+        container: {
+            center: true,
+
+        },
     },
 
     variants: {
