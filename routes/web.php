@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\advertControllers;
 use Illuminate\Support\Facades\Route;
+
+use App\Models\Advert;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +24,17 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('adverts/show', advertControllers::class )->name('advert.show');
+
+/* Route::get('advert/{id}?', function ($id = null) {
+    return "work $id";
+}); */
+
+Route::get('advert/{id}', function ($id) {
+    return Advert::find($id);
+})->name('advert.show');
+
+Route::get('users/{id}', function ($id) {
+    return User::find($id);
+})->name('user.show');
