@@ -14,9 +14,9 @@ class advertControllers extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke($idUser)
+    public function __invoke()
     {
-
+        $idUser = auth()->user()->id;
         //$adverts = Advert::find($idUser);
         //$user = User::paginate();
     
@@ -25,9 +25,9 @@ class advertControllers extends Controller
                                         ->join('currencies','products_adverts.currency_id', '=', 'currencies.id')
                                         ->join('townshipes','townshipes.id','=','adverts.township_id')
                                         ->join('departaments','departaments.id','=','townshipes.departament_id')
-                                        ->select('adverts.*', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
+                                        ->select('adverts.id as adverts_id', 'adverts.*','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
                                         ->where('adverts.user_id', '=', $idUser)
-                        ->paginate();
+                                        ->paginate();
 
         //return $anuncios;
         return view("components.adverts", ['idUser' => $idUser,'adverts' => $adverts]);

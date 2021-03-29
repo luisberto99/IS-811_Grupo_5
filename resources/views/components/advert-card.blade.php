@@ -24,7 +24,7 @@
         <p class="text-xs text-gray-500">{{ $location }} </p>
         <button class="outline text-xs text-gray-500 hover:text-blue-500" title="Bookmark this ad"><i class="far fa-bookmark"></i></button>
       </div>
-      <p class="text-xs text-gray-500"><a href="{{ $UserLink }}" class="hover:underline hover:text-blue-500">username2019</a> • {{ $date }} days ago</p>
+      <p class="text-xs text-gray-500"><a href="{{ $UserLink }}" class="hover:underline hover:text-blue-500">{{ $UserName }}</a> • {{ $date }} days ago</p>
       <p>{{$slot}}</p>
     </div>
   </div>

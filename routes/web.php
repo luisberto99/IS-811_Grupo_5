@@ -25,7 +25,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('adverts/{id?}', advertControllers::class )->name('advert.show');
+Route::get('adverts/show', advertControllers::class )->name('advert.show');
 
 /* Route::get('advert/{id}?', function ($id = null) {
     return "work $id";
