@@ -4,20 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+        <link rel="stylesheet" href="{{ asset('css/all.css') }}">
         <title>Laravel</title>
 
     </head>
 
     <body  class="antialiased">
 
-        <div class="flex flex-row">
+        <div class="flex flex-row h-full">
             
-            <div class="w-1/4">
-               <h2>componente filtro anuncios</h2>
+            <div class="w-1/4 container mx-auto mt-4 py-8 px-12">
+               <x-filter-options></x-filter-options>
             </div>
             
-            <div class=" w-3/4 container mx-auto grid grid-cols-4 gap-4 py-8 px-12">
+            <div class=" w-3/4 h-full mx-auto grid grid-cols-4 gap-4 py-8 px-12">
                 
                 @foreach ($adverts as $advert)
                 
@@ -61,7 +61,6 @@
 
 
     {{ $adverts->links() }}
-
     </body>
 
 </html>
