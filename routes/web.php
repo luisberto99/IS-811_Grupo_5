@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\advertController;
 use App\Http\Controllers\advertControllers;
-use App\Http\Controllers\filterOptionController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Advert;
@@ -44,3 +43,5 @@ Route::get('users/fill{id}', function ($id) {
 })->name('user.show');
 
 Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('adverts.edit');
+Route::middleware(['auth:sanctum', 'verified'])->get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
+Route::middleware(['auth:sanctum', 'verified'])->post('/advert/comment',[ AdvertController::class, 'storeComment'])->name('advert.storeComment');
