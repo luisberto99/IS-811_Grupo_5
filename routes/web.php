@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('adverts/show', advertControllers::class )->name('advert.show');
+Route::get('adverts/show', advertControllers::class )->name('adverts.show');
 
 Route::get('adverts/show/f{fill?}',[advertControllers::class, 'filter']);
 
@@ -35,12 +35,19 @@ Route::get('adverts/show/f{fill?}',[advertControllers::class, 'filter']);
     return "work $id";
 }); */
 
-Route::get('advert/{id}', function ($id) {
+/* Route::get('advert/{id}', function ($id) {
     return Advert::find($id);
-})->name('advert.show');
+})->name('advert.show'); */
 
 Route::get('users/fill{id}', function ($id) {
     return User::find($id);
 })->name('user.show');
 
 Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('adverts.edit');
+<<<<<<< Updated upstream
+=======
+Route::middleware(['auth:sanctum', 'verified'])->get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
+Route::middleware(['auth:sanctum', 'verified'])->post('/advert/comment',[ AdvertController::class, 'storeComment'])->name('advert.storeComment');
+
+Route::get('menu', [advertControllers::class, 'work'] );
+>>>>>>> Stashed changes

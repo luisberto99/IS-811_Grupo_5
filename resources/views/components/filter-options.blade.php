@@ -1,6 +1,7 @@
 <?php
         $categories = DB::table('categories')->select('id','name')->get();
         $deptos = DB::table('departaments')->select('id','name')->get();
+        $municipios = DB::table('townshipes')->select('id','name','departament_id')->get();
 
 ?>
 
@@ -15,7 +16,7 @@
 
     <div >
         <p class="font-bold">Categoria</p>
-        <select class="w-full rounded" name="Categorias" id="Categorias" onchange="categoria()" >
+        <select class="w-full rounded" name="Categorias" id="Categorias" onchange="chage()">
             <option value="0">Todas</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -26,7 +27,7 @@
     </div>
     <div >
         <p class="font-bold">Departamento</p>
-        <select class="w-full rounded" name="Departamento" id="Departamento">
+        <select class="w-full rounded" name="Departamento" id="Departamento" onchange="chage()">
             <option value="0">Todos</option>
             @foreach ($deptos as $depto)
                 <option value="{{ $depto->id }}">{{ $depto->name }}</option>
@@ -42,16 +43,67 @@
     </div>
     <div >
         <p class="font-bold">Estado del anuncio</p>
-        <input class="rounded" type="checkbox"  id="estadoActivo" value="estadoActivo"><label for="estadoActivo">  Activo</label><br>
-        <input class="rounded" type="checkbox"  id="estadoInactivo" value="estadoInactivo"><label for="estadoInactivo">  Inactivo</label>
+        <input checked class="rounded" type="checkbox"  id="estadoActivo" value="estadoActivo" onchange="chage()">
+            <label for="estadoActivo" >  Activo</label><br>
+        <input checked class="rounded" type="checkbox"  id="estadoInactivo" value="estadoInactivo" onchange="chage()">
+            <label for="estadoInactivo" >  Inactivo</label>
     </div>
+    
+    <a class="mt-4 w-full rounded text-lg" href="f?" id="btnFiltrar">Filtrar</a>
     <input class="mt-4 w-full rounded text-lg p-1" type="button" value="Nuevo anuncio">
+
+    <script>
+
+        let Categoria = 0;
+        let Departamento = 0;
+        let Municipio = 0;
+        let Activo = 1;
+        let Inactivo = 1;
+
+
+        function chage(){
+            Categoria = document.getElementById("Categorias").value;
+            Departamento = document.getElementById('Departamento').value;
+
+            if(document.getElementById('estadoActivo').checked){
+                Activo = 1;
+            }else{
+                Activo = 0;
+            }
+
+            if(document.getElementById('estadoInactivo').checked){
+                Inactivo = 1;
+            }else{
+                Inactivo = 0;
+            }
+
+            url = 'f?';
+            if(Categoria != 0){
+                url += '&category='+Categoria;
+            }
+            if(Departamento != 0){
+                url += '&depto='+Departamento;
+            }
+            if(Activo == 0){
+                url+= '&noactivo=1'
+            }
+            if(Inactivo == 0){
+                url+= '&noinactivo=2'
+            }
+
+
+            document.getElementById('btnFiltrar').href = url;
+            console.log(url);
+        }
+
+
+    
+
+    </script>
+
+
+
 
 
 </div>
 
-<script>
-    function categoria(){
-        window.location='{{ asset('adverts/show/') }}'
-    }
-</script>

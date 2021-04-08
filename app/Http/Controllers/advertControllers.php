@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\http\Request;
 
+<<<<<<< Updated upstream
 use App\Models\Category;
+=======
+use App\Models\Advert;
+>>>>>>> Stashed changes
 use Illuminate\Support\Facades\DB;
 
 class advertControllers extends Controller
@@ -39,6 +43,9 @@ public function filter(Request $request){
     
   
 
+
+    $fill = [];
+
     $idUser = auth()->user()->id;
     $adverts = DB::table('adverts')->join('products_adverts','products_adverts.advert_id','=', 'adverts.id')
     ->join('currencies','products_adverts.currency_id', '=', 'currencies.id')
@@ -51,13 +58,46 @@ public function filter(Request $request){
     ->when($request->depto,function ($query, $role){
             return $query->where('departaments.id', $_GET['depto']);
         })
+<<<<<<< Updated upstream
+=======
+    ->when(isset($_GET['noactivo']),function ($query, $role){
+            return $query->where('advert_status_id','<>', $_GET['noactivo']);
+        })
+    ->when(isset($_GET['noinactivo']),function($query, $role){
+            return $query->where('advert_status_id','<>', $_GET['noinactivo']);
+         })
+>>>>>>> Stashed changes
     ->where('adverts.user_id', '=', $idUser)
     ->paginate();
 
-
-
-    return view("components.adverts", ['idUser' => $idUser,'adverts' => $adverts]);
+    if(isset($_GET['depto'])){
+        $fill['depto'] = $_GET['depto'];
     }
+    
+
+    return view("components.adverts", ['adverts'=>$adverts, 'idUser' => $idUser, 'fill' => $fill]);
+ 
+
+    }
+
+    public function work($text){
+        return "work $text";
+    }
+<<<<<<< Updated upstream
+=======
+
+
+    public function edit($anuncio)
+    {
+        $anuncioAct = Advert::find($anuncio);
+        $anuncioAct->advert_status_id=2;
+        $anuncioAct->update();
+        
+        return redirect()->to('adverts/show');
+    }
+
+
+>>>>>>> Stashed changes
 }
 
 
