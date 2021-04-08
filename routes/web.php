@@ -26,6 +26,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
+    return view('advert.nuevo');
+})->name('nuevo');
+
 Route::get('adverts/show', advertControllers::class )->name('advert.show');
 
 Route::get('adverts/show/f{fill?}',[advertControllers::class, 'filter']);
