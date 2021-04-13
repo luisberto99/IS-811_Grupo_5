@@ -14,11 +14,7 @@ class Product extends Model
     protected $guarded = [];
 
     public function advert(){
-        return $this->belongsTo(Advert::class);
+        return $this->belongsTo('App\Models\Advert','advert_id');
         
-    }
-
-    public function currency(){
-        return $this->belongsTo(Currency::class);
     }
 }

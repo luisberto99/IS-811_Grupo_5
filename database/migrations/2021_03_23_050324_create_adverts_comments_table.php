@@ -21,7 +21,7 @@ class CreateAdvertsCommentsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('advert_id');
             $table->foreign('advert_id')->references('id')->on('adverts')->onDelete('cascade');
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('parent_id');
             $table->foreign('parent_id')->references('id')->on('adverts_comments')->onDelete('cascade');
             $table->timestamps();
         });

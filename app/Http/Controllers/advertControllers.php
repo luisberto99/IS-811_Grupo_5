@@ -2,47 +2,102 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Advert;
-use App\Models\AdvertComment;
-use App\Models\AdvertPhoto;
+use Illuminate\http\Request;
+
+<<<<<<< Updated upstream
 use App\Models\Category;
-use App\Models\Currency;
-use App\Models\Departament;
-use App\Models\Product;
-use App\Models\Township;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
+=======
+use App\Models\Advert;
+>>>>>>> Stashed changes
+use Illuminate\Support\Facades\DB;
 
-class AdvertController extends Controller
+class advertControllers extends Controller
 {
-    public function show($id){
-        $advert = Advert::find($id);
-        $category = Category::find($advert->category_id);
-        $category = $category->name;
-        $adProduct = Product::where('advert_id',$id)->first(); 
-        $currency = Currency::find($adProduct->currency_id);
-        $currency = $currency->currency_type;
-        $township = Township::find($advert->township_id);
-        $department = Departament::find($township->departament_id);
-        $township = $township->name;
-        $department = $department->name;
-        $user = User::find($advert->user_id);
-        $AlladdsUser = Advert::where('user_id',$user->id )->get()->count();
-        $adsActive = Advert::where('user_id',$user->id )->where('advert_status_id', 1)->get()->count();
-        $coment=  AdvertComment::where('advert_id',$id)->whereRaw('parent_id = id')-> get();
-        $photo = AdvertPhoto::where('advert_id',$id)->first();    
-       
-        
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function __invoke()
+    {
+        $idUser = auth()->user()->id;
+        //$adverts = Advert::find($idUser);
+        //$user = User::paginate();
+    
+        //$adverts = DB::select('SELECT * FROM adverts WHERE user_id = :id', ['id' => $idUser]);
+        $adverts = DB::table('adverts')->join('products_adverts','products_adverts.advert_id','=', 'adverts.id')
+                                        ->join('currencies','products_adverts.currency_id', '=', 'currencies.id')
+                                        ->join('townshipes','townshipes.id','=','adverts.township_id')
+                                        ->join('departaments','departaments.id','=','townshipes.departament_id')
+                                        ->select('adverts.id as adverts_id', 'adverts.*','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
+                                        ->where('adverts.user_id', '=', $idUser)
+                                        ->paginate();
 
-        return view('advert.show', compact('advert', 'category', 'coment','adProduct','currency','township','department','user','adsActive','AlladdsUser','photo'));
+        return view("components.adverts", ['idUser' => $idUser,'adverts' => $adverts]);
+    }
 
+
+
+public function filter(Request $request){
+    
+  
+
+
+    $fill = [];
+
+    $idUser = auth()->user()->id;
+    $adverts = DB::table('adverts')->join('products_adverts','products_adverts.advert_id','=', 'adverts.id')
+    ->join('currencies','products_adverts.currency_id', '=', 'currencies.id')
+    ->join('townshipes','townshipes.id','=','adverts.township_id')
+    ->join('departaments','departaments.id','=','townshipes.departament_id')
+    ->select('adverts.id as adverts_id', 'adverts.*','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
+    ->when($request->category,function ($query, $role){
+            return $query->where('category_id', $_GET['category']);
+        })
+    ->when($request->depto,function ($query, $role){
+            return $query->where('departaments.id', $_GET['depto']);
+        })
+<<<<<<< Updated upstream
+=======
+    ->when(isset($_GET['noactivo']),function ($query, $role){
+            return $query->where('advert_status_id','<>', $_GET['noactivo']);
+        })
+    ->when(isset($_GET['noinactivo']),function($query, $role){
+            return $query->where('advert_status_id','<>', $_GET['noinactivo']);
+         })
+>>>>>>> Stashed changes
+    ->where('adverts.user_id', '=', $idUser)
+    ->paginate();
+
+    if(isset($_GET['depto'])){
+        $fill['depto'] = $_GET['depto'];
+    }
+    
+
+    return view("components.adverts", ['adverts'=>$adverts, 'idUser' => $idUser, 'fill' => $fill]);
+ 
 
     }
 
-    public function storeComment(Request $request){  #No esta completa - No es funcional
-
-        $comment = new AdvertComment();
-        
+    public function work($text){
+        return "work $text";
     }
+<<<<<<< Updated upstream
+=======
+
+
+    public function edit($anuncio)
+    {
+        $anuncioAct = Advert::find($anuncio);
+        $anuncioAct->advert_status_id=2;
+        $anuncioAct->update();
+        
+        return redirect()->to('adverts/show');
+    }
+
+
+>>>>>>> Stashed changes
 }
+
+

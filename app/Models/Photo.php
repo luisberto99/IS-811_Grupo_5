@@ -13,7 +13,7 @@ class Photo extends Model
     use HasFactory;
 
     public function photo(){
-        return $this->belongsTo(Advert::class);
+        return $this->belongsTo('App\Models\Advert','advert_id');
         
     }
 }

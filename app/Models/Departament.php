@@ -8,8 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Departament extends Model
 {
     use HasFactory;
-
-    public function township(){
-        return $this->hasMany(Township::class);
-    }
 }

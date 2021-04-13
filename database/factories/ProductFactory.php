@@ -25,7 +25,7 @@ class ProductFactory extends Factory
         return [
             'price'=> $this->faker->randomFloat(),
             'product_status'=> $this->faker->randomElement(['Nuevo', 'Usado']),
-            'advert_id'=> $this->faker->unique()->numberBetween(1, Advert::count()),
+            'advert_id'=> $this->faker->numberBetween(1, Advert::count()),
             'currency_id'=>$this->faker->randomElement([1,2])
 
         ];

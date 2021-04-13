@@ -12,9 +12,6 @@ use App\Models\User;
 use App\Models\UserStatus;
 use App\Models\UserType;
 use GuzzleHttp\Promise\Create;
-use App\Models\AdvertComment;
-
-use App\Models\AdvertPhoto;
 
 class DatabaseSeeder extends Seeder
 {
@@ -48,8 +45,6 @@ class DatabaseSeeder extends Seeder
         Advert::factory(90)->create();
         $this->call(CurrencySeeder::class);
         Product::factory(90)->create();
-        AdvertComment::factory(10)->create();
-        $this->call(AdvertPhotoSeeder::class);
 
         
 

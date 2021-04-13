@@ -3,11 +3,6 @@
          
         <div class="py-6 w-100">
             <div class="w-50 py-4  sm:px-6 lg:px-8" style="float: left">
-                @if (session('success'))
-                <div class="to-blue-200">
-                     {{session('success')}}
-                </div>
-                @endif
                 <h2>CREA UN ANUNCIO</h2>
                 <form action="">
                     <div class="mt-5">
@@ -49,7 +44,8 @@
                                     <option value={{ $departament->id }}> {{ $departament->name }}</option>
                                 @endforeach
                         </select>
-                        @error('departamento') <br><span class="error text-red-600">el departamento es obligatorio</span> @enderror
+                        
+                        @error('departamento') <br><span class="error text-red-600">la ubicación es obligatoria</span> @enderror
                     </div>
 
                     <div class="mb-8">
@@ -84,21 +80,13 @@
                     <div class="m-4 w-100">
                         <label  class="inline-block w-32 font-bold">Precio:</label>
                         <input wire:model="precio" class=" w-80 p-2 px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline"
-                        type="number" placeholder="0.0">
-                        <br>
-                        @error('precio') <span class="error text-red-600">el precio del producto es obligatorio</span> @enderror
+                        type="numeric" placeholder="0.0">
                     </div>
 
                     <div class="m-4 w-100">
                         <label  class="inline-block w-32 font-bold">Estado:</label>
-                        <select name="contenido" wire:model="contenido" 
-                        class=" w-80 p-2 px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
-                            <option value='-1'>Seleccione un estado</option>
-                                    <option value="Nuevo">Nuevo</option>
-                                    <option value="Usado">Usado</option>
-                        </select>
-                        <br>
-                        @error('contenido') <span class="error text-red-600">el estado del producto es obligatorio</span> @enderror
+                        <input wire:model="contenido" class=" w-80 p-2 px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline"
+                        type="text" placeholder="Nuevo o Usado">
                     </div>
 
                     <div class="m-4 w-100">
@@ -110,15 +98,12 @@
                                     <option value={{ $moned->id }}> {{ $moned->currency_type }}</option>
                                 @endforeach
                         </select>
-                        
-                        @error('moneda') <br><span class="error text-red-600">la moneda es obligatoria</span> @enderror
+                        @error('departamento') <br><span class="error text-red-600">la ubicación es obligatoria</span> @enderror
                     </div>
 
                     <div class="m-4 w-100">
-                        <label class="inline-block w-32 font-bold">Subir imagenes</label> <br>
-                        <input type="file" wire:model="imagenes" multiple accept="image/*" class="mt-5 py-8 p-2 px-4 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
-                        <br>
-                        @error('imagenes.*') <span class="error text-red-600">la imagen del producto es obligatoria</span> @enderror
+                        <label class="inline-block w-32 font-bold">Subir imagen</label>
+                        <input type="file" wire:model="imagen" accept="image/*" class="mt-5 py-8 p-2 px-4 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
                     </div>
                     
                 </form>

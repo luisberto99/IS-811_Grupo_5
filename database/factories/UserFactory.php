@@ -24,10 +24,6 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'gender' => $this->faker->randomElement(['femenino', 'masculino']),
-            'birthdate' => $this->faker->date(),
-            'address' => 'SomePlaceInThisPlanet',
-            'number'=> '98230211',
             'email' => $this->faker->unique()->safeEmail,
             'gender'=>$this->faker->randomElement(['masculino','femenino']),
             'birthdate'=>$this->faker->date($format='Y-m-d',$max='2000-12-12'),
