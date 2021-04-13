@@ -9,23 +9,35 @@ class Advert extends Model
 {
     use HasFactory;
 
+    //Relacion de uno a muchos
+
     public function user(){
-        return $this->belongsTo('App\Models\User','user_id');
+        return $this->belongsTo(User::class);
         
     }
 
     public function category(){
-        return $this->belongsTo('App\Models\Category','category_id');
+        return $this->belongsTo(Category::class);
         
     }
 
     public function advertStatus(){
-        return $this->belongsTo('App\Models\AdvertStatus','advert_status_id');
+        return $this->belongsTo(AdvertStatus::class);
         
     }
 
     public function township(){
-        return $this->belongsTo('App\Models\Township','Township_id');
+        return $this->belongsTo(Township::class);
         
+    }
+
+    //Relacion de uno a uno
+
+    public function product(){
+        return $this->hasOne(Product::class);
+    }
+
+    public function photo(){
+        return $this->hasOne(Photo::class);
     }
 }

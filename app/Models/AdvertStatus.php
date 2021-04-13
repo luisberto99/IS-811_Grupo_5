@@ -12,4 +12,10 @@ class AdvertStatus extends Model
     protected $table = 'adverts_statuses';
 
     protected $guarded = [];
+
+    //relacion de muchos a uno
+
+    public function advert(){
+        return $this->hasMany(advert::class);
+    }
 }

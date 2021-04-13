@@ -5,11 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Departament extends Model
+class AdvertComment extends Model
 {
     use HasFactory;
-
-    public function township(){
-        return $this->hasMany(Township::class);
-    }
+    protected $table = "adverts_comments";
 }

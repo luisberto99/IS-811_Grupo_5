@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\advertController;
 use App\Http\Controllers\advertControllers;
-use App\Http\Controllers\filterOptionController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Advert;
@@ -28,6 +27,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('adverts/show', advertControllers::class )->name('adverts.show');
+Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
+    return view('advert.nuevo');
+})->name('nuevo');
+
+Route::get('adverts/show', advertControllers::class )->name('advert.show');
 
 Route::get('adverts/show/f{fill?}',[advertControllers::class, 'filter']);
 
@@ -44,10 +48,13 @@ Route::get('users/fill{id}', function ($id) {
 })->name('user.show');
 
 Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('adverts.edit');
-<<<<<<< Updated upstream
-=======
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
 Route::middleware(['auth:sanctum', 'verified'])->post('/advert/comment',[ AdvertController::class, 'storeComment'])->name('advert.storeComment');
 
 Route::get('menu', [advertControllers::class, 'work'] );
->>>>>>> Stashed changes
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
+Route::middleware(['auth:sanctum', 'verified'])->post('/advert/comment',[ AdvertController::class, 'storeComment'])->name('advert.storeComment');
+
+?>
