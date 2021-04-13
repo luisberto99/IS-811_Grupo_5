@@ -62,4 +62,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function advert(){
+        return $this->hasMany(Advert::class);
+    }
+
+    public function subcription(){
+        return $this->hasMany(Subscription::class);
+    }
 }

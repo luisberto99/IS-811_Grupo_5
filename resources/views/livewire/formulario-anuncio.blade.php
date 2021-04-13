@@ -84,7 +84,7 @@
                     <div class="m-4 w-100">
                         <label  class="inline-block w-32 font-bold">Precio:</label>
                         <input wire:model="precio" class=" w-80 p-2 px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline"
-                        type="numeric" placeholder="0.0">
+                        type="number" placeholder="0.0">
                         <br>
                         @error('precio') <span class="error text-red-600">el precio del producto es obligatorio</span> @enderror
                     </div>

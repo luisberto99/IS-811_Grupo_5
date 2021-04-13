@@ -34,6 +34,41 @@
                 <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" />
             </div>
 
+            <div class="flex gap-4 mt-4">
+                <div class="w-1/2">
+                    <x-jet-label for="departament" value="{{ __('Departamento') }}" />
+                    <select id="departament" name="departament" class="form-input rounded-md shadow-sm block mt-1 w-full" >
+                        <option value=1>Atlantida</option>
+                        <option value=2>Colón</option>
+                        <option value=3>Comayagua</option>
+                        <option value=4>Copán</option>
+                        <option value=5>Cortéz</option>
+                        <option value=6>Choluteca</option>
+                        <option value=7>El Paraiso</option>
+                        <option value=8>Francisco Morazán</option>
+                        <option value=9>Gracias a Dios</option>
+                        <option value=10>Intibucá</option>
+                        <option value=11>Islas de la Bahía</option>
+                        <option value=12>La Paz</option>
+                        <option value=13>Lempira</option>
+                        <option value=14>Ocotepeque</option>
+                        <option value=15>Olancho</option>
+                        <option value=16>Santa Barbara</option>
+                        <option value=17>Valle</option>
+                        <option value=18>Yoro</option>
+                    </select> 
+                </div>
+
+                <div class="w-1/2">
+                    <x-jet-label for="township" value="{{ __('Municipio') }}" />
+                    <select id="township" name="township" class="form-input rounded-md shadow-sm block mt-1 w-full" >
+                        <option value=></option>
+                        <option value=></option>
+                    </select> 
+                </div>
+
+            </div>
+
             <div class="mt-4">
                 <x-jet-label for="number" value="{{ __('Teléfono') }}" />
                 <x-jet-input id="number" class="block mt-1 w-full" type="number" name="number" :value="old('number')" required autofocus autocomplete="number"  />
@@ -66,8 +101,8 @@
                             <x-jet-checkbox name="terms" id="terms"/>
 
                             <div class="ml-2">
-                                {!! __('I agree to the :terms_of_service', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Terms of Service').'</a>',
+                                {!! __('Estoy de acuerdo con los :terminos de servicio', [
+                                        'terminos de servicio' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Terminos y condiciones').'</a>',
                                 ]) !!}
                             </div>
                         </div>

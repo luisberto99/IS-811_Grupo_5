@@ -27,7 +27,7 @@ class AdvertCommentFactory extends Factory
             'user_id'=>$this->faker->numberBetween(1, User::count()),
             'creation_date'=> $this->faker->dateTimeBetween('-5 days','now'),
             'updated_at'=> $this->faker->dateTimeBetween('-5 days','now'),
-            'advert_id' => $this->faker->numberBetween(1, Advert::count()),
-            'parent_id' => $this->faker->numberBetween(1,  10)       ];
+            'advert_id' => $this->faker->numberBetween(1, Advert::count())     
+        ];
     }
 }

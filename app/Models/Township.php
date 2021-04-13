@@ -14,6 +14,10 @@ class Township extends Model
     protected $guarded = [];
 
     public function departament(){
-        return $this->hasMany('App\Models\Departament');
+        return $this->belongsTo(Departament::class);
+    }
+
+    public function advert(){
+        return $this->hasMany(Advert::class);
     }
 }
