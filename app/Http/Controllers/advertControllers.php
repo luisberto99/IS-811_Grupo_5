@@ -33,12 +33,30 @@ class advertControllers extends Controller
                                         ->where('adverts.user_id', '=', $idUser)
                                         ->paginate();
 
-        return view("components.adverts", ['idUser' => $idUser,'adverts' => $adverts]);
+        if(isset($_GET['depto'])){
+            $depto = $_GET['depto'];
+        }else{
+            $depto = "0";
+        }
+    
+        if(isset($_GET['category'])){
+            $cat = $_GET['category'];
+        }else{
+            $cat = "0";
+        }
+
+        return view("components.adverts", ['adverts'=>$adverts, 'idUser' => $idUser, 'depto' => $depto], compact('cat'));
     }
 
 
 
 public function filter(Request $request){   
+
+
+
+
+
+    $fill = [];
 
     $idUser = auth()->user()->id;
     $adverts = DB::table('adverts')->join('products_adverts','products_adverts.advert_id','=', 'adverts.id')
@@ -52,15 +70,43 @@ public function filter(Request $request){
     ->when(isset($_GET['depto']),function ($query, $role){
             return $query->where('departaments.id', $_GET['depto']);
         })
-    ->when(isset($_GET['active']),function ($query, $role){
-            return $query->where('advert_status_id', $_GET['active']);
+        ->when(isset($_GET['muni']),function($query, $role){
+            return $query->where('township_id', $_GET['muni']);
+         })
+        ->when(isset($_GET['noactivo']),function ($query, $role){
+            return $query->where('advert_status_id','<>', $_GET['noactivo']);
         })
+    ->when(isset($_GET['noinactivo']),function($query, $role){
+            return $query->where('advert_status_id','<>', $_GET['noinactivo']);
+         })
+
     ->where('adverts.user_id', '=', $idUser)
     ->paginate();
 
 
 
-    return view("components.adverts", ['idUser' => $idUser,'adverts' => $adverts]);
+    if(isset($_GET['depto'])){
+        $depto = $_GET['depto'];
+    }else{
+        $depto = "0";
+    }
+
+    if(isset($_GET['muni'])){
+        $muni = $_GET['muni'];
+    }else{
+        $muni = "0";
+    }
+
+    if(isset($_GET['category'])){
+        $cat = $_GET['category'];
+    }else{
+        $cat = "0";
+    }
+
+
+
+
+    return view("components.adverts", ['adverts' => $adverts, 'idUser' => $idUser, 'depto' => $depto, 'cat' => $cat, 'muni' => $muni]);
     }
     public function edit($anuncio)
     {

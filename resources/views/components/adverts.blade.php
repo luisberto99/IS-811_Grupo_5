@@ -3,9 +3,19 @@
     <div class="flex flex-row h-full">
             
         <div class="w-1/4 container mx-auto mt-4 py-8 px-12">
-           <x-filter-options></x-filter-options>
-        </div>
-        
+           <x-filter-options >
+               <x-slot name="dep">
+                   {{ $depto }}
+               </x-slot>
+               <x-slot name="cat">
+                   {{ $cat }}
+               </x-slot>
+               <x-slot name="muni">
+                   {{ $muni }}
+               </x-slot>
+
+           </x-filter-options>
+        </div>     
         <div class=" w-3/4 h-full mx-auto grid grid-cols-4 gap-4 py-8 px-12">
             
             @foreach ($adverts as $advert)
@@ -61,7 +71,5 @@
 
 
 {{ $adverts->links() }}
-    
-
     @yield('js')
 </x-app-layout>

@@ -4,7 +4,6 @@ use App\Http\Controllers\advertController;
 use App\Http\Controllers\advertControllers;
 use Illuminate\Support\Facades\Route;
 
-use App\Models\Advert;
 use App\Models\User;
 
 /*
@@ -30,7 +29,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
     return view('advert.nuevo');
 })->name('nuevo');
 
-Route::get('adverts/show', advertControllers::class )->name('advert.show');
+Route::get('adverts/show', advertControllers::class )->name('adverts.show');
 
 Route::get('adverts/show/f{fill?}',[advertControllers::class, 'filter']);
 
