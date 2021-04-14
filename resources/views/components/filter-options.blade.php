@@ -14,7 +14,11 @@
         <i class="fa fa-search relative -left-7" ></i>
     </div>
     {{-- BOTON FILTRAR --}}
-    <a class="mt-4 w-full rounded text-lg" href="f?" id="btnFiltrar">Filtrar</a>
+    <a  href="f?" id="btnFiltrar">
+        <div class="mt-4 w-full rounded text-lg text-center bg-gray border border-solid border-current b p-2">
+            Filtrar
+        </div>
+    </a>
     {{-- INPUT CATEGORIA --}}
     <div >
         <p class="font-bold">Categoria</p>
@@ -48,9 +52,9 @@
     <div >
         <p class="font-bold">Fecha de publicacion</p>
         <p>Desde:</p>
-        <input type="date" class="rounded">
+        <input onchange="change()" type="date" id="fechaInicio" class="rounded">
         <p>Hasta:</p>
-        <input type="date" class="rounded">
+        <input onchange="change()" type="date" id="fechaFin" class="rounded">
     </div>
     {{-- INPUT ESTADO --}}
     <div >
@@ -61,8 +65,12 @@
             <label for="estadoInactivo" >  Inactivo</label>
     </div>
     
-    <input class="mt-4 w-full rounded text-lg p-1" type="button" value="Nuevo anuncio">
-
+        {{-- BOTON CREAR ANUNCIO --}}
+        <a  href="../../nuevo" id="btnFiltrar">
+            <div class="mt-4 w-full rounded text-lg text-center bg-gray border border-solid border-current b p-2">
+                Publicar Anuncio
+            </div>
+        </a>
 
 
 
@@ -74,8 +82,7 @@
     let Activo = 1;
     let Inactivo = 1;
 
-    document.getElementById("Categorias").value = {{ $cat }};
-    document.getElementById('Departamento').value = {{ $dep }};
+
     
 
     let municipios = <?php echo json_encode($municipios); ?>
@@ -84,10 +91,13 @@
   
 
     function change(){
-        let url = 'show/f?';
+        let url = 'f?';
         Categoria = $("#Categorias").val();
         Departamento = $('#Departamento').val();
         Municipio = $('#Municipio').val();
+        Order = $('#selectOrder').val();
+        Desde = $('#fechaInicio').val();
+        Hasta = $('#fechaFin').val();
         if(document.getElementById('estadoActivo').checked){
             Activo = 1;
         }else{
@@ -109,11 +119,22 @@
             url += '&muni='+ Municipio;
         }
         if(Activo == 0){
-            url += '&noactivo=1'
+            url += '&noactivo=1';
         }
         if(Inactivo == 0){
-            url += '&noinactivo=2'
+            url += '&noinactivo=2';
         }
+        if(Order != 0){
+            url += '&order='+ Order;
+        }
+
+        if(Desde != ""){
+            url += '&desde='+ Desde;
+        }
+        if(Hasta != ""){
+            url += '&hasta='+ Hasta;
+        }
+
         document.getElementById('btnFiltrar').href = url;
 
      
@@ -136,8 +157,35 @@
     }
 
     $(document).ready(()=>{
+        document.getElementById("Categorias").value = {{ $cat }};
+        document.getElementById('Departamento').value = {{ $dep }};
+        document.getElementById('selectOrder').value = {{ $order }};
+
+
         changeDepto();
-    })
+
+        /* FECHA MAXIMA INPUT DATE */
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if(dd < 10){
+            dd ='0'+ dd;
+        } 
+        if(mm < 10){
+            mm ='0'+ mm
+        } 
+
+        toda = yyyy+'-'+mm+'-'+dd;
+        $('#fechaInicio').attr("max", toda);
+        $('#fechaFin').attr("max", toda);
+
+        yyyy -= 1;
+        min = yyyy+'-'+mm+'-'+dd;
+        $('#fechaInicio').attr("min", min);
+        $('#fechaFin').attr("min", min);
+        })
 
 </script>
 
