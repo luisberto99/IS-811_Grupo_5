@@ -38,9 +38,9 @@ Route::get('adverts/show/f{fill?}',[advertControllers::class, 'filter']);
     return "work $id";
 }); */
 
-Route::get('advert/{id}', function ($id) {
+/*Route::get('advert/{id}', function ($id) {
     return Advert::find($id);
-})->name('advert.show');
+})->name('advert.show');*/
 
 Route::get('users/fill{id}', function ($id) {
     return User::find($id);
