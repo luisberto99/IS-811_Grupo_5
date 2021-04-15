@@ -1,8 +1,10 @@
 <x-app-layout>
 
     <div class="flex flex-row h-full">
-            
-        <div class="w-1/4 container mx-auto mt-4 py-8 px-12">
+
+        
+        
+        <div id="menu-container" class="w-1/4 container mx-auto mt-4 py-8 px-12 hidden md:inline-block bg-gray-100 z-50 transition duration-500">
            <x-filter-options >
                <x-slot name="dep">
                    {{ $depto }}
@@ -16,11 +18,24 @@
                <x-slot name="order">
                    {{ $order }}
                </x-slot>
+               <x-slot name="desde">
+                   {{ $desde }}
+               </x-slot>
+               <x-slot name="hasta">
+                   {{ $hasta }}
+               </x-slot>
 
            </x-filter-options>
         </div>
-        <div class="w-3/4 h-full mx-auto py-10 px-12 relative">
-            <div class="h-15 absolute top-2 right-12 flex flex-row text-sm">
+    
+        <div class="sm:w-full md:w-3/4 h-full mx-auto py-10 px-12 relative">
+
+            <div class="h-15 md:absolute top-2 right-12 sm:flex flex-row text-sm">
+                {{--  BOTON FILTRAR--}}
+                    <div id="btn-menu" class="mt-4 w-full rounded text-lg text-center bg-gray border border-solid border-current b p-2 md:hidden cursor-pointer">
+                        Filtrar
+                    </div>
+                {{-- SELECT ORDER --}}
                 <span class="py-2 px-2">Ordenar por:   </span>
                 <select onchange="change()"" name="order" id="selectOrder" class="rounded h-15 py-1 leading-4 text-sm">
                     <option value="0">
@@ -38,7 +53,9 @@
                     
                 </select>
             </div>
-            <div class="grid grid-cols-4 gap-4 ">
+
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3  gap-4 ">
 
          
             
@@ -95,7 +112,36 @@
         
     </div>
 
-
 {{ $adverts->links() }}
     @yield('js')
+
+
+    <script>
+        $(function(){
+            function slideMenu(){
+                var activeState = !$("#menu-container").hasClass("hidden");
+                $("#menu-container").animate({left: activeState ? "0%" : "-100%"}, 400);
+            }
+
+            function toggleMenu(even){
+                event.stopPropagation();
+
+                $("#menu-container").toggleClass("w-3/4");
+                $("#menu-container").toggleClass("hidden");
+                $("#btn-close-menu").toggleClass("hidden");
+                $("#menu-container").toggleClass("absolute");
+                $("#menu-container").toggleClass("shadow-2xl");
+                slideMenu();
+            }
+
+            $('#btn-close-menu').click(function(even){
+                toggleMenu(even);
+            });
+            $('#btn-menu').click(function(even){
+                toggleMenu(even);
+            });
+
+            
+        });
+    </script>
 </x-app-layout>

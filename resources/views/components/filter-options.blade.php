@@ -7,7 +7,10 @@
 
 
 
-<div class="fex flex-col space-y-2">
+<div class="fex flex-col space-y-2 relative">
+    <div id="btn-close-menu" class="absolute hidden -right-2 -top-5 text-gray-400 text-2xl hover:text-gray-900 hover:text-2xl cursor-pointer">
+        <i  class="fas fa-times "></i>
+    </div>
     <input class="w-full rounded text-lg p-1" type="button" value="Mis anuncios">
     <div >
         <input class="w-11/12 relative border-0 rounded" type="search" placeholder="Search">
@@ -52,9 +55,9 @@
     <div >
         <p class="font-bold">Fecha de publicacion</p>
         <p>Desde:</p>
-        <input onchange="change()" type="date" id="fechaInicio" class="rounded">
+        <input onchange="change()" type="date" id="desde" class="rounded">
         <p>Hasta:</p>
-        <input onchange="change()" type="date" id="fechaFin" class="rounded">
+        <input onchange="change()" type="date" id="hasta" class="rounded">
     </div>
     {{-- INPUT ESTADO --}}
     <div >
@@ -96,8 +99,8 @@
         Departamento = $('#Departamento').val();
         Municipio = $('#Municipio').val();
         Order = $('#selectOrder').val();
-        Desde = $('#fechaInicio').val();
-        Hasta = $('#fechaFin').val();
+        Desde = $('#desde').val();
+        Hasta = $('#hasta').val();
         if(document.getElementById('estadoActivo').checked){
             Activo = 1;
         }else{
@@ -160,7 +163,9 @@
         document.getElementById("Categorias").value = {{ $cat }};
         document.getElementById('Departamento').value = {{ $dep }};
         document.getElementById('selectOrder').value = {{ $order }};
-
+        document.getElementById('desde').value = "{{ $desde }}";
+        document.getElementById('hasta').value = "{{ $hasta }}";
+        
 
         changeDepto();
 
