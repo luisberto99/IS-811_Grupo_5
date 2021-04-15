@@ -133,7 +133,7 @@ public function filter(Request $request){
         $anuncioAct->advert_status_id=2;
         $anuncioAct->update();
         
-        return redirect()->to('adverts/show');
+        return redirect()->to('adverts/show/f?');
     }
 
 

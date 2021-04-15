@@ -107,7 +107,7 @@ class FormularioAnuncio extends Component
         session()->flash('message','Anuncio publicado correctamente');
         $this->resetImputFiels();
 
-        return redirect()->to('adverts/show');
+        return redirect()->to('adverts/show/f?');
 
         
 
