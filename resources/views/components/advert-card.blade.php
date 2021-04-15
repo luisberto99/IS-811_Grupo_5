@@ -15,14 +15,16 @@
       </div>
     </div>
     <div class="p-3">
-      <h3 class="mr-10 text-md truncate-2nd">
+      <h3 class="mr-10 h-16 text-md truncate-2nd">
           @if(isset($title))
-              <a class="hover:text-blue-500" href="{{$AdvertLink}}">{{$title}}</a>
+              <a class="hover:text-blue-500" href="{{$AdvertLink}}">{{ substr($title, 0 ,25)  }}</a>
           @endif
       </h3>
       <div class="flex items-start justify-between">
         <p class="text-xs text-gray-500">{{ $location }} </p>
+        @if(session('success'))
         <button class="outline text-xs text-gray-500 hover:text-blue-500" title="Bookmark this ad"><i class="far fa-bookmark"></i></button>
+        @endif
       </div>
       <p class="text-xs text-gray-500"><a href="{{ $UserLink }}" class="hover:underline hover:text-blue-500">{{ $UserName }}</a> • {{ $date }} days ago</p>
       <p>{{$slot}}</p>

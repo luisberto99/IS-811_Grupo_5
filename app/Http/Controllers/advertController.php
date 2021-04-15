@@ -38,7 +38,7 @@ class AdvertController extends Controller
         $AlladdsUser = Advert::where('user_id',$user->id )->get()->count();
         $adsActive = Advert::where('user_id',$user->id )->where('advert_status_id', 1)->get()->count();
         $coment=  AdvertComment::where('advert_id',$id)->whereRaw('parent_id = id')-> get();
-        $photos = AdvertPhoto::where('advert_id',$id)->get(); 
+        $photos = AdvertPhoto::where('advert_id',$id)->limit(10)->get(); 
 
         // valoracion
         $val = DB::table('qualifications')->select(DB::raw('SUM(qualification) / ((COUNT(qualification) * 5) / 100) as rating')) ->where('qualified',$user->id)->get() ;
