@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\advertController;
 use App\Http\Controllers\advertControllers;
+use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Advert;
@@ -29,6 +30,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
     return view('advert.nuevo');
 })->name('nuevo');
+
+Route::get('perfiles/{perfil}', [PerfilController::class, 'show'])->name('perfiles.show');
 
 Route::get('adverts/show', advertControllers::class )->name('advert.show');
 
