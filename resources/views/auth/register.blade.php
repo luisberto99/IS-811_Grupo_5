@@ -49,11 +49,11 @@
                     <x-jet-label for="township" value="{{ __('Municipio') }}" />
                     <select id="township" name="township" class="form-input rounded-md shadow-sm block mt-1 w-full" >
                         <option value='-1'>Seleccione uno</option>
-                                @foreach($townships as $township)
+                          {{--       @foreach($townships as $township)
                                    
                                        <option value={{ $township->id }}> {{ $township->name }}</option>
                                    
-                                @endforeach
+                                @endforeach --}}
                     </select> 
                 </div>
 
@@ -111,4 +111,23 @@
             </div>
         </form>
     </x-jet-authentication-card>
+
+    <script>
+        $(document).ready(()=>{
+            
+            //ARREGLO CON TODOS LOS MUNICIPOS
+            let townships = <?php echo json_encode($townships); ?>
+
+            //AL CAMBIAR DE DEPARTAMENTO
+            $('#departamento').change(()=>{
+                $('#township').html("<option value='-1'>Seleccione uno</option>");
+                depto = $('#departamento').val(); // DEPARTAMENTO SELECCIONADO
+                townships.forEach(town => {
+                    if(depto == town.departament_id){
+                        $('#township').append(`<option value="${town.id}">${town.name}</option>`); //AGREGA AL SELECCT LOS MUNICIPIOS DEL DEPARTAMENTO SELECCIONADO
+                    }
+                });
+            });   
+        });
+    </script>
 </x-guest-layout>
