@@ -5,6 +5,8 @@
     color: #FFF;
     border-radius: 3px;
     text-align: center;
+    
+
   }
   #sync2 .item {
     background: #C9C9C9;
@@ -14,24 +16,41 @@
     border-radius: 3px;
     text-align: center;
     cursor: pointer;
+    
+
   }
   #sync2 .item h1 {
     font-size: 18px;
+    
+
   }
   #sync2 .current .item {
     background: #b4072d;
   }
   .owl-theme .owl-nav {
+   
+
     /*default owl-theme theme reset .disabled:hover links */
   }
   .owl-theme .owl-nav [class*='owl-'] {
     transition: all 0.3s ease;
+    
+
   }
   .owl-theme .owl-nav [class*='owl-'].disabled:hover {
     background-color: #D6D6D6;
+    
+
   }
   #sync1.owl-theme {
     position: relative;
+    z-index: auto;
+
+  }
+  #sync2.owl-theme {
+    position: relative;
+    z-index: auto;
+
   }
   #sync1.owl-theme .owl-next,
   #sync1.owl-theme .owl-prev {
@@ -40,6 +59,7 @@
     margin-top: -20px;
     position: absolute;
     top: 50%;
+    
   }
   #sync1.owl-theme .owl-prev {
     left: 10px;
@@ -70,4 +90,11 @@
     position: absolute;
     
     top: 0;
+}
+.modal {
+  transition: opacity 0.25s ease;
+}
+body.modal-active {
+  overflow-x: hidden;
+  overflow-y: visible !important;
 }

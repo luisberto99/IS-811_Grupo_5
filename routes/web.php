@@ -47,6 +47,8 @@ Route::get('users/fill{id}', function ($id) {
 })->name('user.show');
 
 Route::get('advertsUser/{anuncio}/edit', [advertUserController::class, 'edit'])->name('advertsUser.edit');
-Route::middleware(['auth:sanctum', 'verified'])->get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
-Route::middleware(['auth:sanctum', 'verified'])->post('/advert/comment',[ AdvertController::class, 'storeComment'])->name('advert.storeComment');
 Route::get('perfiles', [PerfilController::class, 'store'])->name('perfiles.store');
+Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('adverts.edit');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
+Route::middleware(['auth:sanctum', 'verified'])->post('/advert/storeComment',[AdvertController::class, 'storeComment'])->name('advert.comment');
