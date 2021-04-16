@@ -135,6 +135,7 @@
         }
 
         document.getElementById('btnFiltrar').href = url;
+        window.locationf = '{{ asset("") }}' + url;
 
      
     }
@@ -146,7 +147,6 @@
         municipios.forEach(muni => {
             if(muni.departament_id == DepartamentoID){
                 $('#Municipio').append(`<option value="${muni.id}">${muni.name}</option>`);
-                console.log(`<option value="${muni.id}">${muni.name}</option>`)
             }
         });
 
