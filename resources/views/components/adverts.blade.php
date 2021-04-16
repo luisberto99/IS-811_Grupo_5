@@ -70,11 +70,16 @@
             
                 @foreach ($adverts as $advert)
                 
-                
             
                 <x-advert-card>
                     <x-slot name="title">
                         {{ $advert->title}}
+                    </x-slot>
+                     <x-slot name="imgUser">
+                        {{ $advert->imgUser}}
+                    </x-slot>
+                    <x-slot name="imgAdvert">
+                        {{ $advert->imgAdvert}}
                     </x-slot>
                     {{-- <x-slot name="curriency">
                         {{ number_format($advert->price,2) }}

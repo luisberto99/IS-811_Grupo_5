@@ -23,7 +23,12 @@ public function filterUser(Request $request){
     ->join('currencies','products_adverts.currency_id', '=', 'currencies.id')
     ->join('townshipes','townshipes.id','=','adverts.township_id')
     ->join('departaments','departaments.id','=','townshipes.departament_id')
-    ->select('adverts.id as adverts_id', 'adverts.*','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
+    ->join('users','adverts.user_id', 'users.id')
+    ->join('adverts_photos', function ($join){
+        $join->on('adverts.id','=','adverts_photos.advert_id')
+            ->limit(1);
+    })
+    ->select('adverts.id as adverts_id', 'adverts.*','users.profile_photo_path as imgUser','adverts_photos.photo_path as imgAdvert','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
     ->when(isset($_GET['category']),function ($query, $role){
             return $query->where('category_id', $_GET['category']);
         })
@@ -120,7 +125,11 @@ public function filterUser(Request $request){
         ->join('townshipes','townshipes.id','=','adverts.township_id')
         ->join('departaments','departaments.id','=','townshipes.departament_id')
         ->join('users','adverts.user_id', 'users.id')
-        ->select('adverts.id as adverts_id', 'adverts.*','users.name as user_name','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
+        ->join('adverts_photos', function ($join){
+            $join->on('adverts.id','=','adverts_photos.advert_id')
+                ->limit(1);
+        })
+        ->select('adverts.id as adverts_id', 'adverts.*','users.name as user_name','users.profile_photo_path as imgUser','adverts_photos.photo_path as imgAdvert','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
         ->when(isset($_GET['category']),function ($query, $role){
                 return $query->where('category_id', $_GET['category']);
             })

@@ -27,7 +27,11 @@ class LandingCarrousels extends Component
         ->join('townshipes','townshipes.id','=','adverts.township_id')
         ->join('departaments','departaments.id','=','townshipes.departament_id')
         ->join('users','adverts.user_id','users.id')
-        ->select('adverts.id as adverts_id', 'adverts.*', 'users.name as user_name','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
+        ->join('adverts_photos', function ($join){
+            $join->on('adverts.id','=','adverts_photos.advert_id')
+                ->limit(1);
+        })
+        ->select('adverts.id as adverts_id', 'adverts.*','users.profile_photo_path as imgUser','adverts_photos.photo_path as imgAdvert', 'users.name as user_name','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
         ->when( $this->iduser != 0 ,function ($query, $role){
             return $query->where('adverts.user_id', '=', $this->iduser);
         })
@@ -46,7 +50,11 @@ class LandingCarrousels extends Component
         ->join('townshipes','townshipes.id','=','adverts.township_id')
         ->join('departaments','departaments.id','=','townshipes.departament_id')
         ->join('users','adverts.user_id','users.id')
-        ->select('adverts.id as adverts_id', 'adverts.*', 'users.name as user_name','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
+        ->join('adverts_photos', function ($join){
+            $join->on('adverts.id','=','adverts_photos.advert_id')
+                ->limit(1);
+        })
+        ->select('adverts.id as adverts_id', 'adverts.*', 'users.profile_photo_path as imgUser','adverts_photos.photo_path as imgAdvert', 'users.name as user_name','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
         ->where('category_id',$categoria)
         ->where('advert_status_id',1)
         ->orderBy('creation_date','desc')

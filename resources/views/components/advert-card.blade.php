@@ -3,14 +3,14 @@
     <div class="relative">
         <a href='{{ $AdvertLink }}'>
             <div class="h-48 bg-cover bg-no-repeat bg-center"
-              style="background-image: url(https://picsum.photos/245/245">
+              style="background-image: url({{ asset( $imgAdvert ) }})">
             </div>
         </a>
       <div style="background-color: rgba(0,0,0,0.6)"
         class="absolute bottom-0 mb-2 ml-3 px-2 py-1 rounded text-sm text-white">$ {{ $price }}</div>
       <div style="bottom: -20px;" class="absolute right-0 w-10 mr-2">
         <a href="{{ $UserLink }}">
-          <img class="rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/17.jpg" >
+          <img class="rounded-full border-2 border-white" src="@if($imgUser != ""){{ asset('/storage/'.$imgUser) }}@else{{ asset('/storage/profile-photos/user.png') }}@endif" >
         </a>
       </div>
     </div>

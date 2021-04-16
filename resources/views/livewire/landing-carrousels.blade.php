@@ -17,6 +17,12 @@
                         <x-slot name="title">
                             {{ $advert->title}}
                         </x-slot>
+                        <x-slot name="imgUser">
+                            {{ $advert->imgUser}}
+                        </x-slot>
+                        <x-slot name="imgAdvert">
+                            {{ $advert->imgAdvert}}
+                        </x-slot>
                         {{-- <x-slot name="curriency">
                             {{ number_format($advert->price,2) }}
                         </x-slot> --}}
@@ -40,7 +46,7 @@
                             {{ $advert->user_name}}
                         </x-slot>
                         <x-slot name="UserLink">
-                            {{ route('user.show', $advert->user_id)}}
+                            {{ route('perfiles.show', $advert->user_id)}}
                         </x-slot>
                                             
                     </x-advert-card>
