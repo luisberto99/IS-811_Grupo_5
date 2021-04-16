@@ -23,7 +23,6 @@ class AdvertController extends Controller
 {
     public function show($id){
         $advert = Advert::find($id);
-        $pur = 
         $category = Category::find($advert->category_id);
         $category = $category->name;
         $adProduct = Product::where('advert_id',$id)->first(); 
