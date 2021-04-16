@@ -90,13 +90,14 @@
                     </svg>
                 </div>
 
-                @livewire('landing-carrousels',['categoria'=>1])
-                @livewire('landing-carrousels',['categoria'=>2])
-                @livewire('landing-carrousels',['categoria'=>3])
-                @livewire('landing-carrousels',['categoria'=>4])
+                @livewire('menu-departamentos')
+                @livewire('menu-categorias')
 
-                {{ \app\Http\livewire\LandingCarrousels::categoria() }}
-
+                @livewire('landing-carrousels')
+ 
+                @for($i= 1; $i < 5; $i++)
+                    {{ \app\Http\livewire\LandingCarrousels::categoria($i) }}
+                @endfor
 
 
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
