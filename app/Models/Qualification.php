@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Qualification extends Model
 {
     use HasFactory;
+    private $filable =[
+        'qualification', 'commentary','qualifier', 'qualified'
+    ];
 }

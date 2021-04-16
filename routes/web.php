@@ -5,7 +5,6 @@ use App\Http\Controllers\advertControllers;
 use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Route;
 
-use App\Models\Advert;
 use App\Models\User;
 
 /*
@@ -31,9 +30,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
     return view('advert.nuevo');
 })->name('nuevo');
 
-Route::get('perfiles/{perfil}', [PerfilController::class, 'show'])->name('perfiles.show');
-
-Route::get('adverts/show', advertControllers::class )->name('advert.show');
+Route::get('adverts/show', advertControllers::class )->name('adverts.show');
 
 Route::get('adverts/show/f{fill?}',[advertControllers::class, 'filter']);
 
@@ -41,9 +38,9 @@ Route::get('adverts/show/f{fill?}',[advertControllers::class, 'filter']);
     return "work $id";
 }); */
 
-Route::get('advert/{id}', function ($id) {
+/*Route::get('advert/{id}', function ($id) {
     return Advert::find($id);
-})->name('advert.show');
+})->name('advert.show');*/
 
 Route::get('users/fill{id}', function ($id) {
     return User::find($id);
