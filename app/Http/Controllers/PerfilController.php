@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Advert;
 use App\Models\AdvertPhoto;
+use App\Models\Complaint;
 use App\Models\Departament;
 use App\Models\Township;
 use App\Models\User;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PerfilController extends Controller
 {
@@ -26,7 +30,26 @@ class PerfilController extends Controller
                         ->take(5)
                         ->get();
         $fotos = AdvertPhoto::all();
-        return view('advert.perfiles', compact('perfil', 'municipios', 'departamentos', 'anuncios', 'activos', 'fotos', 'mostrar'));
+        $munis = Township::all();
+        return view('advert.perfiles', compact('perfil', 'municipios', 'departamentos', 'anuncios', 'activos', 'fotos', 'mostrar', 'munis'));
 
+    }
+
+    public function store(Request $request){
+
+        $request->validate([
+            'message' => 'required'
+        ]);
+
+
+        $acusar = new Complaint();
+        $acusar->date=now()->format('Y-m-d');
+        $acusar->message=$request->message;
+        $acusar->accuser=Auth::user()->id;
+        $acusar->denounced=$request->idp;
+        $acusar->save();
+
+        //return $acusar;
+        return redirect()->to('dashboard');
     }
 }

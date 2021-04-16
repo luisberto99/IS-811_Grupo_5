@@ -106,8 +106,46 @@
                           <p class="text-blue-500 text-sm">Anuncios Activos</p>
                           <p class="text-lg font-semibold text-blue-300">{{count($activos)}}</p>
                         </div>
-                        <div class="following">
-                            @livewire('denuncia', ['usuario' => $perfil->id])
+                        <div>
+                            <!--livewire('denuncia', ['usuario' => $perfil->id])-->
+                            <div class="following">
+                                <p class="text-blue-500 text-sm">Reportar este usuario</p>
+                                
+                                <button type="button" onclick="openModal('mymodalcentered')" class="bg-transparent hover:bg-blue-500 text-blue-300 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded-full">
+                                  Denunciar
+                                </button>
+                            </div>
+                            <dialog id="mymodalcentered" class="bg-transparent z-0 relative w-screen h-screen">
+                                <div class="p-7 flex justify-center items-center fixed left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50 transition-opacity opacity-0">
+                                    <div class="bg-white flex roundeds w-1/2 relative">
+                                        <div class="py-6 px-6 w-full">
+                                            <h1>Denuncia este usuario</h1>
+                                            <div class="mt-5 justify-start">
+                                                <form action="{{route('perfiles.store')}}" method="GET">
+                                                    @csrf
+                                                    <div class="justify-start text-left">
+                                                        <input  class="block w-3 bg-white disabled text-white border border-gray-200 rounded leading-tight focus:outline-none focus:bg-white focus:border-white" name="idp" value="{{$perfil->id}}">
+                                                    </div>
+                                                    <div class="mb-9 justify-start text-left text-blue-600">
+                                                        <label>Escribe la razon de tu denuncia</label>
+                                                        <textarea name="message" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" ></textarea> 
+                                                        @error('message') <span class="error text-red-600">el campo esta vacio</span> @enderror
+                                                    </div>
+                                                    <div class="mt-9 mb-9">
+                                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
+                                                            Denunciar
+                                                        </button>
+                                                        <button type="button" onclick="modalClose('mymodalcentered')" class="bg-transparent hover:bg-gray-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                                                            Cerrar
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </dialog>
                         </div>                        
                        
                       </div>
@@ -117,27 +155,76 @@
                 <div class="my-4"></div>
            
                 <div >
-                <div class="grid grid-cols-3 gap-4">
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach ($mostrar as $activo) 
-                        <div class="py-4 px-4 grid grid-cols-3 gap-4 bg-gray-400"> 
-                            <span class="text-gray-600">{{$activo->title}}</span><br>
-                        <div></div>
-                             @foreach ($fotos as $foto)
+
+
+                        <div class=" rounded overflow-hidden border border-gray-500 w-full lg:w-full md:w-full bg-gray-200 mx-3 md:mx-0 lg:mx-0">
+                            <div class="w-full flex justify-between p-3">
+                              <div class="flex">
+                                <div class="rounded-full h-8 w-8 bg-gray-500 flex items-center justify-center overflow-hidden">
+                                  <img src="{{ Storage::url($perfil->profile_photo_path) }}" alt="profilepic">
+                                </div>
+                                <span class="pt-1 ml-2 font-bold text-sm">{{$perfil->name}}</span>
+                              </div>
+                              <span class="px-2 hover:bg-gray-300 cursor-pointer rounded"><i class="fas fa-ellipsis-h pt-2 text-lg"></i></span>
+                            </div>
+                            <div>
+                                <h1>Carrusel</h1>
+                                @foreach ($fotos as $foto)
                                 @if ($foto->advert_id == $activo->id)
-                                <img class="w-36 h-20 object-cover object-center" src="{{$foto->photo_path}}" alt="">
+                                <img class="w-full h-20 object-cover object-center" src="{{$foto->photo_path}}" alt="">
                                 @endif  
-                             @endforeach           
-                             <span class="text-gray-600">{{$activo->description}}</span><br>
-                             <div></div>
-                             <span class="text-gray-600">{{$activo->creation_date}}</span><br>
-                        </div> 
+                                @endforeach 
+                                </div>
+                            <div class="px-3 pb-2">
+                              <div class="pt-1">
+                                <div class="mb-2 text-sm">
+                                  <span class="font-medium mr-2">{{$activo->title}}</span><h1 class="justify-end">{{$activo->creation_date}}</h1>
+                                </div>
+                              </div>
+                              <div class="text-sm mb-2 text-gray-600 cursor-pointer font-medium">{{$activo->description}}</div>
+                              <div class="mb-2">
+                                <div class="mb-2 text-sm">
+                                    @foreach ($munis as $municipio)
+                                       @if ($municipio->id == $activo->township_id)
+                                            <span class="font-medium mr-2">{{$municipio->name}}</span>
+                                            @foreach ($departamentos as $departamento)
+                                                @if ($municipio->departament_id == $departamento->id )
+                                                    {{$departamento->name}}
+                                                @endif
+                                            @endforeach
+                                       @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                     @endforeach
                 </div>
-                <div class="mx-10 my-10"></div>
-                
             </div>
         </div>
     </div>
 </div>
     </div>
 </x-app-layout>
+
+<script>
+    function openModal(key) {
+        document.getElementById(key).showModal(); 
+        document.body.setAttribute('style', 'overflow: hidden;'); 
+        document.getElementById(key).children[0].scrollTop = 0; 
+        document.getElementById(key).children[0].classList.remove('opacity-0'); 
+        document.getElementById(key).children[0].classList.add('opacity-100')
+    }
+
+    function modalClose(key) {
+        document.getElementById(key).children[0].classList.remove('opacity-100');
+        document.getElementById(key).children[0].classList.add('opacity-0');
+        setTimeout(function () {
+            document.getElementById(key).close();
+            document.body.removeAttribute('style');
+        }, 100);
+    }
+</script>
