@@ -40,7 +40,7 @@ class AdvertController extends Controller
         $departmentUser = $departmentUser->name;
         $AlladdsUser = Advert::where('user_id',$user->id )->get()->count();
         $adsActive = Advert::where('user_id',$user->id )->where('advert_status_id', 1)->get()->count();
-        $coment=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->limit(2)->get();
+        $coment=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->limit(3)->get();
         $coment2=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->get();
         $photos = AdvertPhoto::where('advert_id',$id)->get(); 
         $userAuth=Auth::id(); 

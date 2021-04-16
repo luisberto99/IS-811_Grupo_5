@@ -95,9 +95,11 @@
 
                 @livewire('landing-carrousels')
  
-                @for($i= 1; $i < 5; $i++)
-                    {{ \app\Http\livewire\LandingCarrousels::categoria($i) }}
-                @endfor
+                
+                    {{ \app\Http\livewire\LandingCarrousels::categoria(1) }}
+                    {{ \app\Http\livewire\LandingCarrousels::categoria(3) }}
+                    {{ \app\Http\livewire\LandingCarrousels::categoria(5) }}
+             
 
 
                {{--  <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
