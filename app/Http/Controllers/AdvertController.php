@@ -23,7 +23,8 @@ class AdvertController extends Controller
 {
     public function show($id){
         $advert = Advert::find($id);
-        $category = Category::find($advert->category_id);
+        
+        $category = Category::find(($advert->category_id));
         $category = $category->name;
         $adProduct = Product::where('advert_id',$id)->first(); 
         $currency = Currency::find($adProduct->currency_id);
@@ -39,8 +40,8 @@ class AdvertController extends Controller
         $departmentUser = $departmentUser->name;
         $AlladdsUser = Advert::where('user_id',$user->id )->get()->count();
         $adsActive = Advert::where('user_id',$user->id )->where('advert_status_id', 1)->get()->count();
-        $coment=  AdvertComment::where('advert_id',$id)->orderByDesc('creation_date')->limit(2)->get();
-        $coment2=  AdvertComment::where('advert_id',$id)->orderByDesc('creation_date')->get();
+        $coment=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->limit(2)->get();
+        $coment2=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->get();
         $photos = AdvertPhoto::where('advert_id',$id)->get(); 
         $userAuth=Auth::id(); 
         
@@ -70,14 +71,17 @@ class AdvertController extends Controller
     }
 
     public function storeComment(Request $request){  #No esta completa - No es funcional
+        
         $date = new Carbon();
         $comment = new AdvertComment();
         $comment->commentary = $request->commentary;
         $comment->user_id = $request->user_id;
         $comment->advert_id = $request->advert_id;
-        $comment->creation_date= $date->format('Y-m-d');      
+        $comment->creation_date= $date->format('Y-m-d'); 
+        $comment->parent_id= $request->parent_id;
         $comment->save();
-        return response();
+        
+        return redirect()->route('advert.show',$request->advert_id);
     
     }
 }
