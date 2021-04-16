@@ -1,5 +1,8 @@
 
+  
+
     $(document).ready(function () {
+      
         var sync1 = $("#sync1");
         var sync2 = $("#sync2");
         var slidesPerPage = 4; //globaly define number of elements per page
@@ -86,54 +89,37 @@
         var rating = document.getElementsByClassName("star-rating")[0];
         rating.title = +frontStars.getAttribute("data-value") + "% de 100%";
         
-       
-      
-
-      
-        
-        //StoreComentarios
-        function limpiar(){
-          $('#commentary').nodeValue('');
-                  }
-
-       /* $.ajaxSetup({
-          Headers:{
-            'X-CSRF-TOKEN':$("input[name=_token]").nodeValue
-          }
-        });*/
-
-       $('#send').click(function(e){
-        e.preventDefault();
-        var user_id = document.getElementById("user_id");
-        var user = user_id.getAttribute("data-value");
-        var comment = $("#commentary").val();
-        var ad = document.getElementById("advert_id");
-        var advert = ad.getAttribute("data-value");
-        var _token = $("input[name=_token]").val();
-        
-            $.ajax({
-              type:'POST',
-              url:"{{route('advert.comment')}}",
-              data:{
-                commentary: comment,
-                user_id:user,
-                advert_id:advert,
-                _token:_token
-              },
-              success:function(response) {
-                if(response){
-                  console.log('parece que funcioona');
-
+       //StoreComentarios
+       function limpiar(){
+        $('#commentary').nodeValue('');
                 }
-                
-              },
-            });
 
+     /* $.ajaxSetup({
+        Headers:{
+          'X-CSRF-TOKEN':$("input[name=_token]").nodeValue
+        }
+      });*/
+
+     /*$('#send').click(function(e){
+      e.preventDefault();
+      var user_id = document.getElementById("user_id");
+      var user = user_id.getAttribute("data-value");
+      var comment = $("#commentary").val();
+      var ad = document.getElementById("advert_id");
+      var advert = ad.getAttribute("data-value");
+      
+      
+         
+
+      
+      
+
+     });*/
+      
+
+      
         
         
-
-       });
-
        //ventana emergente
        var openmodal = document.querySelectorAll('.modal-open')
     for (var i = 0; i < openmodal.length; i++) {
