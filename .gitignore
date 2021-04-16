@@ -14,3 +14,21 @@ yarn-error.log
 composer.json
 composer.lock
 config/app.php
+
+ @else
+                                    
+                                  @if ($advert->user_id == $userAuth)
+                                  <form class="pl-6 pb-4 "  method="POST" action="{{ route('advert.comment') }}">
+                                    <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
+                                    <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">
+                                    <input type="hidden" id="parent_id" name="parent_id" value="{{$comFather->id}}">    
+                
+                                    @csrf
+                                      <div >
+                                      <textarea  class="w-full   " id="commentary" name="commentary"  placeholder="Escriba su pregunta"></textarea>
+                                      </div>
+                                      <div class="py-2 ">
+                                        <button type="submit" id="send" class="bg-gray-400 w-24 h-6 bottom-0 right-0">Enviar</button>
+                                      </div>
+                                  </form>
+                                  @endif
