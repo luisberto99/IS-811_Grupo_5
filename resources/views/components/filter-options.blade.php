@@ -11,11 +11,7 @@
     <div id="btn-close-menu" class="absolute hidden -right-2 -top-5 text-gray-400 text-2xl hover:text-gray-900 hover:text-2xl cursor-pointer">
         <i  class="fas fa-times "></i>
     </div>
-    <input class="w-full rounded text-lg p-1" type="button" value="Mis anuncios">
-    <div >
-        <input class="w-11/12 relative border-0 rounded" type="search" placeholder="Search">
-        <i class="fa fa-search relative -left-7" ></i>
-    </div>
+    <input class="w-full rounded text-lg p-1" type="button" value="{{ $title }}">
     {{-- BOTON FILTRAR --}}
     <a  href="f?" id="btnFiltrar">
         <div class="mt-4 w-full rounded text-lg text-center bg-gray border border-solid border-current b p-2">
@@ -71,7 +67,7 @@
         {{-- BOTON CREAR ANUNCIO --}}
         <a  href="../../nuevo" id="btnFiltrar">
             <div class="mt-4 w-full rounded text-lg text-center bg-gray border border-solid border-current b p-2">
-                Publicar Anuncio
+                Publicar un Anuncio
             </div>
         </a>
 

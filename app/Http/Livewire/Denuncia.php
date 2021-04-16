@@ -34,7 +34,7 @@ class Denuncia extends Component
 
         $this->resetImputFiels();
 
-        return redirect()->to('dashboard');
+        return redirect()->to('adverts/show/f?');
     }
 
     public function render()

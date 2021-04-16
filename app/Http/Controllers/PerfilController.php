@@ -50,6 +50,6 @@ class PerfilController extends Controller
         $acusar->save();
 
         //return $acusar;
-        return redirect()->to('dashboard');
+        return redirect()->to('adverts/show/f?');
     }
 }

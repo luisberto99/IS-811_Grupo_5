@@ -14,9 +14,10 @@ class LandingCarrousels extends Component
 {
 
     public $categoria;
+    public $iduser;
 
     
-    public function render()
+    public function render($iduser = 0)
     {
         $categories = '[{"id":"0","name":"Ultimas publicaciones"}]';
         $categories = json_decode($categories);
@@ -27,6 +28,9 @@ class LandingCarrousels extends Component
         ->join('departaments','departaments.id','=','townshipes.departament_id')
         ->join('users','adverts.user_id','users.id')
         ->select('adverts.id as adverts_id', 'adverts.*', 'users.name as user_name','products_adverts.id as product_id', 'products_adverts.*','townshipes.name as township','departaments.name as departament')
+        ->when( $this->iduser != 0 ,function ($query, $role){
+            return $query->where('adverts.user_id', '=', $this->iduser);
+        })
         ->where('advert_status_id',1)
         ->orderBy('creation_date','desc')
         ->limit(20)->get();
@@ -50,6 +54,5 @@ class LandingCarrousels extends Component
 
         return view('livewire.landing-carrousels',compact('categories','adverts'));
     }
-
     
 }

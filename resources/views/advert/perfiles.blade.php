@@ -154,55 +154,8 @@
 
                 <div class="my-4"></div>
            
-                <div >
-                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    @foreach ($mostrar as $activo) 
-
-
-                        <div class=" rounded overflow-hidden border border-gray-500 w-full lg:w-full md:w-full bg-gray-200 mx-3 md:mx-0 lg:mx-0">
-                            <div class="w-full flex justify-between p-3">
-                              <div class="flex">
-                                <div class="rounded-full h-8 w-8 bg-gray-500 flex items-center justify-center overflow-hidden">
-                                  <img src="{{ Storage::url($perfil->profile_photo_path) }}" alt="profilepic">
-                                </div>
-                                <span class="pt-1 ml-2 font-bold text-sm">{{$perfil->name}}</span>
-                              </div>
-                              <span class="px-2 hover:bg-gray-300 cursor-pointer rounded"><i class="fas fa-ellipsis-h pt-2 text-lg"></i></span>
-                            </div>
-                            <div>
-                                <h1>Carrusel</h1>
-                                @foreach ($fotos as $foto)
-                                @if ($foto->advert_id == $activo->id)
-                                <img class="w-full h-20 object-cover object-center" src="{{$foto->photo_path}}" alt="">
-                                @endif  
-                                @endforeach 
-                                </div>
-                            <div class="px-3 pb-2">
-                              <div class="pt-1">
-                                <div class="mb-2 text-sm">
-                                  <span class="font-medium mr-2">{{$activo->title}}</span><h1 class="justify-end">{{$activo->creation_date}}</h1>
-                                </div>
-                              </div>
-                              <div class="text-sm mb-2 text-gray-600 cursor-pointer font-medium">{{$activo->description}}</div>
-                              <div class="mb-2">
-                                <div class="mb-2 text-sm">
-                                    @foreach ($munis as $municipio)
-                                       @if ($municipio->id == $activo->township_id)
-                                            <span class="font-medium mr-2">{{$municipio->name}}</span>
-                                            @foreach ($departamentos as $departamento)
-                                                @if ($municipio->departament_id == $departamento->id )
-                                                    {{$departamento->name}}
-                                                @endif
-                                            @endforeach
-                                       @endif
-                                    @endforeach
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                    @endforeach
-                </div>
+                <div class="w-100 bg-blue-100">
+                    @livewire('landing-carrousels', ['iduser' => $perfil->id])
             </div>
         </div>
     </div>

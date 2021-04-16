@@ -23,9 +23,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
 
 Route::get('perfiles/{perfil}', [PerfilController::class, 'show'])->name('perfiles.show');
 
@@ -34,7 +31,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
 })->name('nuevo');
 
 
-Route::get('advertsUser/show/f{fill?}',[advertUserController::class, 'filter']);
+Route::get('advertsUser/show/f{fill?}',[advertUserController::class, 'filterUser'])->name('advertsUser');
+Route::get('adverts/show/f{fill?}',[advertUserController::class, 'filter'])->name('adverts');
 
 /* Route::get('advert{id}?', function ($id = null) {
     return "work $id";
@@ -48,7 +46,7 @@ Route::get('users/fill{id}', function ($id) {
     return User::find($id);
 })->name('user.show');
 
-Route::get('advertsUser/{anuncio}/edit', [advertUserController::class, 'edit'])->name('adverts.edit');
+Route::get('advertsUser/{anuncio}/edit', [advertUserController::class, 'edit'])->name('advertsUser.edit');
 Route::middleware(['auth:sanctum', 'verified'])->get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
 Route::middleware(['auth:sanctum', 'verified'])->post('/advert/comment',[ AdvertController::class, 'storeComment'])->name('advert.storeComment');
 Route::get('perfiles', [PerfilController::class, 'store'])->name('perfiles.store');

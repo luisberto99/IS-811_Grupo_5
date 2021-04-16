@@ -2,28 +2,37 @@
 
     <div class="flex flex-row h-full">
 
-        
-        
         <div id="menu-container" class="w-1/4 container mx-auto mt-4 py-8 px-12 hidden md:inline-block bg-gray-100 z-50 transition duration-500">
            <x-filter-options >
-               <x-slot name="dep">
-                   {{ $depto }}
-               </x-slot>
-               <x-slot name="cat">
-                   {{ $cat }}
-               </x-slot>
-               <x-slot name="muni">
-                   {{ $muni }}
-               </x-slot>
-               <x-slot name="order">
-                   {{ $order }}
-               </x-slot>
-               <x-slot name="desde">
-                   {{ $desde }}
-               </x-slot>
-               <x-slot name="hasta">
-                   {{ $hasta }}
-               </x-slot>
+                <x-slot name="dep">
+                    {{ $depto }}
+                </x-slot>
+                <x-slot name="cat">
+                    {{ $cat }}
+                </x-slot>
+                <x-slot name="muni">
+                    {{ $muni }}
+                </x-slot>
+                <x-slot name="order">
+                    {{ $order }}
+                </x-slot>
+                <x-slot name="desde">
+                    {{ $desde }}
+                </x-slot>
+                <x-slot name="hasta">
+                    {{ $hasta }}
+                </x-slot>
+
+                @if(isset($idUser))
+
+                    <x-slot name="title">
+                        {{ 'Mis anuncios' }}
+                    </x-slot>
+                @else
+                    <x-slot name="title">
+                        {{ 'Encuentra lo que necesites' }}
+                    </x-slot>
+                @endif
 
            </x-filter-options>
         </div>
@@ -83,6 +92,7 @@
                     <x-slot name="AdvertLink">
                         {{ route('advert.show', $advert->advert_id)}}
                     </x-slot>
+                    @if(isset($idUser))
                     <x-slot name="Userid">
                         {{ auth()->user()->id}}
                     </x-slot>
@@ -90,16 +100,32 @@
                         {{ auth()->user()->name}}
                     </x-slot>
                     <x-slot name="UserLink">
-                        {{ route('user.show', $idUser)}}
+                        {{ route('perfiles.show', $idUser)}}
                     </x-slot>
+
                     
-                    @if ($advert->advert_status_id == 1)
-                        <div class="py-1 w-100">
-                            <div class="w-50 py-4" style="float: left"></div>
-                            <div class="py-1" style="float: right" >
-                                <a href="{{route('adverts.edit',$advert->id)}}" @if ($advert->advert_status_id == 2) aria-disabled="true" class=" bg-gray-100 rounded-lg text-white mr-2" @endif class="px-4 bg-gray-400 rounded-lg text-white -bottom-8">Eliminar</a>
-                            </div>
-                        </div>  
+                        @if ($advert->advert_status_id == 1)
+                            <div class="py-1 w-100">
+                                <div class="w-50 py-4" style="float: left"></div>
+                                <div class="py-1" style="float: right" >
+                                    <a href="{{route('advertsUser.edit',$advert->id)}}" @if ($advert->advert_status_id == 2) aria-disabled="true" class=" bg-gray-100 rounded-lg text-white mr-2" @endif class="px-4 bg-gray-400 rounded-lg text-white -bottom-8">Eliminar</a>
+                                </div>
+                            </div>  
+                        @endif
+
+                                            
+                    @else
+
+                        <x-slot name="Userid">
+                            {{ $advert->user_id }}
+                        </x-slot>
+                        <x-slot name="UserName">
+                            {{ $advert->user_name }}
+                        </x-slot>
+                        <x-slot name="UserLink">
+                            {{ route('perfiles.show', $advert->user_id )}}
+                        </x-slot>
+
                     @endif
     
                     
@@ -108,11 +134,14 @@
             @endforeach
     
             </div>
+            {{ $adverts->links() }}
         </div>
         
     </div>
 
-{{ $adverts->links() }}
+
+
+</div>
     @yield('js')
 
 

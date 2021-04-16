@@ -22,8 +22,8 @@
       </h3>
       <div class="flex items-start justify-between">
         <p class="text-xs text-gray-500">{{ $location }} </p>
-        @if(session('success'))
-        <button class="outline text-xs text-gray-500 hover:text-blue-500" title="Bookmark this ad"><i class="far fa-bookmark"></i></button>
+        @if(isset(auth()->user()->id))
+          <button class="outline text-xs text-gray-500 hover:text-blue-500" title="Bookmark this ad"><i class="far fa-bookmark"></i></button>
         @endif
       </div>
       <p class="text-xs text-gray-500"><a href="{{ $UserLink }}" class="hover:underline hover:text-blue-500">{{ $UserName }}</a> • {{ $date }} days ago</p>
