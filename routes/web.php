@@ -26,6 +26,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('perfiles/{perfil}', [PerfilController::class, 'show'])->name('perfiles.show');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
     return view('advert.nuevo');
 })->name('nuevo');
