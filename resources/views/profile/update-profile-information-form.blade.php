@@ -26,9 +26,13 @@
                 <x-jet-label for="photo" value="{{ __('Foto') }}" />
 
                 <!-- Current Profile Photo -->
+                @if ($this->user->profile_photo_path)
+                    
+                
                 <div class="mt-2" x-show="! photoPreview">
                     <img src="{{ Storage::url($this->user->profile_photo_path) }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
                 </div>
+                @endif
 
                 <!-- New Profile Photo Preview -->
                 <div class="mt-2" x-show="photoPreview">

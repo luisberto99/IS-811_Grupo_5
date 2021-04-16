@@ -36,34 +36,24 @@
 
             <div class="flex gap-4 mt-4">
                 <div class="w-1/2">
-                    <x-jet-label for="departament" value="{{ __('Departamento') }}" />
-                    <select id="departament" name="departament" class="form-input rounded-md shadow-sm block mt-1 w-full" >
-                        <option value=1>Atlantida</option>
-                        <option value=2>Colón</option>
-                        <option value=3>Comayagua</option>
-                        <option value=4>Copán</option>
-                        <option value=5>Cortéz</option>
-                        <option value=6>Choluteca</option>
-                        <option value=7>El Paraiso</option>
-                        <option value=8>Francisco Morazán</option>
-                        <option value=9>Gracias a Dios</option>
-                        <option value=10>Intibucá</option>
-                        <option value=11>Islas de la Bahía</option>
-                        <option value=12>La Paz</option>
-                        <option value=13>Lempira</option>
-                        <option value=14>Ocotepeque</option>
-                        <option value=15>Olancho</option>
-                        <option value=16>Santa Barbara</option>
-                        <option value=17>Valle</option>
-                        <option value=18>Yoro</option>
+                    <x-jet-label for="departamento" value="{{ __('Departamento') }}" />
+                    <select id="departamento" wire:model='departamento' name="departamento" class="form-input rounded-md shadow-sm block mt-1 w-full" >
+                        <option value='-1'>Seleccione uno</option>
+                                @foreach($departaments as $departament)
+                                    <option value={{ $departament->id }}> {{ $departament->name }}</option>
+                                @endforeach
                     </select> 
                 </div>
 
                 <div class="w-1/2">
                     <x-jet-label for="township" value="{{ __('Municipio') }}" />
                     <select id="township" name="township" class="form-input rounded-md shadow-sm block mt-1 w-full" >
-                        <option value=></option>
-                        <option value=></option>
+                        <option value='-1'>Seleccione uno</option>
+                          {{--       @foreach($townships as $township)
+                                   
+                                       <option value={{ $township->id }}> {{ $township->name }}</option>
+                                   
+                                @endforeach --}}
                     </select> 
                 </div>
 
@@ -121,4 +111,23 @@
             </div>
         </form>
     </x-jet-authentication-card>
+
+    <script>
+        $(document).ready(()=>{
+            
+            //ARREGLO CON TODOS LOS MUNICIPOS
+            let townships = <?php echo json_encode($townships); ?>
+
+            //AL CAMBIAR DE DEPARTAMENTO
+            $('#departamento').change(()=>{
+                $('#township').html("<option value='-1'>Seleccione uno</option>");
+                depto = $('#departamento').val(); // DEPARTAMENTO SELECCIONADO
+                townships.forEach(town => {
+                    if(depto == town.departament_id){
+                        $('#township').append(`<option value="${town.id}">${town.name}</option>`); //AGREGA AL SELECCT LOS MUNICIPIOS DEL DEPARTAMENTO SELECCIONADO
+                    }
+                });
+            });   
+        });
+    </script>
 </x-guest-layout>

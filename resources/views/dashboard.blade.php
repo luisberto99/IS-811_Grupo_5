@@ -7,6 +7,7 @@
 
     <div class="py-12">
         <!--livewire('eliminar-anuncio')-->
+        <a href="{{route('perfiles.show', Auth::user())}}"><img src="{{ Storage::url(Auth::user()->profile_photo_path) }}" alt=""></a>
     </div>
 
     @yield('js')

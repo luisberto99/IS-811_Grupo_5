@@ -3,6 +3,7 @@
 use App\Http\Controllers\advertController;
 use App\Http\Controllers\advertControllers;
 use App\Http\Controllers\advertUserController;
+use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
@@ -26,6 +27,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('perfiles/{perfil}', [PerfilController::class, 'show'])->name('perfiles.show');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
     return view('advert.nuevo');
 })->name('nuevo');
@@ -48,3 +51,4 @@ Route::get('users/fill{id}', function ($id) {
 Route::get('advertsUser/{anuncio}/edit', [advertUserController::class, 'edit'])->name('adverts.edit');
 Route::middleware(['auth:sanctum', 'verified'])->get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
 Route::middleware(['auth:sanctum', 'verified'])->post('/advert/comment',[ AdvertController::class, 'storeComment'])->name('advert.storeComment');
+Route::get('perfiles', [PerfilController::class, 'store'])->name('perfiles.store');
