@@ -74,11 +74,105 @@
         });
 
         //stars 
+        var user_id = document.getElementById("user_id");
+        var user = user_id.getAttribute("data-value");
         var frontStars = document.getElementsByClassName("front-stars")[0];
-        var percentage =100 / 5 * 2.63;
+        var percentage = frontStars.getAttribute("data-value");
+        //100 / 5 * 2.63;
         frontStars.style.width = percentage + "%";
         console.log(percentage);
+        
 
         var rating = document.getElementsByClassName("star-rating")[0];
-        rating.title = +frontStars.getAttribute("value") + " de " + 5;
+        rating.title = +frontStars.getAttribute("data-value") + "% de 100%";
+        
+       
+      
+
+      
+        
+        //StoreComentarios
+        function limpiar(){
+          $('#commentary').nodeValue('');
+                  }
+
+       /* $.ajaxSetup({
+          Headers:{
+            'X-CSRF-TOKEN':$("input[name=_token]").nodeValue
+          }
+        });*/
+
+       $('#send').click(function(e){
+        e.preventDefault();
+        var user_id = document.getElementById("user_id");
+        var user = user_id.getAttribute("data-value");
+        var comment = $("#commentary").val();
+        var ad = document.getElementById("advert_id");
+        var advert = ad.getAttribute("data-value");
+        var _token = $("input[name=_token]").val();
+        
+            $.ajax({
+              type:'POST',
+              url:"{{route('advert.comment')}}",
+              data:{
+                commentary: comment,
+                user_id:user,
+                advert_id:advert,
+                _token:_token
+              },
+              success:function(response) {
+                if(response){
+                  console.log('parece que funcioona');
+
+                }
+                
+              },
+            });
+
+        
+        
+
+       });
+
+       //ventana emergente
+       var openmodal = document.querySelectorAll('.modal-open')
+    for (var i = 0; i < openmodal.length; i++) {
+      openmodal[i].addEventListener('click', function(event){
+    	event.preventDefault()
+    	toggleModal()
+      })
+    }
+    
+    const overlay = document.querySelector('.modal-overlay')
+    overlay.addEventListener('click', toggleModal)
+    
+    var closemodal = document.querySelectorAll('.modal-close')
+    for (var i = 0; i < closemodal.length; i++) {
+      closemodal[i].addEventListener('click', toggleModal)
+    }
+    
+    document.onkeydown = function(evt) {
+      evt = evt || window.event
+      var isEscape = false
+      if ("key" in evt) {
+    	isEscape = (evt.key === "Escape" || evt.key === "Esc")
+      } else {
+    	isEscape = (evt.keyCode === 27)
+      }
+      if (isEscape && document.body.classList.contains('modal-active')) {
+    	toggleModal()
+      }
+    };
+    function toggleModal () {
+      const body = document.querySelector('body')
+      const modal = document.querySelector('.modal')
+      modal.classList.toggle('opacity-0')
+      modal.classList.toggle('pointer-events-none')
+      body.classList.toggle('modal-active')
+    }
+
+
+
+        
+
       });
