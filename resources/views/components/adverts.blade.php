@@ -28,6 +28,9 @@
                     <x-slot name="title">
                         {{ 'Mis anuncios' }}
                     </x-slot>
+                    <x-slot name="userAd">
+                        {{ 'Mis anuncios' }}
+                    </x-slot>
                 @else
                     <x-slot name="title">
                         {{ 'Encuentra lo que necesites' }}
@@ -97,6 +100,8 @@
                     <x-slot name="AdvertLink">
                         {{ route('advert.show', $advert->advert_id)}}
                     </x-slot>
+
+
                     @if(isset($idUser))
                     <x-slot name="Userid">
                         {{ auth()->user()->id}}

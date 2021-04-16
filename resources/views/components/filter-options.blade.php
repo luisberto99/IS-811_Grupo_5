@@ -56,7 +56,7 @@
         <input onchange="change()" type="date" id="hasta" class="rounded">
     </div>
     {{-- INPUT ESTADO --}}
-    <div >
+    <div @if(!isset($userAd))class="hidden"@endif >
         <p class="font-bold">Estado del anuncio</p>
         <input checked class="rounded" type="checkbox"  id="estadoActivo" value="estadoActivo" onchange="change()">
             <label for="estadoActivo" >  Activo</label><br>

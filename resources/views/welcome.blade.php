@@ -89,7 +89,7 @@
                         </g>
                     </svg>
                 </div>
-
+                <h1 class="text-lg dark:text-white">Departamentos</h1>
                 @livewire('menu-departamentos')
                 @livewire('menu-categorias')
 

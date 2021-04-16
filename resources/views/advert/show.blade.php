@@ -1,52 +1,8 @@
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>FORTUNA</title>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <link rel="stylesheet" href="{{asset('css/all.css')}}">
-    <link rel="stylesheet" href="{{asset('css/show.css')}}">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.theme.default.min.css">
-    
-
-
-</head>
-<body class="bg-gray-200">
-    <div class="flex justify-between h-16">
-        <div class="flex">
-            <h1>Web Name</h1>
-        </div>
-    </div>
-    <div class="flex justify-between h-16">
-        <div class="flex">
-            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-9">
-                <a href="#">Atlantida</a>
-                <a href="#">Colon</a>
-                <a href="#">Puerto Cortes</a>
-                <a href="#">Santa Barbara</a>
-                <a href="#">Gracias a Dios</a>
-                <a href="#">Olancho</a>
-                <a href="#">Yoro</a>
-                <a href="#">Ocotepeque</a>
-                <a href="#">Copan</a>
-                <a href="#">El paraiso</a>
-                <a href="#">Comayagua</a>
-                <a href="#">Lempira</a>
-                <a href="#">La Paz</a>
-                <a href="#">Francisco Morazan</a>
-                <a href="#">Choluteca</a>
-                <a href="#">Valle</a>
-                <a href="#">Intibuca</a>
-                <a href="#">Islas de la Bahia</a>
-                </div>
-                
-            </div>
-            
-        </div>
+<x-app-layout>
+<div class="bg-gray-200">
+      <div class="w-11/12 m-auto">
+        @livewire('menu-departamentos')
+      </div>
     </div>
     <main>
     <div class=" flex   space-x-16  w-auto items-center m-16">
@@ -171,10 +127,6 @@
     </main>
     
     
-</body>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/owl.carousel.min.js"></script>
-<script src="{{asset('js/show.js')}}"></script>
-
-</html>
+    <script src="{{asset('js/show.js')}}"></script>
+  </div>
+</x-app-layout>
