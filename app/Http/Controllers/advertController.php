@@ -24,8 +24,7 @@ class AdvertController extends Controller
     public function show($id){
         $advert = Advert::find($id);
         
-        $category = Category::find(($advert->category_id));
-        $category = $category->name;
+        
         $adProduct = Product::where('advert_id',$id)->first(); 
         $currency = Currency::find($adProduct->currency_id);
         $currency = $currency->currency_type;
@@ -44,7 +43,8 @@ class AdvertController extends Controller
         $coment2=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->get();
         $photos = AdvertPhoto::where('advert_id',$id)->get(); 
         $userAuth=Auth::id(); 
-        
+        $category = Category::find(($advert->category_id));
+        $category = $category->name;
         
         // valoracion
         $val = DB::table('qualifications')->select(DB::raw('SUM(qualification) / ((COUNT(qualification) * 5) / 100) as rating')) ->where('qualified',$user->id)->get() ;
@@ -81,7 +81,7 @@ class AdvertController extends Controller
         $comment->parent_id= $request->parent_id;
         $comment->save();
         
-        return redirect()->route('advert.show',$request->advert_id);
+        return response()->json(['mensaje'=>'Insercion completa']);
     
     }
 }

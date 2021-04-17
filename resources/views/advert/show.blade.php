@@ -155,7 +155,7 @@
                     <label class="font-bold pb-4">Precio: </label><label class="text-green-700 pb-4">{{$adProduct->price}} {{$currency}}</label><br>
                 </div>
                 <div class="col-span-2  mx-9">
-                  <form class="pl-6 pb-4 "  method="POST" action="{{ route('advert.comment') }}">
+                  <form class="pl-6 pb-4 "  method="GET" action="{{ route('advert.comment') }}">
                     <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
                     <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">    
 
@@ -164,8 +164,8 @@
                         <h1 class="text-green-700 ">¿Tienes una pregunta?</h1>
                         <textarea class="w-full" id="commentary" name="commentary"  placeholder="Escriba su pregunta"></textarea>
                       </div>
-                      <div class="py-2 ">
-                        <button type="submit" id="send" class="bg-gray-400 w-24 h-6 bottom-0 right-0">Enviar</button>
+                      <div class="py-2 flex justify-end">
+                        <button class=" px-4 bg-gray-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Enviar</button>
                       </div>
                   </form>
                           
@@ -174,10 +174,16 @@
                     @foreach ($coment as $comFather)
                         @if (($comFather->parent_id) == null)
                         
-                          <div class="border-b border-green-200 pb-4">
+                          <div id="question" class="border-b border-green-200 pb-4">
                               <div class=" flex items-center   space-x-4   pt-4 ">   
-                                <i class="far fa-question-circle text-gray-700"></i>					
-                                <p class=" text-md font-medium ">{{$comFather->commentary}}</p>
+                                <i class="far fa-question-circle text-gray-700"></i>		
+                                <div>
+                                
+                                  <p class=" text-md font-medium ">{{$comFather->commentary}}</p>
+                                  <p class="text-xs  text-gray-400 spb-2">Soy el nombre del que pregunta</p>
+                                  
+                                  </div>			
+                                
                                 
                                 </div>
                               @foreach ($coment as $comSon)
@@ -187,7 +193,10 @@
                                     <p class=" text-md ">{{$comSon->commentary}}</p>
                                   </div>
                                   @endif
+                                    
+                                  
                               @endforeach
+                             
                             </div>
                           @endif
                          
@@ -209,7 +218,7 @@
                               <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
                               </svg>
-                              <span class="text-sm">(Esc)</span>
+                              <span class="text-sm"></span>
                             </div>
 
                             <!-- Add margin if you want to see some of the overlay behind the modal-->
@@ -273,8 +282,12 @@
     
 </body>
 
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/owl.carousel.min.js"></script>
+
 
 <script src="{{asset('js/show.js')}}"></script>
 
