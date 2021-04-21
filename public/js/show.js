@@ -142,16 +142,23 @@
           'X-CSRF-TOKEN':$("input[name=_token]").nodeValue
         }
       });*/
-     
-     $('#send').click(function(e){
-      e.preventDefault();
-     
-      var commentary = $("#commentary").val();
+      var i = 0;
+
+      $("[name='see']").click(function(e) {
+        e.preventDefault();
+
+        if(i = 0)
+        $("[name='ans']").removeClass("hidden");
+        i = 1;
+        ;
+        
+        if (i = 1){
+          var commentary = $("#commentary").val();
       
       var user_id = $("#user_id").val();
       var advert_id = $("#advert_id").val();
       var _token = $("input[name=_token]").val();
-      
+      console.log('parece que na');
       $.ajax({
         type:'POST',
         url:'/comment',
@@ -165,11 +172,48 @@
           if(response){
             limpiar();
             console.log('parece que funcioona');
-            $('#question').table.ajax.reload();
+            $('#question').load('question');
 
           }
           
+        }
+      });
+
+
+         };
+        
+        
+      });
+
+      
+     
+     $("[name='sendComment']").click(function(e){
+      e.preventDefault();
+     
+      var commentary = $("#commentary").val();
+      
+      var user_id = $("#user_id").val();
+      var advert_id = $("#advert_id").val();
+      var _token = $("input[name=_token]").val();
+      console.log('parece que na');
+      $.ajax({
+        type:'POST',
+        url:'/comment',
+        data:{
+          commentary: commentary,
+          user_id:user_id,
+          advert_id:advert_id,
+          _token:_token
         },
+        success:function(response) {
+          if(response){
+            limpiar();
+            console.log('parece que funcioona');
+            $('#question').load('question');
+
+          }
+          
+        }
       });
       
          

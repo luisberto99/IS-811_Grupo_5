@@ -155,7 +155,7 @@
                     <label class="font-bold pb-4">Precio: </label><label class="text-green-700 pb-4">{{$adProduct->price}} {{$currency}}</label><br>
                 </div>
                 <div class="col-span-2  mx-9">
-                  <form class="pl-6 pb-4 "  method="GET" action="{{ route('advert.comment') }}">
+                  <form class="pl-6 pb-4 "  method="POST" action="{{ route('advert.comment') }}">
                     <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
                     <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">    
 
@@ -165,7 +165,7 @@
                         <textarea class="w-full" id="commentary" name="commentary"  placeholder="Escriba su pregunta"></textarea>
                       </div>
                       <div class="py-2 flex justify-end">
-                        <button class=" px-4 bg-gray-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Enviar</button>
+                        <button id="send" name="sendComment" class=" px-4 bg-gray-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Enviar</button>
                       </div>
                   </form>
                           
@@ -196,7 +196,24 @@
                                     
                                   
                               @endforeach
-                             
+                              @if ($advert->user_id == $userAuth)
+                              <form class="pl-6 pb-4 "  method="POST" action="{{ route('advert.comment') }}">
+                                <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
+                                <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">
+                                <input type="hidden" id="parent_id" name="parent_id" value="{{$comFather->id}}">    
+            
+                                @csrf
+                                  <div name="ans" class="hidden" >
+                                  <textarea  class="w-full   " id="commentary" name="commentary"  placeholder="Escriba su pregunta"></textarea>
+                                  </div>
+                                  <div class="flex justify-end pt-2">
+                                    <button  name="see" id="{{$comFather->id}}" type="button" class=" px-4 bg-blue-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Responder</button>                         
+                                    <button id="send2" name="sendComment" class=" hidden px-4 bg-gray-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Responder</button>
+                                  </div>
+                              </form>
+                              
+                           @endif
+
                             </div>
                           @endif
                          
