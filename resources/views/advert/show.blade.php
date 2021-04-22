@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.theme.default.min.css">
     
-    @csrf
+    
 
 </head>
 <body class="bg-gray-200">
@@ -55,7 +55,7 @@
                 <div class="col-span-2 bg-white  overflow-hidden shadow-xl sm:rounded-lg">-->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 border-b border-gray-200">
                       <div class="col-span-2 m-2">
-                        <h1 id="advert_id" data-value="{{$advert->id}}" class="font-sans text-2xl font-bold text-green-700">{{$advert->title}}</h1>
+                        <h1  class="font-sans text-2xl font-bold text-green-700">{{$advert->title}}</h1>
                         <h1 class="font-sans text-sm text-gray-500">{{$advert->creation_date}}</h1>
                       </div>
                       <div class="text-right m-2">
@@ -156,9 +156,13 @@
                 </div>
                 <div class="col-span-2  mx-9">
                   <form class="pl-6 pb-4 "  method="POST" action="{{ route('advert.comment') }}">
-                      <div id="user_id" data-value="{{$userAuth}}">
+                    <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
+                    <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">    
+
+                    @csrf
+                      <div >
                         <h1 class="text-green-700 ">¿Tienes una pregunta?</h1>
-                        <textarea class="w-full" id="commentary"  placeholder="Escriba su pregunta"></textarea>
+                        <textarea class="w-full" id="commentary" name="commentary"  placeholder="Escriba su pregunta"></textarea>
                       </div>
                       <div class="py-2 ">
                         <button type="submit" id="send" class="bg-gray-400 w-24 h-6 bottom-0 right-0">Enviar</button>
@@ -174,7 +178,8 @@
                               <div class=" flex items-center   space-x-4   pt-4 ">   
                                 <i class="far fa-question-circle text-gray-700"></i>					
                                 <p class=" text-md font-medium ">{{$comFather->commentary}}</p>
-                              </div>
+                                
+                                </div>
                               @foreach ($coment as $comSon)
                                 @if ($comFather->id == $comSon->parent_id)
                                   <div class=" items-center   flex space-x-4   ">   
@@ -272,5 +277,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/owl.carousel.min.js"></script>
 
 <script src="{{asset('js/show.js')}}"></script>
+
+
 
 </html>
