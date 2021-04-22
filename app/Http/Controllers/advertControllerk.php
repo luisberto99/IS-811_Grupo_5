@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-class AdvertController extends Controller
+class AdvertControllerk extends Controller
 {
     public function show($id){
         $advert = Advert::find($id);
