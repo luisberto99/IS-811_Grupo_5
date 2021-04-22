@@ -142,10 +142,11 @@
           'X-CSRF-TOKEN':$("input[name=_token]").nodeValue
         }
       });*/
-      var i = 0;
+      var id = 0;
 
-      $("[name='see']").click(function(e) {
-        e.preventDefault();
+      $("[name='res']").click(function(e) {
+          e.preventDefault();
+
 
         if(i = 0)
         $("[name='ans']").removeClass("hidden");
