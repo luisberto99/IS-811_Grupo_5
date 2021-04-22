@@ -1,8 +1,7 @@
 
-  
 
-    $(document).ready(function () {
-      
+    $(document).ready(function () {    
+  
         var sync1 = $("#sync1");
         var sync2 = $("#sync2");
         var slidesPerPage = 4; //globaly define number of elements per page
@@ -88,33 +87,7 @@
 
         var rating = document.getElementsByClassName("star-rating")[0];
         rating.title = +frontStars.getAttribute("data-value") + "% de 100%";
-        
-       //StoreComentarios
-       function limpiar(){
-        $('#commentary').nodeValue('');
-                }
-
-     /* $.ajaxSetup({
-        Headers:{
-          'X-CSRF-TOKEN':$("input[name=_token]").nodeValue
-        }
-      });*/
-
-     /*$('#send').click(function(e){
-      e.preventDefault();
-      var user_id = document.getElementById("user_id");
-      var user = user_id.getAttribute("data-value");
-      var comment = $("#commentary").val();
-      var ad = document.getElementById("advert_id");
-      var advert = ad.getAttribute("data-value");
-      
-      
-         
-
-      
-      
-
-     });*/
+       
       
 
       
@@ -159,6 +132,97 @@
 
 
 
+       //StoreComentarios
+       function limpiar(){
+        $('#commentary').val('');
+                }
+
+     /* $.ajaxSetup({
+        Headers:{
+          'X-CSRF-TOKEN':$("input[name=_token]").nodeValue
+        }
+      });*/
+      var id = 0;
+
+      $("[name='res']").click(function(e) {
+          e.preventDefault();
+
+
+        if(i = 0)
+        $("[name='ans']").removeClass("hidden");
+        i = 1;
+        ;
+        
+        if (i = 1){
+          var commentary = $("#commentary").val();
+      
+      var user_id = $("#user_id").val();
+      var advert_id = $("#advert_id").val();
+      var _token = $("input[name=_token]").val();
+      console.log('parece que na');
+      $.ajax({
+        type:'POST',
+        url:'/comment',
+        data:{
+          commentary: commentary,
+          user_id:user_id,
+          advert_id:advert_id,
+          _token:_token
+        },
+        success:function(response) {
+          if(response){
+            limpiar();
+            console.log('parece que funcioona');
+            $('#question').load('question');
+
+          }
+          
+        }
+      });
+
+
+         };
+        
+        
+      });
+
+      
+     
+     $("[name='sendComment']").click(function(e){
+      e.preventDefault();
+     
+      var commentary = $("#commentary").val();
+      
+      var user_id = $("#user_id").val();
+      var advert_id = $("#advert_id").val();
+      var _token = $("input[name=_token]").val();
+      console.log('parece que na');
+      $.ajax({
+        type:'POST',
+        url:'/comment',
+        data:{
+          commentary: commentary,
+          user_id:user_id,
+          advert_id:advert_id,
+          _token:_token
+        },
+        success:function(response) {
+          if(response){
+            limpiar();
+            console.log('parece que funcioona');
+            $('#question').load('question');
+
+          }
+          
+        }
+      });
+      
+         
+
+      
+      
+
+     });  
         
 
       });

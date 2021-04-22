@@ -148,11 +148,21 @@
                     <h1 class="font-bold text-green-700 text-lg py-2">Detalles</h1>
                     <h1 class="font-bold pb-3">Descripcion:</h1>
                     <p class="text-green-700 pb-3">{{$advert->description}}</p>
-                    <label class="font-bold pb-4">Estado: </label><label class="text-green-700 pb-4">{{$adProduct->product_status}}</label><br>
-                    <label class="font-bold pb-4">Publicado el: </label><label class="text-green-700 pb-4"> {{$advertDt[0]}} de {{$advertDt[1]}} del {{$advertDt[2]}} </label><br>
-                    <label class="font-bold pb-4">Publicado en: </label><label class="text-green-700 pb-4">{{$township}}, {{$department}}</label><br>
-                    <label class="font-bold pb-4">Categoria: </label><label class="text-green-700 pb-4">{{$category}}</label><br>
-                    <label class="font-bold pb-4">Precio: </label><label class="text-green-700 pb-4">{{$adProduct->price}} {{$currency}}</label><br>
+                    <div class="flex space-x-11">
+                      <p class="font-bold pb-4">Estado: </p><p class="text-green-700 pb-4">{{$adProduct->product_status}}</p><br>
+                    </div>
+                    <div class="flex space-x-1">
+                      <p class="font-bold pb-4">Publicado el: </p><p class="text-green-700 pb-4"> {{$advertDt[0]}} de {{$advertDt[1]}} del {{$advertDt[2]}} </p><br>
+                    </div>
+                    <div class="flex space-x-1">
+                      <p class="font-bold pb-4">Publicado en: </p><p class="text-green-700 pb-4">{{$township}}, {{$department}}</p><br>
+                    </div>
+                    <div class="flex space-x-8">
+                      <p class="font-bold pb-4">Categoria: </p><p class="text-green-700 pb-4">{{$category}}</p><br>
+                    </div>
+                    <div class="flex space-x-14">
+                      <p class="font-bold pb-4">Precio: </p><p class="text-green-700 pb-4">{{$adProduct->price}} {{$currency}}</p><br>
+                    </div>
                 </div>
                 <div class="col-span-2  mx-9">
                   <form class="pl-6 pb-4 "  method="POST" action="{{ route('advert.comment') }}">
@@ -164,8 +174,8 @@
                         <h1 class="text-green-700 ">¿Tienes una pregunta?</h1>
                         <textarea class="w-full" id="commentary" name="commentary"  placeholder="Escriba su pregunta"></textarea>
                       </div>
-                      <div class="py-2 ">
-                        <button type="submit" id="send" class="bg-gray-400 w-24 h-6 bottom-0 right-0">Enviar</button>
+                      <div class="py-2 flex justify-end">
+                        <button id="send" name="sendComment" class=" px-4 bg-gray-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Enviar</button>
                       </div>
                   </form>
                           
@@ -174,10 +184,16 @@
                     @foreach ($coment as $comFather)
                         @if (($comFather->parent_id) == null)
                         
-                          <div class="border-b border-green-200 pb-4">
+                          <div id="question" class="border-b border-green-200 pb-4">
                               <div class=" flex items-center   space-x-4   pt-4 ">   
-                                <i class="far fa-question-circle text-gray-700"></i>					
-                                <p class=" text-md font-medium ">{{$comFather->commentary}}</p>
+                                <i class="far fa-question-circle text-gray-700"></i>		
+                                <div>
+                                
+                                  <p class=" text-md font-medium ">{{$comFather->commentary}}</p>
+                                  <p class="text-xs  text-gray-400 spb-2">Soy el nombre del que pregunta</p>
+                                  
+                                  </div>			
+                                
                                 
                                 </div>
                               @foreach ($coment as $comSon)
@@ -187,15 +203,22 @@
                                     <p class=" text-md ">{{$comSon->commentary}}</p>
                                   </div>
                                   @endif
+                                    
+                                  
                               @endforeach
+                              @if ($advert->user_id == $userAuth)
+                              <button  name="res" id="{{$comFather->id}}" type="button" class=" px-4 bg-blue-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Responder</button>                         
+
+                              
+                           @endif
+
                             </div>
                           @endif
                          
                          @endforeach
-                    
-                                              <!-- Ventana modal  -->
-                         
-                        <div>
+                                            <!--Inicio ventana modal-->
+
+                         <div>
                           <div class="pt-4 object-right-bottom">
                             <button class="modal-open place-items-center bg-transparent text-xs border border-gray-500 hover:border-indigo-500 text-gray-500 hover:text-white font-bold py-2 px-4 hover:bg-green-500 rounded-sm">Todas las preguntas</button>
                            </div>
@@ -203,7 +226,7 @@
                         <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
                           <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
                           
-                          <div class="modal-container bg-white w-11/12 md:max-w-3xl h-auto mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                          <div class="modal-container bg-white w-11/12 md:max-w-3xl h-5/6 mx-auto rounded shadow-lg z-50 overflow-y-auto">
                             
                             <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
                               <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
@@ -213,12 +236,12 @@
                             </div>
 
                             <!-- Add margin if you want to see some of the overlay behind the modal-->
-                            <div class="modal-content py-4 text-left px-6">
+                            <div class="modal-content py-4 text-left px-6 overflow-y-auto ">
                               <!--Title-->
                               <div class="flex justify-between items-center pb-3">
                                 <p class="text-2xl font-bold">Preguntas</p>
                                 <div class="modal-close cursor-pointer z-50">
-                                  <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                  <svg class="fill-current text-white rounded-full  bg-gray-900" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                                     <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
                                   </svg>
                                 </div>
@@ -227,17 +250,19 @@
                               <!--Body-->
                               @foreach ($coment2 as $comFather)
                               @if (($comFather->parent_id) == null)
-                                <div class="border-b border-green-200 pb-4">
+                                <div class="border-b border-green-200 relative  pb-4">
                                     <div class=" flex items-center   space-x-4   pt-4 ">   
                                       <i class="far fa-question-circle text-gray-700"></i>					
                                       <p class=" text-md font-medium ">{{$comFather->commentary}}</p>
                                     </div>
+                                    
                                     @foreach ($coment2 as $comSon)
                                       @if ($comFather->id == $comSon->parent_id)
-                                        <div class=" items-center   flex space-x-4   ">   
+                                        <div class=" items-center   flex space-x-4  pb-2 ">   
                                           <i class="far fa-comment-dots text-gray-700"></i>					
                                           <p class=" text-md ">{{$comSon->commentary}}</p>
                                         </div>
+                                        <div class="pr-4 py-2 font-thin	text-gray-500 text-xs	 absolute  bottom-0 right-0 "><p>{{$comSon->creation_date}} {{$user->name}}</p></div>
                                         @endif
                                     @endforeach
                                   </div>
@@ -248,14 +273,13 @@
                               <!--Footer-->
                               <div class="flex justify-end pt-2">
                                 
-                                <button class="modal-close px-4 bg-gray-500 p-3  rounded-lg text-white hover:bg-green-400">Cerrar</button>
+                                <button class="modal-close object-center	 bg-gray-500 w-16  h-8 rounded-lg text-white hover:bg-green-400">Cerrar</button>
                               </div>
                               
                             </div>
                           </div>
                         </div>
                       </div>
-                         <!-- Fin ventana modal  -->
                      @endif
                     
                       
@@ -273,8 +297,12 @@
     
 </body>
 
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/owl.carousel.min.js"></script>
+
 
 <script src="{{asset('js/show.js')}}"></script>
 
