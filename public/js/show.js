@@ -186,7 +186,9 @@
         
       });
 
+      //rating user
       
+      //end rating user
      
      $("[name='sendComment']").click(function(e){
       e.preventDefault();

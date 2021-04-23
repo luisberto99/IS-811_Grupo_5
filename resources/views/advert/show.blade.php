@@ -163,6 +163,7 @@
                     <div class="flex space-x-14">
                       <p class="font-bold pb-4">Precio: </p><p class="text-green-700 pb-4">{{$adProduct->price}} {{$currency}}</p><br>
                     </div>
+
                 </div>
                 <div class="col-span-2  mx-9">
                   <form class="pl-6 pb-4 "  method="POST" action="{{ route('advert.comment') }}">
@@ -305,6 +306,7 @@
 
 
 <script src="{{asset('js/show.js')}}"></script>
+
 
 
 

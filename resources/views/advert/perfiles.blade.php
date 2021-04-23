@@ -4,6 +4,9 @@
             {{ __('Perfil de Usuario') }}
         </h2>
     </x-slot>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <link rel="stylesheet" href="{{asset('css/show.css')}}">
+
     <div class="py-12">
         <!-- component -->
 <div class="bg-gray-100">
@@ -37,6 +40,100 @@
                     </ul>
                 </div>
                 <!-- End of profile card -->
+               <!-- Calification -->
+               <div>
+                   
+                    
+
+               <!--prueba-->
+               @if ($calificacionUsers)
+                <div class="container bg-white">
+                    <div class=" ">
+                        <div class="following flex flex-col items-center">
+                            <p class="text-gray-900 font-medium text-lg leading-8 pt-4 pb">Calificaciones de este usuario</p>
+                            
+                            
+                        </div>
+                        @foreach ($calificacionUsers as $calificacionUsers)
+                            
+                        <div class="bg-transparent h-auto w-full px-3 " >
+                            <div class="flex  flex-col pt-2 ">
+                                <div class="flex space-x-3 items-center">
+                                    <img src="{{$calificacionUsers->profile_photo_path}}" class="rounded-full h-14 w-14 bg-black " alt="Imagen"> 
+                                    <div>
+                                        <p class="text-blue-900 pb-0" >Por {{$calificacionUsers->name}}</p>
+                                        <div class="star-rating">
+                                            <div class="back-stars">
+                                                <i class="fa fa-star " aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                    
+                                                <div class="front-stars" id="val" data-value="{{$calificacionUsers->qualification}}">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </div>                                                
+                                            </div>
+                                        </div>                                     
+                                    </div>
+                                </div>
+                                    <div class="border-b border-blue-600 pb-2">                                             
+                                        <p class="text-justify">{{$calificacionUsers->commentary}}</p>
+                                        <p class="text-gray-600 text-xs ">Octubre 21, 2121</p>
+                                    </div>
+                            </div>
+                        </div> 
+                        @endforeach                                                                    
+                    </div>
+                </div>
+                <dialog id="pru" class="bg-transparent z-0 relative w-screen h-screen">
+                    <div class="p-7 flex justify-center items-center fixed left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50 transition-opacity opacity-0">
+                        <div class="bg-white flex roundeds w-1/2 relative">
+                            <div class="py-6 px-6 w-full">
+                                <h1>Calificar a este usurio</h1>
+                                <div class="mt-5 justify-start">
+                                    <form action="{{route('perfiles.calificacion')}}" method="POST">
+                                        @csrf
+                                        <div class="justify-start text-left">
+                                        </div>
+                                        <div>
+                                            <p>Calificación</p>
+                                            <div id="rateYo"></div>
+                                            <input type="hidden" name="rating" id="rating">
+                                            <input type="hidden" id="qualified" name="qualified" value="{{$perfil->id}}">    
+
+
+                                        </div>
+                                        <div class="mb-9 justify-start text-left text-blue-600">
+                                            <label>Escriba un comentario</label>
+                                            <textarea name="message" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" ></textarea> 
+                                            @error('message') <span class="error text-red-600">el campo esta vacio</span> @enderror
+                                        </div>
+                                        <div class="mt-9 mb-9">
+                                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
+                                                Calificar
+                                            </button>
+                                            <button type="button" onclick="modalClose('pru')" class="bg-transparent hover:bg-gray-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                                                Cerrar
+                                            </button>
+                                        </div>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+               @endif
+            </div>
+
+               <!-- End Calification -->
+
+
             </div>
             <!-- Right Side -->
             <div class="w-full md:w-9/12 mx-2 h-64">
@@ -106,6 +203,12 @@
                           <p class="text-blue-500 text-sm">Anuncios Activos</p>
                           <p class="text-lg font-semibold text-blue-300">{{count($activos)}}</p>
                         </div>
+                        <div class="followers">
+                            <p class="text-blue-500 text-sm">Calificar este usuario</p>
+                            <button type="button" onclick="openModal('pru')" class="bg-transparent m-2 hover:bg-blue-500 text-blue-300 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded-lg">
+                                Calificar
+                                </button>                          </div>
+                        
                         <div>
                             <!--livewire('denuncia', ['usuario' => $perfil->id])-->
                             <div class="following">
@@ -181,3 +284,35 @@
         }, 100);
     }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script>
+        $(document).ready(function () {    
+            
+            $(function () {
+ 
+ $("#rateYo").rateYo({
+   ratedFill: "#008B8B",
+    starWidth: "20px",
+
+   fullStar:true,
+   onSet:function(rating,reteYoInstance){
+       $("#rating").val(rating);
+   }
+ });
+  //stars 
+        var frontStars = document.getElementsByClassName("front-stars")[0];
+        var percentage = frontStars.getAttribute("data-value");
+        //100 / 5 * 2.63;
+        frontStars.style.width = percentage + "%";
+        console.log(percentage);
+        
+
+        var rating = document.getElementsByClassName("star-rating")[0];
+        rating.title = +frontStars.getAttribute("data-value") + "% de 100%";
+        //End stars 
+
+});
+
+        });
+
+  </script>
