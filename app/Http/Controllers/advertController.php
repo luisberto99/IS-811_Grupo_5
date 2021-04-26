@@ -24,8 +24,7 @@ class AdvertController extends Controller
     public function show($id){
         $advert = Advert::find($id);
         
-        $category = Category::find(($advert->category_id));
-        $category = $category->name;
+        
         $adProduct = Product::where('advert_id',$id)->first(); 
         $currency = Currency::find($adProduct->currency_id);
         $currency = $currency->currency_type;
@@ -40,16 +39,24 @@ class AdvertController extends Controller
         $departmentUser = $departmentUser->name;
         $AlladdsUser = Advert::where('user_id',$user->id )->get()->count();
         $adsActive = Advert::where('user_id',$user->id )->where('advert_status_id', 1)->get()->count();
-        $coment=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->limit(3)->get();
-        $coment2=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->get();
+        $coment=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->get();
+        $coment2 = DB::select("SELECT adverts_comments.id,adverts_comments.commentary,adverts_comments.user_id,adverts_comments.advert_id,adverts_comments.parent_id, DATE_FORMAT(adverts_comments.created_at, '%m/%d/%Y') as created_at, users.name FROM adverts_comments INNER JOIN users on adverts_comments.user_id = users.id WHERE adverts_comments.advert_id = :id  ORDER BY adverts_comments.created_at DESC", ['id' => $id]);
+
         $photos = AdvertPhoto::where('advert_id',$id)->get(); 
         $userAuth=Auth::id(); 
-        
-        
+        $category = Category::find(($advert->category_id));
+        $category = $category->name;
+        $di = 11;
         // valoracion
-        $val = DB::table('qualifications')->select(DB::raw('SUM(qualification) / ((COUNT(qualification) * 5) / 100) as rating')) ->where('qualified',$user->id)->get() ;
         
         
+        $calificacion = DB::table('qualifications')->select(DB::raw('SUM(qualification) / ((COUNT(qualification) * 5) / 100) as rating')) ->where('qualified',$user->id)->get() ;
+        $val= json_decode($calificacion,true);
+        $val =number_format($val[0]["rating"],0);
+       
+        $va = DB::select('SELECT * FROM `categories` where id  IN(SELECT category_id from `subscriptions` where user_id = :id)
+        ', ['id' => $di]);
+    
            
         Carbon::setLocale('es');
         
@@ -65,7 +72,7 @@ class AdvertController extends Controller
        
         
 
-        return view('advert.show', compact('coment2','userAuth','val','townshipUser','departmentUser','userDt','advertDt', 'advert', 'category', 'coment','adProduct','currency','township','department','user','adsActive','AlladdsUser','photos'));
+        return view('advert.show', compact('coment2','userAuth','val','townshipUser','departmentUser','userDt','advertDt', 'advert', 'category','adProduct','currency','township','department','user','adsActive','AlladdsUser','photos'));
 
 
     }
@@ -81,7 +88,7 @@ class AdvertController extends Controller
         $comment->parent_id= $request->parent_id;
         $comment->save();
         
-        return redirect()->route('advert.show',$request->advert_id);
+        return redirect()->route('advert.show', $request->advert_id);
     
     }
 }

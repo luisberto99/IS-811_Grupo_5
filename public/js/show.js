@@ -1,8 +1,11 @@
 
-  
-
-    $(document).ready(function () {
+    function enviarComentario() {
       
+      
+    }
+    $(document).ready(function () {    
+  
+        // **Imagenes en movimiento
         var sync1 = $("#sync1");
         var sync2 = $("#sync2");
         var slidesPerPage = 4; //globaly define number of elements per page
@@ -76,22 +79,61 @@
           sync1.data("owl.carousel").to(number, 300, true);
         });
 
-        //stars 
-        var user_id = document.getElementById("user_id");
-        var user = user_id.getAttribute("data-value");
+        //Fin imagenes en movimiento
+
+        /* Inicio stars 
         var frontStars = document.getElementsByClassName("front-stars")[0];
         var percentage = frontStars.getAttribute("data-value");
         //100 / 5 * 2.63;
         frontStars.style.width = percentage + "%";
         console.log(percentage);
-        
-
         var rating = document.getElementsByClassName("star-rating")[0];
         rating.title = +frontStars.getAttribute("data-value") + "% de 100%";
-        
-       //StoreComentarios
+        //Fin Stars*/
+       
+              
+       //ventana emergente
+       var openmodal = document.querySelectorAll('.modal-open')
+      for (var i = 0; i < openmodal.length; i++) {
+      openmodal[i].addEventListener('click', function(event){
+    	event.preventDefault()
+    	toggleModal()
+        })
+      }
+    
+      const overlay = document.querySelector('.modal-overlay')
+      overlay.addEventListener('click', toggleModal)
+      
+      var closemodal = document.querySelectorAll('.modal-close')
+      for (var i = 0; i < closemodal.length; i++) {
+        closemodal[i].addEventListener('click', toggleModal)
+      }
+      
+      document.onkeydown = function(evt) {
+        evt = evt || window.event
+        var isEscape = false
+        if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc")
+        } else {
+        isEscape = (evt.keyCode === 27)
+        }
+        if (isEscape && document.body.classList.contains('modal-active')) {
+        toggleModal()
+        }
+      };
+      function toggleModal () {
+        const body = document.querySelector('body')
+        const modal = document.querySelector('.modal')
+        modal.classList.toggle('opacity-0')
+        modal.classList.toggle('pointer-events-none')
+        body.classList.toggle('modal-active')
+      }
+
+
+
+       //Inicio StoreComentarios
        function limpiar(){
-        $('#commentary').nodeValue('');
+        $('#commentary').val('');
                 }
 
      /* $.ajaxSetup({
@@ -99,66 +141,83 @@
           'X-CSRF-TOKEN':$("input[name=_token]").nodeValue
         }
       });*/
+      var id = 0;
 
-     /*$('#send').click(function(e){
-      e.preventDefault();
-      var user_id = document.getElementById("user_id");
-      var user = user_id.getAttribute("data-value");
-      var comment = $("#commentary").val();
-      var ad = document.getElementById("advert_id");
-      var advert = ad.getAttribute("data-value");
-      
-      
-         
+      $("[name='answer']").click(function(e) {
+          e.preventDefault();
+          $(this).parent().siblings().find("#commentary").removeClass("hidden");
+          var k = $("[name='send']")
 
-      
-      
+         var p = $(this).siblings().removeClass("hidden");
+         $(this).addClass("hidden")
 
-     });*/
-      
 
-      
         
         
-       //ventana emergente
-       var openmodal = document.querySelectorAll('.modal-open')
-    for (var i = 0; i < openmodal.length; i++) {
-      openmodal[i].addEventListener('click', function(event){
-    	event.preventDefault()
-    	toggleModal()
-      })
-    }
-    
-    const overlay = document.querySelector('.modal-overlay')
-    overlay.addEventListener('click', toggleModal)
-    
-    var closemodal = document.querySelectorAll('.modal-close')
-    for (var i = 0; i < closemodal.length; i++) {
-      closemodal[i].addEventListener('click', toggleModal)
-    }
-    
-    document.onkeydown = function(evt) {
-      evt = evt || window.event
-      var isEscape = false
-      if ("key" in evt) {
-    	isEscape = (evt.key === "Escape" || evt.key === "Esc")
-      } else {
-    	isEscape = (evt.keyCode === 27)
+      });
+
+      //rating user
+      
+      //end rating user
+     
+     $("[name='sendComment']").click(function(e){
+      e.preventDefault();  
+      function seleccionar() {
+
+        
       }
-      if (isEscape && document.body.classList.contains('modal-active')) {
-    	toggleModal()
+        var r = $(this).parent().siblings();
+        k(r);
+
+      function k(r) {
+        var no = $(this);
+        console.log(no);
+        
       }
-    };
-    function toggleModal () {
-      const body = document.querySelector('body')
-      const modal = document.querySelector('.modal')
-      modal.classList.toggle('opacity-0')
-      modal.classList.toggle('pointer-events-none')
-      body.classList.toggle('modal-active')
+      
+        
+      var commentary = $(this).parent().siblings("#commentary").val();      
+      var user_id = $(this).parent().siblings("#user_id").val();
+      var advert_id = $("#advert_id").val();
+      var _token = $(this).parent().siblings("input[name=_token]").val();
+      console.log('parece que na');
+      $.ajax({
+        type:'POST',
+        url:'/comment',
+        data:{
+          commentary: commentary,
+          user_id:user_id,
+          advert_id:advert_id,
+          _token:_token
+        },
+        success:function(response) {
+          if(response){
+            limpiar();
+            console.log('parece que funcioona');
+            $('#question').load('question');
+
+          }
+          
+        }
+      });    
+     });  
+        
+      //Responder preguntas
+      
+    function openModal(key) {
+      document.getElementById(key).showModal(); 
+      document.body.setAttribute('style', 'overflow: hidden;'); 
+      document.getElementById(key).children[0].scrollTop = 0; 
+      document.getElementById(key).children[0].classList.remove('opacity-0'); 
+      document.getElementById(key).children[0].classList.add('opacity-100')
     }
 
-
-
-        
-
+  function modalClose(key) {
+      document.getElementById(key).children[0].classList.remove('opacity-100');
+      document.getElementById(key).children[0].classList.add('opacity-0');
+      setTimeout(function () {
+          document.getElementById(key).close();
+          document.body.removeAttribute('style');
+      }, 100);
+  }
       });
