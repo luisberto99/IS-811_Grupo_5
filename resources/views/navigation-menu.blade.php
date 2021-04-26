@@ -111,9 +111,13 @@
                                 {{ __('Perfil') }}
                             </x-jet-dropdown-link>
 
-                            <x-jet-dropdown-link href="{{ route('admin.home') }}">
+                             @can('admin.home')
+                             <x-jet-dropdown-link href="{{ route('admin.home') }}">
                                 {{ __('Administrar') }}
-                            </x-jet-dropdown-link>
+                            </x-jet-dropdown-link>                                 
+                             @endcan
+
+
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">

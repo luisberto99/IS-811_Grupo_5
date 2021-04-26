@@ -14,6 +14,7 @@ use App\Models\UserType;
 use GuzzleHttp\Promise\Create;
 use App\Models\AdvertComment;
 
+
 use App\Models\AdvertPhoto;
 
 class DatabaseSeeder extends Seeder
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RoleSeeder::class);
         User::Create([
             'name' => 'Test',
             'email' => 'test@test.com',
@@ -35,7 +37,7 @@ class DatabaseSeeder extends Seeder
             'condition'=>1,
             'email_verified_at' => now(),
             'password' => '$2y$10$rq5oCT9eD1szjfUsTn5E8uJWCMCvFRjUsrq85t/pz1Qy9CRxoDADu', // password asd.123456
-        ]);
+        ])->assignRole('Admin');;
 
         User::factory(20)->create();
         $this->call(UserTypeSeeder::class);
@@ -51,6 +53,7 @@ class DatabaseSeeder extends Seeder
         AdvertComment::factory(10)->create();
         $this->call(AdvertPhotoSeeder::class);
 
+        
         
 
     }
