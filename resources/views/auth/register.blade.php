@@ -47,7 +47,7 @@
 
                 <div class="w-1/2">
                     <x-jet-label for="township" value="{{ __('Municipio') }}" />
-                    <select id="township" name="township" class="form-input rounded-md shadow-sm block mt-1 w-full" >
+                    <select id="township" wire:model='township_id' name="township" class="form-input rounded-md shadow-sm block mt-1 w-full" >
                         <option value='-1'>Seleccione uno</option>
                           {{--       @foreach($townships as $township)
                                    

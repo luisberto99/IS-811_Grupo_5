@@ -15,14 +15,14 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $Inactivo = Role::create(['name' => 'Inactivo']);
+        $Activo = Role::create(['name' => 'Inactivo']);
         $Estadistica = Role::create(['name' => 'Estadistica']);
         $Moderador = Role::create(['name' => 'Moderador']);
         $Administrador = Role::create(['name' => 'Administrador']);
 
         /* ANUNCIOS */
-        Permission::create(['name'=>'anuncio.publicar'])->syncRoles([$Estadistica, $Moderador, $Administrador]);
-        Permission::create(['name'=>'anuncio.mio.eliminar'])->syncRoles([$Estadistica, $Moderador, $Administrador]);
+        Permission::create(['name'=>'anuncio.publicar'])->syncRoles([$Activo, $Estadistica, $Moderador, $Administrador]);
+        Permission::create(['name'=>'anuncio.mio.eliminar'])->syncRoles([$Activo, $Estadistica, $Moderador, $Administrador]);
         
         /* PERMISOS ADMINISTRATIVOS */
         Permission::create(['name' => 'admin.home'])->syncRoles([$Estadistica, $Moderador, $Administrador]);

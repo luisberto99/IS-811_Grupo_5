@@ -43,6 +43,6 @@ class CreateNewUser implements CreatesNewUsers
             'profile_photo_path' => 'profile-photos/user.png',
             'condition' => '1',
             'password' => Hash::make($input['password']),
-        ]);
+        ])->assignRole('Activo');
     }
 }
