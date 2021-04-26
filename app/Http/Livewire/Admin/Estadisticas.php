@@ -4,10 +4,10 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 
-class UsersIndex extends Component
+class Estadisticas extends Component
 {
     public function render()
     {
-        return view('livewire.admin.users');
+        return view('livewire.admin.estadisticas');
     }
 }

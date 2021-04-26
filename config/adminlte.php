@@ -187,7 +187,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'admin/home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -240,26 +240,41 @@ return [
             'icon'        => 'fas fa-home',
             /* 'icon_color' => 'secondary' */
         ],
-        [
-            'text' => 'Usuarios',
-            'route'  => 'admin.users.index',
-            'icon' => 'fas fa-fw fa-user',
-            'can' => 'admin.home'
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
+/*         [
             'text'        => 'pages',
             'url'         => 'admin/home',
             'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
             'label_color' => 'success',
-        ],
+        ], */
         ['header' => 'ADMINISTRADOR'],
         [
+            'text' => 'Estadisticas',
+            'url'  => 'admin/estadisticas',
+            'icon' => 'fas fa-chart-pie',
+            'can' => 'admin.estadisticas'
+        ],
+        [
+            'text' => 'Usuarios',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'admin.user'
+        ],
+        [
+            'text' => 'Categorias',
+            'url'  => 'admin/categorias',
+            'icon' => 'fas fa-fw fa-store-alt',
+            'can' => 'admin.categories'
+        ],
+        [
+            'text' => 'Denuncias',
+            'url'  => 'admin/denuncias',
+            'icon' => 'fas fa-fw fa-angry',
+            'can' => 'admin.moderador'
+        ],
+
+
+/*         [
             'text' => 'profile',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
@@ -268,13 +283,9 @@ return [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'denuncias',
-            'url'  => 'admin/denuncias',
-            'icon' => 'fas fa-fw fa-angry',
-        ],
-        [
+        ], */
+
+/*         [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
@@ -327,7 +338,7 @@ return [
             'text'       => 'information',
             'icon_color' => 'cyan',
             'url'        => '#',
-        ],
+        ], */
     ],
 
     /*

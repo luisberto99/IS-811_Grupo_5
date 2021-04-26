@@ -144,7 +144,9 @@
             @endforeach
     
             </div>
-            {{ $adverts->links() }}
+            <div class="card-footer">
+                {{ $adverts->links('pagination::bootstrap-4') }}
+            </div>
         </div>
         
     </div>

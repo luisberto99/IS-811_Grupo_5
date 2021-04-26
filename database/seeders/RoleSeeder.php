@@ -15,17 +15,36 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
+        $Inactivo = Role::create(['name' => 'Inactivo']);
+        $Estadistica = Role::create(['name' => 'Estadistica']);
+        $Moderador = Role::create(['name' => 'Moderador']);
+        $Administrador = Role::create(['name' => 'Administrador']);
+
+        /* ANUNCIOS */
+        Permission::create(['name'=>'anuncio.publicar'])->syncRoles([$Estadistica, $Moderador, $Administrador]);
+        Permission::create(['name'=>'anuncio.mio.eliminar'])->syncRoles([$Estadistica, $Moderador, $Administrador]);
+        
+        /* PERMISOS ADMINISTRATIVOS */
+        Permission::create(['name' => 'admin.home'])->syncRoles([$Estadistica, $Moderador, $Administrador]);
+
+        /* ESTADISTICA */
+        Permission::create(['name' => 'admin.estadisticas'])->syncRoles([$Estadistica, $Administrador]);
+        Permission::create(['name' => 'admin.categories'])->syncRoles([$Estadistica, $Administrador]);
+        
+        /* MODERADOR */
+        Permission::create(['name' => 'admin.moderador'])->syncRoles([$Moderador, $Administrador]);
+        Permission::create(['name' => 'admin.anuncio.eliminar'])->syncRoles([$Moderador, $Administrador]);
+        Permission::create(['name' => 'admin.user'])->syncRoles([$Moderador, $Administrador]);
+        Permission::create(['name' => 'admin.user.estado'])->syncRoles([$Moderador, $Administrador]);
+
+        /* ADMINISTRADOR */
+        Permission::create(['name' => 'admin.categories.create'])->syncRoles([$Administrador]);
+        Permission::create(['name' => 'admin.categories.edit'])->syncRoles([$Administrador]);
+        Permission::create(['name' => 'admin.categories.delete'])->syncRoles([$Administrador]);
+        Permission::create(['name' => 'admin.user.permisos'])->syncRoles([$Administrador]);
+
         
         
-        $admin = Permission::create(['name' => 'admin.home']);
-        $Category = Permission::create(['name' => 'admin.categories.index']);
-        $createCategory =Permission::create(['name' => 'admin.categories.create']);
-        Permission::create(['name' => 'admin.categories.edit']);
-        Permission::create(['name' => 'admin.categories.delete']);
-        
-        
-        $roleAdmin = Role::create(['name' => 'Admin'])->syncPermissions([$admin,$Category, $createCategory]);
-        $roleUser = Role::create(['name' => 'user']);
 
        /* $roleAdmin->permissions()->attach([1,2,3]); */
 

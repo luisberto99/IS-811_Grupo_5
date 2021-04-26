@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
-use Spatie\Permission\Models\Role;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -28,6 +27,7 @@ class CreateNewUser implements CreatesNewUsers
             'birthdate' => ['required', 'date', "before:18 years ago"],
             'address' => ['required', 'string'],
             'number' => ['required', 'string'],
+            'township_id' => ['required', 'string'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
@@ -39,6 +39,9 @@ class CreateNewUser implements CreatesNewUsers
             'birthdate' => $input['birthdate'],
             'address' => $input['address'],
             'number' => $input['number'],
+            'township_id' => $input['number'],
+            'profile_photo_path' => 'profile-photos/user.png',
+            'condition' => '1',
             'password' => Hash::make($input['password']),
         ]);
     }

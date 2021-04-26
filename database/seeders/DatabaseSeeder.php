@@ -3,19 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Advert;
-use App\Models\AdvertStatus;
-use App\Models\Currency;
 use App\Models\Product;
 use App\Models\Subscription;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\UserStatus;
-use App\Models\UserType;
-use GuzzleHttp\Promise\Create;
 use App\Models\AdvertComment;
 
 
-use App\Models\AdvertPhoto;
 
 class DatabaseSeeder extends Seeder
 {
@@ -41,8 +35,9 @@ class DatabaseSeeder extends Seeder
             'condition'=>1,
             'email_verified_at' => now(),
             'password' => '$2y$10$rq5oCT9eD1szjfUsTn5E8uJWCMCvFRjUsrq85t/pz1Qy9CRxoDADu', // password asd.123456
-            'township_id' => rand(1,200)
-        ])->assignRole('Admin');;
+            'township_id' => rand(1,200),
+            'profile_photo_path' => 'profile-photos/user.png'
+            ])->assignRole('Administrador');
 
         User::factory(20)->create();
         $this->call(UserTypeSeeder::class);
