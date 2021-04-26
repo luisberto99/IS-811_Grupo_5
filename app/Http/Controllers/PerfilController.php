@@ -35,13 +35,15 @@ class PerfilController extends Controller
         $fotos = AdvertPhoto::all();
         $munis = Township::all();
         $userAuth=Auth::id(); 
-        $calificacion = DB::table('qualifications')->select(DB::raw('SUM(qualification) / ((COUNT(qualification) * 5) / 100) as rating')) ->where('qualified',)->get() ;
-        $calificacionUsers = DB::select('SELECT qualifications.id,qualifications.qualification,qualifications.commentary,qualifications.qualifier,qualifications.qualified,qualifications.created_at, users.name,  users.profile_photo_path FROM `qualifications` inner JOIN `users` on qualifications.qualifier = users.id WHERE qualifications.qualified= :id', ['id' => $perfil->id]);
-       // $va = DB::select('SELECT * FROM `categories` where id  IN(SELECT category_id from `subscriptions` where user_id = :id)
-        //', ['id' => $di]);
-        
-    
-        return view('advert.perfiles', compact('calificacionUsers','userAuth','perfil', 'municipios', 'departamentos', 'anuncios', 'activos', 'fotos', 'mostrar', 'munis'));
+        $calificacion = DB::table('qualifications')->select(DB::raw('SUM(qualification) / ((COUNT(qualification) * 5) / 100) as rating')) ->where('qualified',$perfil->id)->get() ;
+        $calificacionUsers = DB::select("SELECT qualifications.id,(qualifications.qualification)/5 *100 as qualification,qualifications.commentary,qualifications.qualifier,qualifications.qualified,DATE_FORMAT(qualifications.updated_at, '%m/%d/%Y') as created_at, users.name,  users.profile_photo_path,users.id as userId FROM `qualifications` inner JOIN `users` on qualifications.qualifier = users.id WHERE qualifications.qualified= :id  ORDER BY qualifications.created_at DESC", ['id' => $perfil->id]);
+        $calificacionUsers2 = DB::select("SELECT qualifications.id,(qualifications.qualification)/5 *100 as qualification,qualifications.commentary,qualifications.qualifier,qualifications.qualified,DATE_FORMAT(qualifications.updated_at, '%m/%d/%Y') as created_at, users.name,  users.profile_photo_path,users.id as userId FROM `qualifications` inner JOIN `users` on qualifications.qualifier = users.id WHERE qualifications.qualified= :id  ORDER BY qualifications.created_at DESC", ['id' => $perfil->id]);
+
+        $valoracion= json_decode($calificacion,true);
+        $valoracion =number_format($valoracion[0]["rating"],0);
+        Carbon::setLocale('es');
+       
+        return view('advert.perfiles', compact('calificacionUsers2','valoracion','calificacionUsers','userAuth','perfil', 'municipios', 'departamentos', 'anuncios', 'activos', 'fotos', 'mostrar', 'munis'));
 
     }
 
@@ -65,13 +67,32 @@ class PerfilController extends Controller
 
     
     public function storeCalificacion(Request $request){
-        $date = new Carbon();
+
+        $request->validate([
+            'rating' => 'required',
+            'comment'=> 'required'
+         ]);
+        $verificarUsuario = DB::select('SELECT * FROM qualifications WHERE qualifier=:qualifier AND qualified=:qualified', ['qualifier' => $request->qualifier, 'qualified'=>$request->qualified] ) ;
+        if (empty($verificarUsuario)) {
+            
         $qualification = new Qualification();
         $qualification->qualification = $request->rating;
-        $qualification->commentary= $request->message;
-        $qualification->qualifier=Auth::user()->id;
+        $qualification->commentary= $request->comment;
+        $qualification->qualifier=$request->qualifier;
         $qualification->qualified=$request->qualified;
         $qualification->save();
+
+        }else{
+       $id=$verificarUsuario[0]->id;
+
+        $qualification= Qualification::find($id);
+        $qualification->qualification = $request->rating;
+        $qualification->commentary= $request->comment;
+        $qualification->save();
+    }
+        
+        
+        
         return redirect()->route('perfiles.show', $request->qualified);
 
 
