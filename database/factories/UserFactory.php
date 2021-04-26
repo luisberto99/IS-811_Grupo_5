@@ -37,6 +37,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$rq5oCT9eD1szjfUsTn5E8uJWCMCvFRjUsrq85t/pz1Qy9CRxoDADu', // password asd.123456
             'remember_token' => Str::random(10),
+            'township_id' => rand(1,298)
         ];
     }
 
