@@ -39,7 +39,7 @@ class CreateNewUser implements CreatesNewUsers
             'birthdate' => $input['birthdate'],
             'address' => $input['address'],
             'number' => $input['number'],
-            'township_id' => $input['number'],
+            'township_id' => $input['township_id'],
             'profile_photo_path' => 'profile-photos/user.png',
             'condition' => '1',
             'password' => Hash::make($input['password']),

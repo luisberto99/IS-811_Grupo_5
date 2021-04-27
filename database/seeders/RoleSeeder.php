@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $Activo = Role::create(['name' => 'Inactivo']);
+        $Activo = Role::create(['name' => 'Activo']);
         $Estadistica = Role::create(['name' => 'Estadistica']);
         $Moderador = Role::create(['name' => 'Moderador']);
         $Administrador = Role::create(['name' => 'Administrador']);

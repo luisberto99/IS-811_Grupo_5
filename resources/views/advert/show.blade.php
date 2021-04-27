@@ -55,7 +55,7 @@
        <!--card-->
        <div class="justify-items-end w-64 h-auto sm:max-w-sm sm:max-h-80 sm:w-auto sm:h-auto sm:rounded-2xl font-sans text-sm p-2 bg-none sm:bg-white sm:text-base sm:p-4  sm:border-2 sm:border-gray-500">
         <div class="flex  space-x-6  items-center border-b border-green-200 pb-2">
-          <a class="hover:text-blue-600 " href="{{route('perfiles.show', $user->id)}}"><img src="{{$user->profile_photo_url}}" class="rounded-full " alt="Imagen"></a>
+          <a class="hover:text-blue-600 w-20" href="{{route('perfiles.show', $user->id)}}"><img src="{{ asset('/storage/'.$user->profile_photo_path) }}" class="rounded-full " alt="Imagen"></a>
            
           <div class="w-64">
             <h3 id="user" class=" font-bold  sm:text-lg	 " data-value="{{$user->id}}"> <a class="hover:text-blue-600 " href="{{route('perfiles.show', $user->id)}}">{{$user->name}}</a> </h3>
