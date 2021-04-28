@@ -38,6 +38,7 @@ class FormularioAnuncio extends Component
 
     public function resetImputFiels()
     {
+        $this->imagenes = [];
         $this->titulodelAnuncio = '';
         $this->descripciondelAnuncio = ''; 
         $this->categoria = -1;
@@ -46,24 +47,35 @@ class FormularioAnuncio extends Component
         $this->precio = '';
         $this->contenido = -1;
         $this->moneda = -1;
-        $this->imagenes = [];
+        
     }
     
 
     public function guardar(){
 
-        $this->validate([
-            'titulodelAnuncio' => 'required',
-            'descripciondelAnuncio' => 'required',
-            'categoria' => 'required',
-            'departamento' => 'required',
-            'municipio' => 'required',
-            'precio' => 'required',
-            'contenido' => 'required',
-            'moneda' => 'required',
-            'imagenes.*' => 'required|image'
+        if($this->categoria != 8){
+            $this->validate([
+                'imagenes.*' => 'required|image',
+                'titulodelAnuncio' => 'required',
+                'descripciondelAnuncio' => 'required',
+                'categoria' => 'required',
+                'departamento' => 'required',
+                'municipio' => 'required',
+                'precio' => 'required',
+                'contenido' => 'required',
+                'moneda' => 'required'
         ]);
-        
+        }else{
+            $this->validate([
+                'imagenes.*' => 'required|image',
+                'titulodelAnuncio' => 'required',
+                'descripciondelAnuncio' => 'required',
+                'categoria' => 'required',
+                'departamento' => 'required',
+                'municipio' => 'required'
+            ]);
+
+        }
 
         $anuncio = new Advert;
         $anuncio->title=$this->titulodelAnuncio;
@@ -76,16 +88,17 @@ class FormularioAnuncio extends Component
         $anuncio->township_id=$this->municipio;
         $anuncio->save();
 
-        $producto = new Product;
-        $producto->price=$this->precio;
-        $producto->product_status=$this->contenido;
-        $producto->advert_id=$anuncio->id;
-        $producto->currency_id=$this->moneda;
-        $producto->save();
+        if($this->categoria != 8){
+            $producto = new Product;
+            $producto->price=$this->precio;
+            $producto->product_status=$this->contenido;
+            $producto->advert_id=$anuncio->id;
+            $producto->currency_id=$this->moneda;
+            $producto->save();
+        }
 
-        $imagenesarray = $this->imagenes;
 
-        foreach($imagenesarray as $imagen){
+        foreach($this->imagenes as $imagen){
             $url = $imagen->store('public/imagenes');
 
             //$url = $request->file('imagen')->store('public/imagenes');
@@ -107,7 +120,7 @@ class FormularioAnuncio extends Component
         session()->flash('message','Anuncio publicado correctamente');
         $this->resetImputFiels();
 
-        return redirect()->to('adverts/show/f?');
+        return redirect()->to('advert/'.$anuncio->id);
 
         
 

@@ -77,6 +77,9 @@
                 </form>              
                 
             </div>
+            @if ($categoria != 8)
+                
+            
             <div class="p-5" style="float: left; width: 600px"  >
                 <h1 class="py-4 inline-block font-bold">Información del Producto</h1>
                 <br>
@@ -113,18 +116,22 @@
                         
                         @error('moneda') <br><span class="error text-red-600">la moneda es obligatoria</span> @enderror
                     </div>
+                    
 
-                    <div class="m-4 w-100">
-                        <label class="inline-block w-32 font-bold">Subir imagenes</label> <br>
-                        <input type="file" wire:model="imagenes" multiple accept="image/*" class="mt-5 py-8 p-2 px-4 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
-                        <br>
-                        @error('imagenes.*') <span class="error text-red-600">la imagen del producto es obligatoria</span> @enderror
-                    </div>
                     
                 </form>
 
 
             </div>
+            @endif
+            <div class="m-4 w-100">
+                <label class="inline-block w-32 font-bold">Subir imagenes</label> <br>
+                <input type="file" wire:model="imagenes" multiple accept="image/*" class="mt-5 py-8 p-2 px-4 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
+                <br>
+                @error('imagenes.*') <span class="error text-red-600">la imagen del producto es obligatoria</span> @enderror
+            </div>
+
+
         </div>
 
     

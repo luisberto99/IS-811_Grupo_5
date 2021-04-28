@@ -7,6 +7,12 @@
 @stop
 
 @section('content')
+
+    @if (session('info'))
+        <div class="alert alert-success">
+            <strong>{{session('info')}}</strong>
+        </div>    
+    @endif
     @if ($denuncia->count())
         <div class="card">
             <div class="card-body">

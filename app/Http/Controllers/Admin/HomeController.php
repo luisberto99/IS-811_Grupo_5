@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
+use App\Models\ComplaintResolution;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -26,6 +29,33 @@ class HomeController extends Controller
                                       ->where('id', '!=', $denuncia->id)           
                                       ->get();
         $usuarios = User::all();
-        return view('admin.mostrar', compact('denuncia', 'denunciado', 'denunciante', 'similares', 'usuarios'));
+        $roles =Role::find(1);
+        return view('admin.mostrar', compact('denuncia', 'denunciado', 'denunciante', 'similares', 'usuarios', 'roles'));
+    }
+
+    public function update(Request $request, User $user){
+
+        $user->roles()->sync($request->roles);
+
+        return redirect()->route('admin.denuncias')->with('info', 'Se dio de baja correctamente.');
+
+    }
+
+    public function store(Request $request){
+
+        $request->validate([
+            'resolution' => 'required'
+        ]);
+
+        $resolver = new ComplaintResolution();
+        $resolver->resolution=$request->resolution;
+        $resolver->resolution_date=now()->format('Y-m-d');
+        $resolver->complaint_id=$request->id;
+        $resolver->admin_id=Auth::user()->id;
+        $resolver->save();
+
+
+        return redirect()->route('admin.denuncias')->with('info', 'Se envio el mensaje correctamente.');
+
     }
 }
