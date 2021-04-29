@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advert;
+use App\Models\AdvertComplaint;
+use App\Models\AdvertResolution;
 use App\Models\Complaint;
 use App\Models\ComplaintResolution;
 use App\Models\User;
@@ -19,7 +22,9 @@ class HomeController extends Controller
     public function show(){
         $denuncia = Complaint::all();
         $usuarios = User::all();
-        return view('admin.denuncias', compact('denuncia', 'usuarios'));
+        $anunciodenuncia = AdvertComplaint::all();
+        $anuncios = Advert::all();
+        return view('admin.denuncias', compact('denuncia', 'usuarios', 'anunciodenuncia','anuncios'));
     }
 
     public function mostrar(Complaint $denuncia){
@@ -33,11 +38,34 @@ class HomeController extends Controller
         return view('admin.mostrar', compact('denuncia', 'denunciado', 'denunciante', 'similares', 'usuarios', 'roles'));
     }
 
+    public function mostrardenuncia(AdvertComplaint $denuncia){
+        $denunciante = User::where('id', $denuncia->accuser)->get();
+        $adenunciado = Advert::where('id', $denuncia->advert_id)->get();
+        $denunciado = User::all();
+        $similares = AdvertComplaint::where('advert_id', $denuncia->advert_id)
+                                      ->where('id', '!=', $denuncia->id)           
+                                      ->get();
+        $usuarios = User::all();
+        $anuncios = Advert::all();
+        return view('admin.mostrardenuncia', compact('denuncia', 'adenunciado', 'denunciado', 'denunciante', 'similares', 'usuarios', 'anuncios'));
+    }
+
     public function update(Request $request, User $user){
 
         $user->roles()->sync($request->roles);
 
         return redirect()->route('admin.denuncias')->with('info', 'Se dio de baja correctamente.');
+
+    }
+
+    public function updateanuncio($advert){
+
+        $anuncioAct = Advert::find($advert);
+        $anuncioAct->advert_status_id=2;
+        $anuncioAct->update();
+
+
+        return redirect()->route('admin.denuncias')->with('info', 'Se dio de baja el anuncio correctamente.');
 
     }
 
@@ -48,6 +76,24 @@ class HomeController extends Controller
         ]);
 
         $resolver = new ComplaintResolution();
+        $resolver->resolution=$request->resolution;
+        $resolver->resolution_date=now()->format('Y-m-d');
+        $resolver->complaint_id=$request->id;
+        $resolver->admin_id=Auth::user()->id;
+        $resolver->save();
+
+
+        return redirect()->route('admin.denuncias')->with('info', 'Se envio el mensaje correctamente.');
+
+    }
+
+    public function denunciastore(Request $request){
+
+        $request->validate([
+            'resolution' => 'required'
+        ]);
+
+        $resolver = new AdvertResolution();
         $resolver->resolution=$request->resolution;
         $resolver->resolution_date=now()->format('Y-m-d');
         $resolver->complaint_id=$request->id;

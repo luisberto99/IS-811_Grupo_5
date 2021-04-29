@@ -54,3 +54,5 @@ Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('
 
 Route::get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
 Route::middleware(['auth:sanctum', 'verified'])->post('/comment',[AdvertController::class, 'storeComment'])->name('advert.comment');
+
+Route::get('advert', [advertController::class, 'store'])->name('acomplaint.store');
