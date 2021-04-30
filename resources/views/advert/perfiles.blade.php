@@ -238,6 +238,11 @@
                 <!-- Profile tab -->
                 <!-- About Section -->
                 <div class="bg-white p-3 shadow-sm rounded-sm">
+                    @if (session('info'))
+                        <div class="bg-green-600">
+                            <strong class="text-white">{{session('info')}}</strong>
+                        </div>    
+                    @endif
                     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                         <span clas="text-green-500">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

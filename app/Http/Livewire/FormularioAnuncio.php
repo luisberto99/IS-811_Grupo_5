@@ -33,7 +33,8 @@ class FormularioAnuncio extends Component
     public $precio = '';
     public $contenido;
     public $moneda;
-    public $imagenes = [];
+    public $imagenes = [3];
+
     
 
     public function resetImputFiels()
@@ -52,6 +53,9 @@ class FormularioAnuncio extends Component
     
 
     public function guardar(){
+        if(count($this->imagenes) > 4){
+            $this->imagenes = [3];
+        }
 
         if($this->categoria != 8){
             $this->validate([
@@ -117,7 +121,7 @@ class FormularioAnuncio extends Component
 
         
 
-        session()->flash('message','Anuncio publicado correctamente');
+        session()->flash('info','Anuncio publicado correctamente');
         $this->resetImputFiels();
 
         return redirect()->to('advert/'.$anuncio->id);

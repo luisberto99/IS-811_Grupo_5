@@ -17,7 +17,12 @@
 
 <x-app-layout>
 <body class="bg-blue-50">
-      @livewire('menu-departamentos'))
+      @livewire('menu-departamentos')
+      @if (session('info'))
+        <div class="bg-green-600">
+            <strong class="text-white">{{session('info')}}</strong>
+        </div>    
+      @endif
     <main>
     <div class=" flex   space-x-16  w-auto items-center m-16 z-0">
       <div class= "w-3/5 bg-white  ">            
