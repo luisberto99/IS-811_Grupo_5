@@ -43,6 +43,17 @@
                             {{$adenounced->title}} 
                         </p>
                         {!! Form::model($denounced, ['route' => ['admin.anunciobaja', $denounced], 'method' => 'put']) !!}
+                            <div>
+                                {!! Form::hidden('id', $denuncia->id) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('resolution', 'Mensaje') !!}
+                                {!! Form::textarea('resolution', null, ['class' => 'form-control mh-50', 'placeholder' => 'Escribe la razón de la baja de este anuncio']) !!}
+                                
+                                @error('resolution')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
                             {!! Form::submit('Dar de baja', ['class' => 'btn btn-danger mt-2']) !!}
                         {!! Form::close() !!}
                     @else

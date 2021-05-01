@@ -52,13 +52,33 @@ class HomeController extends Controller
 
     public function update(Request $request, User $user){
 
+        $request->validate([
+            'resolution' => 'required'
+        ]);
+
         $user->roles()->sync($request->roles);
+        $resolucion = new ComplaintResolution();
+        $resolucion->resolution=$request->resolution;
+        $resolucion->resolution_date=now()->format('Y-m-d');
+        $resolucion->complaint_id=$request->idc;
+        $resolucion->admin_id=Auth::user()->id;
+        $resolucion->save();
 
         return redirect()->route('admin.denuncias')->with('info', 'Se dio de baja correctamente.');
 
     }
 
-    public function updateanuncio($advert){
+    public function updateanuncio(Request $request, $advert){
+        $request->validate([
+            'resolution' => 'required'
+        ]);
+
+        $resolver = new AdvertResolution();
+        $resolver->resolution=$request->resolution;
+        $resolver->resolution_date=now()->format('Y-m-d');
+        $resolver->complaint_id=$request->id;
+        $resolver->admin_id=Auth::user()->id;
+        $resolver->save();
 
         $anuncioAct = Advert::find($advert);
         $anuncioAct->advert_status_id=2;

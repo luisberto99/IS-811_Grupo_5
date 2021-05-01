@@ -41,10 +41,22 @@
                     </p>
                     {!! Form::model($denounced, ['route' => ['admin.baja', $denounced], 'method' => 'put']) !!}
                         <div>
+                            {!! Form::hidden('idc', $denuncia->id) !!}
+                        </div>
+                        <div>
                             <label>
                                 {!! Form::checkbox('roles[]', $roles->id, null, ['class' => 'mr-1']) !!}
                                 {{ $roles->name }}
                             </label>
+                        <div class="form-group">
+                            {!! Form::label('resolution', 'Mensaje') !!}
+                            {!! Form::textarea('resolution', null, ['class' => 'form-control mh-50', 'placeholder' => 'Escribe la razón por que se da de baja este usurio']) !!}
+                            
+                            @error('resolution')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+
                         </div>
                         {!! Form::submit('Guardar', ['class' => 'btn btn-primary mt-2']) !!}
                     {!! Form::close() !!}
