@@ -37,7 +37,7 @@
             <div class="flex gap-4 mt-4">
                 <div class="w-1/2">
                     <x-jet-label for="departamento" value="{{ __('Departamento') }}" />
-                    <select id="departamento" wire:model='departamento' name="departamento" class="form-input rounded-md shadow-sm block mt-1 w-full" >
+                    <select id="departamento" name="departamento" class="form-input rounded-md shadow-sm block mt-1 w-full" >
                         <option value='-1'>Seleccione uno</option>
                                 @foreach($departaments as $departament)
                                     <option value={{ $departament->id }}> {{ $departament->name }}</option>
@@ -47,8 +47,8 @@
 
                 <div class="w-1/2">
                     <x-jet-label for="township" value="{{ __('Municipio') }}" />
-                    <select id="township" wire:model='township_id' name="township" class="form-input rounded-md shadow-sm block mt-1 w-full" >
-                        <option value='-1'>Seleccione uno</option>
+                    <select id="township" name="township" class="form-input rounded-md shadow-sm block mt-1 w-full" >
+                        <option value=null>Seleccione uno</option>
                           {{--       @foreach($townships as $township)
                                    
                                        <option value={{ $township->id }}> {{ $township->name }}</option>
@@ -120,7 +120,7 @@
 
             //AL CAMBIAR DE DEPARTAMENTO
             $('#departamento').change(()=>{
-                $('#township').html("<option value='-1'>Seleccione uno</option>");
+                $('#township').html("<option value=null>Seleccione uno</option>");
                 depto = $('#departamento').val(); // DEPARTAMENTO SELECCIONADO
                 townships.forEach(town => {
                     if(depto == town.departament_id){
