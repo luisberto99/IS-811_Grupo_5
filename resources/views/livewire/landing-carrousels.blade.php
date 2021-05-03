@@ -23,6 +23,9 @@
                         <x-slot name="imgAdvert">
                             {{ $advert->imgAdvert}}
                         </x-slot>
+                        <x-slot name="estado">
+
+                         </x-slot>
                         {{-- <x-slot name="curriency">
                             {{ number_format($advert->price,2) }}
                         </x-slot> --}}

@@ -4,6 +4,8 @@ use App\Http\Controllers\advertController;
 use App\Http\Controllers\advertControllers;
 use App\Http\Controllers\advertUserController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Livewire\Adverts\AdvertsShow;
+use App\Http\Livewire\Adverts\AdvertsShowUser;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
@@ -31,8 +33,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
 })->name('nuevo');
 
 
-Route::get('advertsUser/show/f{fill?}',[advertUserController::class, 'filterUser'])->name('advertsUser');
-Route::get('adverts/show/f{fill?}',[advertUserController::class, 'filter'])->name('adverts');
+Route::get('adverts/show/',AdvertsShow::class)->name('adverts');
+Route::get('advertsUser/show/',AdvertsShowUser::class)->name('advertsUser');
 
 /* Route::get('advert{id}?', function ($id = null) {
     return "work $id";
