@@ -203,7 +203,7 @@
             {{ $adverts->links() }}
         </div>
         @else
-            <div class="card-body">
+            <div class="card-body py-5">
                 <strong>
                     No hay anuncios disponibles.
                 </strong>

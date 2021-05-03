@@ -72,6 +72,14 @@ class AdvertsShow extends Component
     }
     public function render()
     {
+        if(isset($_GET['depto'])){
+            $this->departamento = $_GET['depto'];
+        }
+        if(isset($_GET['category'])){
+            $this->categoria = $_GET['category'];
+        }
+
+
         $fill = [];
 
         $this->departamentos = Departament::all();
