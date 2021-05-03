@@ -60,5 +60,5 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/comment',[AdvertControll
 
 Route::get('advert', [advertController::class, 'store'])->name('acomplaint.store');
 Route::get('mycategories/{id}', [CategoriaController::class, 'listarCategorias'])->name('categorias.show');
-Route::get('mycategories/{id_categoria}/{id_user}', [CategriaController::class, 'guardar'])->name('categoria.guardar');
-Route::get('mycategories/eliminar/{id}/{idUser}', [CategriaController::class, 'eliminar'])->name('categoria.eliminar');
+Route::get('mycategories/{id_categoria}/{id_user}', [CategoriaController::class, 'guardar'])->name('categoria.guardar');
+Route::get('mycategories/eliminar/{id}/{idUser}', [CategoriaController::class, 'eliminar'])->name('categoria.eliminar');

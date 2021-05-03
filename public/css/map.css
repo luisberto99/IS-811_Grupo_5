@@ -1,0 +1,20 @@
+.mapDepartamentos svg {
+    margin: auto
+}
+
+.mapDepartamentos svg path {
+    fill: rgb(239, 68, 68);
+}
+
+.mapDepartamentos svg path:hover {
+    fill: rgb(185, 28, 28);
+}
+
+#tooltip {
+    background: #333;
+    color: white;
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+}
