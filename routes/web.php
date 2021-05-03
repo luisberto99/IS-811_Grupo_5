@@ -7,6 +7,7 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Livewire\Adverts\AdvertsShow;
 use App\Http\Livewire\Adverts\AdvertsShowUser;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoriaController;
 
 use App\Models\User;
 
@@ -58,3 +59,6 @@ Route::get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.sh
 Route::middleware(['auth:sanctum', 'verified'])->post('/comment',[AdvertController::class, 'storeComment'])->name('advert.comment');
 
 Route::get('advert', [advertController::class, 'store'])->name('acomplaint.store');
+Route::get('mycategories/{id}', [CategoriaController::class, 'listarCategorias'])->name('categorias.show');
+Route::get('mycategories/{id_categoria}/{id_user}', [CategriaController::class, 'guardar'])->name('categoria.guardar');
+Route::get('mycategories/eliminar/{id}/{idUser}', [CategriaController::class, 'eliminar'])->name('categoria.eliminar');
