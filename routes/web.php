@@ -5,6 +5,7 @@ use App\Http\Controllers\advertControllers;
 use App\Http\Controllers\advertUserController;
 use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoriaController;
 
 use App\Models\User;
 
@@ -54,3 +55,7 @@ Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('
 
 Route::get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
 Route::middleware(['auth:sanctum', 'verified'])->post('/comment',[AdvertController::class, 'storeComment'])->name('advert.comment');
+
+Route::get('mycategories/{id}', [CategoriaController::class, 'listarCategorias'])->name('categorias.show');
+Route::get('mycategories/{id_categoria}/{id_user}', [CategriaController::class, 'guardar'])->name('categoria.guardar');
+Route::get('mycategories/eliminar/{id}/{idUser}', [CategriaController::class, 'eliminar'])->name('categoria.eliminar');
