@@ -1,0 +1,14 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Inicio') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <!--livewire('eliminar-anuncio')-->
+        <a href="{{route('perfiles.show', Auth::user())}}"><img src="{{ Storage::url(Auth::user()->profile_photo_path) }}" alt=""></a>
+    </div>
+
+    @yield('js')
+</x-app-layout>
