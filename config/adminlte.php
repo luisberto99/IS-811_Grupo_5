@@ -249,12 +249,6 @@ return [
         ], */
         ['header' => 'ADMINISTRADOR'],
         [
-            'text' => 'Estadisticas',
-            'url'  => 'admin/estadisticas',
-            'icon' => 'fas fa-chart-pie',
-            'can' => 'admin.estadisticas'
-        ],
-        [
             'text' => 'Usuarios',
             'url'  => 'admin/users',
             'icon' => 'fas fa-fw fa-user',
@@ -272,27 +266,49 @@ return [
             'icon' => 'fas fa-fw fa-angry',
             'can' => 'admin.moderador'
         ],
-
-[
+        [
             'text' => 'Anuncios',
             'url'  => 'admin/advertcategories',
             'icon' => 'fa-fw fab fa-bandcamp',
         ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ], 
 
-/*         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+
+        [
+            'text'    => 'Estadisticas',
+            'icon'    => 'fas fa-chart-pie',
+            'can' => 'admin.estadisticas',
             'submenu' => [
+/*                 [
+                    'text' => 'General',
+                    'icon' => 'fas fa-globe-americas',
+                    'route'  => 'admin.estadistica.general',
+                ], */
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Usuarios',
+                    'icon' => 'fas fa-fw fa-user',
+                    'route'  => 'admin.estadistica.usuarios',
                 ],
                 [
+                    'text' => 'Categorias',
+                    'icon' => 'fas fa-fw fa-store-alt',
+                    'route'  => 'admin.estadistica.categorias',
+                ],
+                [
+                    'text' => 'Anuncios',
+                    'icon' => 'fas fa-ad',
+                    'route'  => 'admin.estadistica.anuncios',
+                ],
+/*                 [
+                    'text' => 'Favoritos',
+                    'icon' => 'fas fa-bookmark',
+                    'route'  => 'admin.estadistica.favoritos',
+                ], */
+                [
+                    'text' => 'Denuncias',
+                    'icon' => 'fas fa-fw fa-angry',
+                    'route'  => 'admin.estadistica.denuncias',
+                ],
+/*                 [
                     'text'    => 'level_one',
                     'url'     => '#',
                     'submenu' => [
@@ -319,10 +335,10 @@ return [
                 [
                     'text' => 'level_one',
                     'url'  => '#',
-                ],
+                ], */
             ],
         ],
-        ['header' => 'labels'],
+/*         ['header' => 'labels'],
         [
             'text'       => 'important',
             'icon_color' => 'red',
@@ -416,7 +432,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    'location' => 'https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js',
                 ],
             ],
         ],

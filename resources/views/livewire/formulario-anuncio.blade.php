@@ -3,13 +3,9 @@
          
         <div class="py-6 w-100">
             <div class="w-50 py-4  sm:px-6 lg:px-8" style="float: left">
-                @if (session('success'))
-                <div class="to-blue-200">
-                     {{session('success')}}
-                </div>
-                @endif
+                
                 <h2>CREA UN ANUNCIO</h2>
-                <form action="">
+            
                     <div class="mt-5">
                         <label  class="inline-block w-32 font-bold">Titulo</label>
                         <textarea name="titulodelAnuncio"
@@ -74,13 +70,16 @@
                     class="bg-white text-red-800 font-semibold py-2 px-4 border border-red-400 rounded shadow">
                         Publicar Anuncio
                     </button>  
-                </form>              
+                              
                 
             </div>
+            @if ($categoria != 8)
+                
+            
             <div class="p-5" style="float: left; width: 600px"  >
                 <h1 class="py-4 inline-block font-bold">Información del Producto</h1>
                 <br>
-                <form action="">
+                
                     <div class="m-4 w-100">
                         <label  class="inline-block w-32 font-bold">Precio:</label>
                         <input wire:model="precio" class=" w-80 p-2 px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline"
@@ -113,18 +112,22 @@
                         
                         @error('moneda') <br><span class="error text-red-600">la moneda es obligatoria</span> @enderror
                     </div>
-
-                    <div class="m-4 w-100">
-                        <label class="inline-block w-32 font-bold">Subir imagenes</label> <br>
-                        <input type="file" wire:model="imagenes" multiple accept="image/*" class="mt-5 py-8 p-2 px-4 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
-                        <br>
-                        @error('imagenes.*') <span class="error text-red-600">la imagen del producto es obligatoria</span> @enderror
-                    </div>
                     
-                </form>
+
+                    
+                
 
 
             </div>
+            @endif
+            <div class="m-4 w-100">
+                <label class="inline-block w-32 font-bold">Subir imagenes</label> <br>
+                <input type="file" wire:model="imagenes" multiple accept="image/*" class="mt-5 py-8 p-2 px-4 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
+                <br>
+                @error('imagenes.*') <span class="error text-red-600">minimo de imagenes: 1 maximo: 4 </span> @enderror
+            </div>
+
+        
         </div>
 
     

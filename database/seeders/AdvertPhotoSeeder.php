@@ -14,6 +14,21 @@ class AdvertPhotoSeeder extends Seeder
      */
     public function run()
     {
+        for ($i=1; $i < 500; $i+=3) { 
+            AdvertPhoto::create([
+                'photo_path'=>'https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+                'advert_id' => $i
+            ]);
+    
+            AdvertPhoto::create([
+                'photo_path'=>'https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+                'advert_id' => $i+1
+            ]);
+            AdvertPhoto::create([
+                'photo_path'=>'https://images.pexels.com/photos/1090932/pexels-photo-1090932.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+                'advert_id' => $i+2
+            ]);
+        }
         AdvertPhoto::create([
             'photo_path'=>'https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
             'advert_id' => '1'

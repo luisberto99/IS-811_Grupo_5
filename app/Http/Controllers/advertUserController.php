@@ -224,7 +224,7 @@ public function filterUser(Request $request){
             $anuncioAct->advert_status_id=2;
             $anuncioAct->update();
             
-            return redirect()->to('advertsUser/show/f?');
+            return redirect()->route('advertsUser');
         }
 
 

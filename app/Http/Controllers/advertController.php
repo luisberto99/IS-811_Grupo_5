@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Advert;
 use App\Models\AdvertComment;
+use App\Models\AdvertComplaint;
 use App\Models\AdvertPhoto;
 use App\Models\Category;
 use App\Models\Currency;
@@ -98,5 +99,23 @@ class AdvertController extends Controller
         
         return redirect()->route('advert.show', $request->advert_id);
     
+    }
+
+    public function store(Request $request){
+
+        $request->validate([
+            'message' => 'required'
+        ]);
+
+
+        $acusar = new AdvertComplaint();
+        $acusar->date=now()->format('Y-m-d');
+        $acusar->message=$request->message;
+        $acusar->accuser=Auth::user()->id;
+        $acusar->advert_id=$request->idp;
+        $acusar->save();
+
+        //return $acusar;
+        return redirect()->route('advert.show', $request->idp);
     }
 }

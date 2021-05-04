@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class categoriasController extends Controller
 {
@@ -14,7 +15,9 @@ class categoriasController extends Controller
      */
     public function index()
     {
-        return view('admin.categorias');
+
+        $categorias = Category::all();
+        return view('admin.categorias.index', compact('categorias'));
     }
 
     /**
@@ -24,7 +27,7 @@ class categoriasController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categorias.create');
     }
 
     /**
@@ -35,7 +38,12 @@ class categoriasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request -> validate([
+            'name' => 'required|unique:categories',
+            'slug' => 'required'
+        ]);
+        $categoria = Category::create($request->all());
+        return redirect()->route('admin.categorias.edit', $categoria)-> with('info', 'La categoria se creo con exito');
     }
 
     /**
@@ -44,9 +52,9 @@ class categoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $categoria)
     {
-        //
+        return view('admin.categorias.show', compact('categoria'));
     }
 
     /**
@@ -55,9 +63,9 @@ class categoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $categoria)
     {
-        //
+        return view('admin.categorias.edit', compact('categoria'));
     }
 
     /**
@@ -67,9 +75,14 @@ class categoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $categoria)
     {
-        //
+        $request -> validate([
+            'name' => "required|unique:categories,name,$categoria->id",
+            'slug' => 'required'
+        ]);
+        $categoria -> update($request->all());
+        return redirect()->route('admin.categorias.edit', $categoria)-> with('info', 'La categoria se actualizo con exito');
     }
 
     /**
@@ -78,8 +91,9 @@ class categoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $categoria)
     {
-        //
+        $categoria->delete();
+        return redirect()->route('admin.categorias.index')-> with('info', 'La categoria se elimino con exito');
     }
 }

@@ -60,8 +60,8 @@ class PerfilController extends Controller
         $acusar->denounced=$request->idp;
         $acusar->save();
 
-        //return $acusar;
-        return redirect()->to('adverts/show/f?');
+        //return $request->idp;
+        return redirect()->to('perfiles/'.$request->idp)->with('info', 'Su denuncia ha sido enviada correctamente.');
     }
 
     
@@ -92,7 +92,7 @@ class PerfilController extends Controller
         
         
         
-        return redirect()->route('perfiles.show', $request->qualified);
+        return redirect()->route('perfiles.show', $request->qualified)->with('info', 'Su calificación ha sido enviada correctamente.');
 
 
 
