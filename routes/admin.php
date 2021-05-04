@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\estadisticasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdvertCategoryController;
 
 Route::get('home', [HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -14,3 +15,6 @@ Route::resource('categorias', categoriasController::class)->middleware('can:admi
 
 Route::get('denuncias', [HomeController::class, 'show'])->middleware('can:admin.moderador')->name('admin.denuncias');
 Route::get('mostrar/{denuncia}', [HomeController::class, 'mostrar'])->middleware('can:admin.moderador')->name('admin.mostrar');
+
+//Rutas para admnistrar el tiempo de los anuncios
+Route::resource('advertcategories', AdvertCategoryController::class)->names('admin.adverTime');

@@ -15,39 +15,17 @@ composer.json
 composer.lock
 config/app.php
 
-  @if ($advert->user_id == $userAuth)
-                                  <form class="pl-6 pb-4 "  method="POST" action="{{ route('advert.comment') }}">
-                                    <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
-                                    <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">
-                                    <input type="hidden" id="parent_id" name="parent_id" value="{{$comFather->id}}">    
-                
-                                    @csrf
-                                      <div >
-                                      <textarea  class="w-full   " id="commentary" name="commentary"  placeholder="Escriba su pregunta"></textarea>
-                                      </div>
-                                      <div class="flex justify-end pt-2">
-                                
-                                        <button class=" px-4 bg-gray-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Responder</button>
-                                      </div>
-                                  </form>
-                                  
-                               @endif
+DELIMITER //
+  CREATE TRIGGER TG_AI_ADVERTS AFTER INSERT ON adverts 
+  FOR EACH ROW 
+  BEGIN 
+  DECLARE category varchar(50); 
+  DECLARE days INTEGER; 
+  DECLARE dias DATE; 
+  SELECT adverts.category_id INTO category FROM `adverts` WHERE adverts.id = new.id; 
+  SELECT categories_expiration.available_days INTO days FROM `categories_expiration` 
+  WHERE categories_expiration.category_id = category; 
+  SELECT DATE_ADD('2021-05-05', INTERVAL days DAY) INTO dias ;
+   INSERT INTO adverts (expiration_date) VALUES(dias); END; //
 
-
-
-                                   <div><p class="text-xs bg-ay-500"> {{$comFather->creation_date}}</p></div>
-
-                                                            <form class="pl-6 pb-4 "  method="POST" action="{{ route('advert.comment') }}">
-                                <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
-                                <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">
-                                <input type="hidden" id="parent_id" name="parent_id" value="{{$comFather->id}}">    
-            
-                                @csrf
-                                  <div name="ans" class="hidden" >
-                                  <textarea  class="w-full   " id="commentary" name="commentary"  placeholder="Escriba su pregunta"></textarea>
-                                  </div>
-                                  <div class="flex justify-end pt-2">
-                                    <button  name="see" id="{{$comFather->id}}" type="button" class=" px-4 bg-blue-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Responder</button>                         
-                                    <button id="send2" name="sendComment" class=" hidden px-4 bg-gray-400 w-28 h-6  rounded-sm text-white hover:bg-green-400">Responder</button>
-                                  </div>
-                              </form>
+DELIMITER ;

@@ -51,11 +51,12 @@ Route::get('advertsUser/{anuncio}/edit', [advertUserController::class, 'edit'])-
 Route::get('perfiles', [PerfilController::class, 'store'])->name('perfiles.store');
 Route::post('perfiles/calificacion', [PerfilController::class, 'storeCalificacion'])->name('perfiles.calificacion');
 
-Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('adverts.edit');
+//Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('adverts.edit');
 
 Route::get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
 Route::middleware(['auth:sanctum', 'verified'])->post('/comment',[AdvertController::class, 'storeComment'])->name('advert.comment');
 
 Route::get('mycategories/{id}', [CategoriaController::class, 'listarCategorias'])->name('categorias.show');
-Route::get('mycategories/{id_categoria}/{id_user}', [CategriaController::class, 'guardar'])->name('categoria.guardar');
-Route::get('mycategories/eliminar/{id}/{idUser}', [CategriaController::class, 'eliminar'])->name('categoria.eliminar');
+Route::get('mycategories/{id_categoria}/{id_user}', [CategoriaController::class, 'guardar'])->name('categoria.guardar');
+Route::get('mycategories/eliminar/{id}/{idUser}', [CategoriaController::class, 'eliminar'])->name('categoria.eliminar');
+

@@ -40,7 +40,12 @@ class AdvertController extends Controller
         $AlladdsUser = Advert::where('user_id',$user->id )->get()->count();
         $adsActive = Advert::where('user_id',$user->id )->where('advert_status_id', 1)->get()->count();
         $coment=  AdvertComment::where('advert_id',$id)->orderByDesc('created_at')->get();
-        $coment2 = DB::select("SELECT adverts_comments.id,adverts_comments.commentary,adverts_comments.user_id,adverts_comments.advert_id,adverts_comments.parent_id, DATE_FORMAT(adverts_comments.created_at, '%m/%d/%Y') as created_at, users.name FROM adverts_comments INNER JOIN users on adverts_comments.user_id = users.id WHERE adverts_comments.advert_id = :id  ORDER BY adverts_comments.created_at DESC", ['id' => $id]);
+        $coment2 = DB::select("SELECT adverts_comments.id,adverts_comments.commentary,adverts_comments.user_id,adverts_comments.advert_id,adverts_comments.parent_id, DATE_FORMAT(adverts_comments.created_at, '%m/%d/%Y') as created_at, users.name 
+                               FROM adverts_comments 
+                               INNER JOIN users 
+                               ON adverts_comments.user_id = users.id 
+                               WHERE adverts_comments.advert_id = :id  
+                               ORDER BY adverts_comments.created_at DESC", ['id' => $id]);
 
         $photos = AdvertPhoto::where('advert_id',$id)->get(); 
         $userAuth=Auth::id(); 
@@ -54,7 +59,10 @@ class AdvertController extends Controller
         $val= json_decode($calificacion,true);
         $val =number_format($val[0]["rating"],0);
        
-        $va = DB::select('SELECT * FROM `categories` where id  IN(SELECT category_id from `subscriptions` where user_id = :id)
+        $va = DB::select('SELECT * FROM `categories` 
+                          WHERE id  IN(SELECT category_id 
+                                       FROM `subscriptions` 
+                                       WHERE user_id = :id)
         ', ['id' => $di]);
     
            

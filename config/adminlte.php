@@ -273,17 +273,16 @@ return [
             'can' => 'admin.moderador'
         ],
 
-
-/*         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+[
+            'text' => 'Anuncios',
+            'url'  => 'admin/advertcategories',
+            'icon' => 'fa-fw fab fa-bandcamp',
         ],
         [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ], */
+        ], 
 
 /*         [
             'text'    => 'multilevel',

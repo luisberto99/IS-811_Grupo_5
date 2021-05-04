@@ -35,12 +35,11 @@ class PerfilController extends Controller
         $fotos = AdvertPhoto::all();
         $munis = Township::all();
         $userAuth=Auth::id(); 
-        $calificacion = DB::table('qualifications')->select(DB::raw('SUM(qualification) / ((COUNT(qualification) * 5) / 100) as rating')) ->where('qualified',$perfil->id)->get() ;
+        $calificacion = User::select('qualification')->where('users.id',$perfil->id)->get() ;
         $calificacionUsers = DB::select("SELECT qualifications.id,(qualifications.qualification)/5 *100 as qualification,qualifications.commentary,qualifications.qualifier,qualifications.qualified,DATE_FORMAT(qualifications.updated_at, '%m/%d/%Y') as created_at, users.name,  users.profile_photo_path,users.id as userId FROM `qualifications` inner JOIN `users` on qualifications.qualifier = users.id WHERE qualifications.qualified= :id  ORDER BY qualifications.created_at DESC", ['id' => $perfil->id]);
         $calificacionUsers2 = DB::select("SELECT qualifications.id,(qualifications.qualification)/5 *100 as qualification,qualifications.commentary,qualifications.qualifier,qualifications.qualified,DATE_FORMAT(qualifications.updated_at, '%m/%d/%Y') as created_at, users.name,  users.profile_photo_path,users.id as userId FROM `qualifications` inner JOIN `users` on qualifications.qualifier = users.id WHERE qualifications.qualified= :id  ORDER BY qualifications.created_at DESC", ['id' => $perfil->id]);
-
         $valoracion= json_decode($calificacion,true);
-        $valoracion =number_format($valoracion[0]["rating"],0);
+        $valoracion =number_format($valoracion[0]["qualification"],0);
         Carbon::setLocale('es');
        
         return view('advert.perfiles', compact('calificacionUsers2','valoracion','calificacionUsers','userAuth','perfil', 'municipios', 'departamentos', 'anuncios', 'activos', 'fotos', 'mostrar', 'munis'));

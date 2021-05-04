@@ -18,7 +18,7 @@ class CreateAdvertsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->date('creation_date');
-            $table->date('expiration_date');
+            $table->date('expiration_date')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('category_id');
