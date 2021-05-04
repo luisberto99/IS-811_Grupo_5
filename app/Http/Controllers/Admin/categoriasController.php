@@ -16,7 +16,7 @@ class categoriasController extends Controller
     public function index()
     {
 
-        $categorias = Category::all();
+        $categorias = Category::where('status',1)->get();
         return view('admin.categorias.index', compact('categorias'));
     }
 
@@ -93,7 +93,8 @@ class categoriasController extends Controller
      */
     public function destroy(Category $categoria)
     {
-        $categoria->delete();
+        $categoria->status = 2;
+        $categoria->save();
         return redirect()->route('admin.categorias.index')-> with('info', 'La categoria se elimino con exito');
     }
 }
