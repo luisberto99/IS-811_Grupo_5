@@ -80,8 +80,33 @@
         <!--Departamento  -->
 <div class="col-span-6 sm:col-span-4">
     <x-jet-label for="departamento" value="{{ __('Departamento') }}" />
-    <x-jet-input id="departamento" type="departamento" class="mt-1 block w-full" wire:model.defer="state.departamento" />
+    <x-jet-input id="departamento" type="text" class="mt-1 block w-full" wire:model.defer="state.departamento" />
     <x-jet-input-error for="departamento" class="mt-2" />
+</div>
+
+<div class="flex gap-4 mt-4">
+    <div class="w-1/2">
+        <x-jet-label for="departamento" value="{{ __('Departamento') }}" />
+        <select id="departamento" wire:model='departamento' name="departamento" class="form-input rounded-md shadow-sm block mt-1 w-full" >
+            <option value='-1'>Seleccione uno</option>
+                    @foreach($departaments as $departament)
+                        <option value={{ $departament->id }}> {{ $departament->name }}</option>
+                    @endforeach
+        </select> 
+    </div>
+
+    <div class="w-1/2">
+        <x-jet-label for="township" value="{{ __('Municipio') }}" />
+        <select id="township" wire:model='township_id' name="township" class="form-input rounded-md shadow-sm block mt-1 w-full" >
+            <option value='-1'>Seleccione uno</option>
+              {{--       @foreach($townships as $township)
+                       
+                           <option value={{ $township->id }}> {{ $township->name }}</option>
+                       
+                    @endforeach --}}
+        </select> 
+    </div>
+
 </div>
 
     </x-slot>

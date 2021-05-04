@@ -18,8 +18,7 @@
 <x-app-layout>
 <body class="bg-blue-50">
       @livewire('menu-departamentos'))
-    <main>
-    <div class=" flex   space-x-16  w-auto items-center m-16 z-0">
+    <main><div class=" flex   space-x-16  w-auto items-center m-16 z-0">
       <div class= "w-3/5 bg-white  ">            
             <!--<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 ">
                 <div class="col-span-2 bg-white  overflow-hidden shadow-xl sm:rounded-lg">-->
@@ -55,7 +54,7 @@
        <!--card-->
        <div class="justify-items-end w-64 h-auto sm:max-w-sm sm:max-h-80 sm:w-auto sm:h-auto sm:rounded-2xl font-sans text-sm p-2 bg-none sm:bg-white sm:text-base sm:p-4  sm:border-2 sm:border-gray-500">
         <div class="flex  space-x-6  items-center border-b border-green-200 pb-2">
-          <a class="hover:text-blue-600 w-20" href="{{route('perfiles.show', $user->id)}}"><img src="{{ asset('/storage/'.$user->profile_photo_path) }}" class="rounded-full " alt="Imagen"></a>
+          <a class="hover:text-blue-600 " href="{{route('perfiles.show', $user->id)}}"><img src="{{$user->profile_photo_url}}" class="rounded-full " alt="Imagen"></a>
            
           <div class="w-64">
             <h3 id="user" class=" font-bold  sm:text-lg	 " data-value="{{$user->id}}"> <a class="hover:text-blue-600 " href="{{route('perfiles.show', $user->id)}}">{{$user->name}}</a> </h3>
@@ -164,19 +163,18 @@
 
                 </div>
                 <div class="col-span-2  mx-9">
-                  <h1>Comentarios:</h1>
                   <form class="pl-6 pb-4 flex flex-wrap space-y-2"  method="POST" action="{{ route('advert.comment') }}">
                     <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
                     <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">    
 
                     @csrf
-                      @auth
+                      
                         <h1 class="text-green-700 ">¿Tienes una pregunta?</h1>
                         <textarea class="w-full" id="commentary" name="commentary"  placeholder="Escriba su pregunta"></textarea>
                         <div>
                           <button id="send" name="sendComment" class=" px-4 bg-blue-400 w-28 h-6 border border-blue-500  rounded-sm text-white hover:bg-blue-500">Enviar</button>
                         </div>
-                      @endauth                        
+                      
                   </form>
                   
                           
@@ -186,40 +184,52 @@
 
                     @foreach ($coment2 as $comFather)
                         @if (($comFather->parent_id) == null)
-                         @php $counter = $counter+1;@endphp
-                          <div id="question" class="border-b border-green-200 pb-0 container ">
+                        @php $counter = $counter+1;@endphp
+
+
+                        
+                          <div id="question" class="border-b border-green-200 pb-2 container ">
                               <div class=" flex items-center   space-x-4   pt-4 ">   
                                 <i class="far fa-question-circle text-gray-700"></i>		
                                 <div class=" container pr-6">
                                   <p class="text-xs  text-gray-400 "><a class="hover:text-blue-600 " href="{{route('perfiles.show', $comFather->user_id)}}">{{$comFather->name}}</a></p>
                                   <p class=" text-md font-medium break-words">{{$comFather->commentary}}</p>
-                                </div>			
-                              </div>
+                                  
+                                  </div>			
+                                
+                                
+                                </div>
                               @foreach ($coment2 as $comSon)
                                 @if ($comFather->id == $comSon->parent_id)
-                                  <div class=" flex items-center    space-x-4   ">   
-                                    <i class="far fa-comment-dots text-gray-700"></i>	
-                                    <div class="container pr-6 ">				
-                                      <p class=" text-md break-words">{{$comSon->commentary}}</p>
-                                      <div class= "pr-4 py-2 font-thin	text-gray-500 text-xs	 inline  bottom-0 right-0 "><p>Por <a class="hover:text-blue-600 " href="{{route('perfiles.show', $user->id)}}">{{$user->name}}</a>, {{$comSon->created_at}}</p></div>
-                                    </div>
+                                  <div class=" items-center   flex space-x-4   ">   
+                                    <i class="far fa-comment-dots text-gray-700"></i>					
+                                    <p class=" text-md ">{{$comSon->commentary}}</p>
+                                    <div class="pr-4 py-2 font-thin	text-gray-500 text-xs	 absolute  bottom-0 right-0 "><p>Por <a class="hover:text-blue-600 " href="{{route('perfiles.show', $user->id)}}">{{$user->name}}</a>, {{$comSon->created_at}}</p></div>
+
                                   </div>
-                                @endif
+                                  @endif
+                                    
+                                  
                               @endforeach
                               @if ($advert->user_id == $userAuth)
                               <form class="pl-6  "  method="POST" action="{{ route('advert.comment') }}">
                                 <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
                                 <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">
                                 <input type="hidden" id="parent_id" name="parent_id" value="{{$comFather->id}}">    
+            
                                 @csrf
-                                <div>
-                                  <textarea  class="w-full hidden mb-2 " id="commentary" name="commentary"  placeholder="Escriba su respuesta"></textarea>
-                                </div>
-                                <div class="flex justify-end pt-0">
+                                  <div >
+                                  <textarea  class="w-full hidden " id="commentary" name="commentary"  placeholder="Escriba su respuesta"></textarea>
+                                  </div>
+                                  <div class="flex justify-end pt-2">
+                            
                                     <button  name="answer" id="{{$comFather->id}}"  class=" px-4 bg-blue-400 w-28 h-6  rounded-sm text-white hover:bg-blue-500">Responder</button>                         
                                     <button id="send2" name="send2" class=" px-4 bg-gray-400 w-28 h-6 hidden   rounded-sm text-white hover:bg-blue-500">Enviar</button>
-                                </div>
-                              </form>                            
+                                  </div>
+                              </form>
+                              
+
+                              
                            @endif
 
                             </div>
@@ -233,13 +243,13 @@
 
                          <div>
                           <div class="pt-4 object-right-bottom">
-                            <button class="modal-open place-items-center bg-transparent text-xs border border-gray-500 hover:border-indigo-500 text-gray-500 hover:text-white font-bold py-2 px-4 hover:bg-green-500 rounded-sm">Todas las preguntas</button>
+                            <button class="modal-open place-items-center bg-transparent text-xs border border-gray-500 hover:border-indigo-500 text-gray-500 hover:text-white font-bold py-2 px-4 hover:bg-blue-500 rounded-sm">Todas las preguntas</button>
                            </div>
                         <!--Modal-->
                         <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
                           <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
                           
-                          <div class="modal-container bg-white w-11/12 md:max-w-3xl h-5/6 mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                          <div class="modal-container bg-white w-11/12 md:max-w-3xl h-96 mx-auto rounded shadow-lg z-50 overflow-y-auto">
                             
                             <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
                               <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
@@ -261,51 +271,37 @@
                               </div>
 
                               <!--Body-->
-                             
-                    @foreach ($coment2 as $comFather)
-                    @if (($comFather->parent_id) == null)
-                     @php $counter = $counter+1;@endphp
-                      <div id="question" class="border-b border-green-200 pb-0 container ">
-                          <div class=" flex items-center   space-x-4   pt-4 ">   
-                            <i class="far fa-question-circle text-gray-700"></i>		
-                            <div class=" container pr-6">
-                              <p class="text-xs  text-gray-400 "><a class="hover:text-blue-600 " href="{{route('perfiles.show', $comFather->user_id)}}">{{$comFather->name}}</a></p>
-                              <p class=" text-md font-medium break-words">{{$comFather->commentary}}</p>
-                            </div>			
-                          </div>
-                          @foreach ($coment2 as $comSon)
-                            @if ($comFather->id == $comSon->parent_id)
-                              <div class=" flex items-center    space-x-4   ">   
-                                <i class="far fa-comment-dots text-gray-700"></i>	
-                                <div class="container pr-6 ">				
-                                  <p class=" text-md break-words">{{$comSon->commentary}}</p>
-                                  <div class= "pr-4 py-2 font-thin	text-gray-500 text-xs	 inline  bottom-0 right-0 "><p>Por <a class="hover:text-blue-600 " href="{{route('perfiles.show', $user->id)}}">{{$user->name}}</a>, {{$comSon->created_at}}</p></div>
-                                </div>
-                              </div>
-                            @endif
-                          @endforeach
-                          @if ($advert->user_id == $userAuth)
-                          <form class="pl-6  "  method="POST" action="{{ route('advert.comment') }}">
-                            <input type="hidden" id="user_id" name="user_id" value="{{$userAuth}}">    
-                            <input type="hidden" id="advert_id" name="advert_id" value="{{$advert->id}}">
-                            <input type="hidden" id="parent_id" name="parent_id" value="{{$comFather->id}}">    
-                            @csrf
-                            <div>
-                              <textarea  class="w-full hidden mb-2" id="commentary" name="commentary"  placeholder="Escriba su respuesta"></textarea>
-                            </div>
-                            <div class="flex justify-end pt-0">
-                                <button  name="answer" id="{{$comFather->id}}"  class=" px-4 bg-blue-400 w-28 h-6  rounded-sm text-white hover:bg-blue-500">Responder</button>                         
-                                <button id="send2" name="send2" class=" px-4 bg-gray-400 w-28 h-6 hidden   rounded-sm text-white hover:bg-blue-500">Enviar</button>
-                            </div>
-                          </form>                            
-                       @endif
-                        </div>
-                        @endif
-                     @endforeach
+                              @foreach ($coment2 as $comFather)
+                              @if (($comFather->parent_id) == null)
+                                <div class="border-b border-green-200 relative pr-7  pb-4">
+                                    <div class=" flex items-center   space-x-4   pt-4 ">   
+                                      <i class="far fa-question-circle text-gray-700"></i>	
+                                      <div class="container"  >
+                                      <p class="text-xs  text-gray-400 "><a class="hover:text-blue-600 " href="{{route('perfiles.show', $comFather->user_id)}}">{{$comFather->name}}</a></p>
+                                      <p class=" text-md font-medium break-words ">{{$comFather->commentary}}</p>
+                                    </div>
+                                    </div>
+                                    
+                                    @foreach ($coment2 as $comSon)
+                                      @if ($comFather->id == $comSon->parent_id)
+                                        <div class=" items-center   flex space-x-4  pb-2 ">   
+                                          <i class="far fa-comment-dots text-gray-700"></i>	
+                                          <div>
+                                            <p class=" text-md break-words ">{{$comSon->commentary}}</p>
+                                        </div>
+                                        </div>
+                                        <div class="pr-4 py-2 font-thin	text-gray-500 text-xs	 absolute  bottom-0 right-0 "><p>Por <a class="hover:text-blue-600 " href="{{route('perfiles.show', $user->id)}}">{{$user->name}}</a>, {{$comSon->created_at}}</p></div>
+                                        @endif
+                                    @endforeach 
+                                  </div>
+                                @endif
+                              
+                               @endforeach
+
                               <!--Footer-->
                               <div class="flex justify-end pt-2">
                                 
-                                <button class="modal-close object-center	 bg-gray-500 w-16  h-8 rounded-lg text-white hover:bg-green-400">Cerrar</button>
+                                <button class="modal-close object-center	 bg-gray-500 w-16  h-8 rounded-lg text-white hover:bg-blue-400">Cerrar</button>
                               </div>
                               
                             </div>
@@ -323,6 +319,9 @@
 
        </div>
         
+
+    
+    
 
     </main>
     
@@ -492,7 +491,7 @@
       
       //end rating user
      
-     $("[name='sendComment']").click(function(e){
+    /* $("[name='sendComment']").click(function(e){
       e.preventDefault();  
       function seleccionar() {
 
@@ -532,7 +531,7 @@
           
         }
       });    
-     });  
+     });  */
         
       //Responder preguntas
       

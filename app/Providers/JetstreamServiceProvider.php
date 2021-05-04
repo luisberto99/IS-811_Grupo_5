@@ -39,6 +39,13 @@ class JetstreamServiceProvider extends ServiceProvider
             return view('auth.register', compact('departaments', 'townships'));
         });
 
+        function (){
+            $departaments = Departament::all();
+            $townships = Township::all();
+            return view('profile.update-profile-information-form', compact('departaments', 'townships'));
+        };
+        
+
         $this->configurePermissions();
 
         Jetstream::deleteUsersUsing(DeleteUser::class);
