@@ -60,7 +60,9 @@ class LandingCarrousels extends Component
         ->orderBy('creation_date','desc')
         ->limit(10)->get();
 
-        return view('livewire.landing-carrousels',compact('categories','adverts'));
+        $estado = 1;
+
+        return view('livewire.landing-carrousels',compact('categories','adverts','estado'));
     }
     
 }

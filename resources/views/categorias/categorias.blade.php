@@ -22,7 +22,7 @@
                                 <tr>
                                     <td class="border border-gray-400 px-4 py-2">{{$nombreCategoriaSuscrita[$indice]}}</td>
                                     <td class="border border-gray-400 px-4 py-2">{{$fecha[$indice]}}</td>
-                                    <td class="border border-gray-400 px-4 py-2"><a href="http://127.0.0.1:8000/mycategories/eliminar/{{$item}}/{{$id}}"><button>Eliminar</button></a></td>
+                                    <td class="border border-gray-400 px-4 py-2"><a href="{{ route('categoria.eliminar', [$item,$id]) }}"><button>Eliminar</button></a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -48,7 +48,7 @@
                 @foreach ($idNoSuscrito as $i => $idNo)
                     <tr>
                         <td class="border border-gray-400 px-4 py-2">{{$nombreCategoria[$i]}}</td>
-                        <td class="border border-gray-400 px-4 py-2"><a href="http://127.0.0.1:8000/mycategories/{{$idNo}}/{{$id}}"><button>Agregar</button></a></td>
+                        <td class="border border-gray-400 px-4 py-2"><a href="{{ route('categoria.guardar', [$idNo,$id]) }}"><button>Agregar</button></a></td>
                     </tr>
                 @endforeach
             </tbody>

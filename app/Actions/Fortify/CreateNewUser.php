@@ -27,7 +27,8 @@ class CreateNewUser implements CreatesNewUsers
             'birthdate' => ['required', 'date', "before:18 years ago"],
             'address' => ['required', 'string'],
             'number' => ['required', 'string'],
-            'township_id' => ['required', 'string'],
+            'departamento' => ['required', 'integer'],
+            'township' => ['required', 'integer'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
@@ -39,7 +40,7 @@ class CreateNewUser implements CreatesNewUsers
             'birthdate' => $input['birthdate'],
             'address' => $input['address'],
             'number' => $input['number'],
-            'township_id' => $input['township_id'],
+            'township_id' => $input['township'],
             'profile_photo_path' => 'profile-photos/user.png',
             'condition' => '1',
             'password' => Hash::make($input['password']),

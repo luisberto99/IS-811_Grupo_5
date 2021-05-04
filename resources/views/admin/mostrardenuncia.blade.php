@@ -14,11 +14,14 @@
                 <h6>
                     <a href="{{route('perfiles.show', $accuser->id)}}"><img class="rounded" width="40" src="{{ Storage::url($accuser->profile_photo_path) }}" alt=""></a> {{$accuser->name}}   
                     @endforeach
-                    ha reportado a: 
+                    ha reportado el anuncio: 
                 </h6>   
                 <h6>
-                    @foreach ($denunciado as $denounced)
-                    <a href="{{route('perfiles.show', $denounced->id)}}"><img class="rounded" width="40" src="{{ Storage::url($denounced->profile_photo_path) }}" alt=""></a> {{$denounced->name}} 
+                    @foreach ($adenunciado as $denounced)
+                    <p> Titlo:
+                    <a class="text-white" href="{{route('advert.show', $denounced->id)}}">{{$denounced->title}}</a><br>
+                   </p>
+                    <p>Descripción:{{$denounced->description}} </p>
                     @endforeach
                 </h6>
             </div>
@@ -33,33 +36,29 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <p class="h5">Dar de baja al usuario:</p>
-            
-                @foreach ($denunciado as $denounced)
-                    <p class="form-control">
-                        {{$denounced->name}} 
-                    </p>
-                    {!! Form::model($denounced, ['route' => ['admin.baja', $denounced], 'method' => 'put']) !!}
-                        <div>
-                            {!! Form::hidden('idc', $denuncia->id) !!}
-                        </div>
-                        <div>
-                            <label>
-                                {!! Form::checkbox('roles[]', $roles->id, null, ['class' => 'mr-1']) !!}
-                                {{ $roles->name }}
-                            </label>
-                        <div class="form-group">
-                            {!! Form::label('resolution', 'Mensaje') !!}
-                            {!! Form::textarea('resolution', null, ['class' => 'form-control mh-50', 'placeholder' => 'Escribe la razón por que se da de baja este usurio']) !!}
-                            
-                            @error('resolution')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror
-                        </div>
-
-                        </div>
-                        {!! Form::submit('Guardar', ['class' => 'btn btn-primary mt-2']) !!}
-                    {!! Form::close() !!}
+            <p class="h5">Dar de baja al anuncio:</p>
+                @foreach ($adenunciado as $adenounced)
+                    @if ($adenounced->advert_status_id == 1)
+                        <p class="form-control">
+                            {{$adenounced->title}} 
+                        </p>
+                        {!! Form::model($denounced, ['route' => ['admin.anunciobaja', $denounced], 'method' => 'put']) !!}
+                            <div>
+                                {!! Form::hidden('id', $denuncia->id) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('resolution', 'Mensaje') !!}
+                                {!! Form::textarea('resolution', null, ['class' => 'form-control mh-50', 'placeholder' => 'Escribe la razón de la baja de este anuncio']) !!}
+                                
+                                @error('resolution')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            {!! Form::submit('Dar de baja', ['class' => 'btn btn-danger mt-2']) !!}
+                        {!! Form::close() !!}
+                    @else
+                    <p class="h5 text-success">El anuncio ya se dio de baja</p>
+                    @endif
                 @endforeach
         </div>
     </div>
@@ -69,7 +68,7 @@
                 <p class="h5">Desestimar la denuncia</p><br>
             </div>
             <div>
-                {!! Form::open(['route' => 'admin.store']) !!}
+                {!! Form::open(['route' => 'admin.denunciastore']) !!}
 
                 <div>
                     {!! Form::hidden('id', $denuncia->id) !!}
@@ -95,7 +94,7 @@
     @if ($similares->count())
         <div class="card">
             <div class="card-body">
-                <h5>Otras denuncias a este usuario</h5>
+                <h5>Otras denuncias a este anuncio</h5>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -117,12 +116,14 @@
                                     @if ($user->id == $complaint->accuser)
                                         <td><a class="text-dark" href="{{route('perfiles.show', $complaint->accuser)}}">{{$user->name}}</a></td>
                                     @endif
-                                    @if ($user->id == $complaint->denounced)
-                                        <td><a class="text-dark" href="{{route('perfiles.show', $complaint->denounced)}}">{{$user->name}}</a></td>
+                                @endforeach
+                                @foreach ($anuncios as $anuncio)
+                                    @if ($anuncio->id == $complaint->advert_id)
+                                        <td><a class="text-dark" href="{{route('advert.show', $anuncio->id)}}">{{$anuncio->title}}</a></td>
                                     @endif
                                 @endforeach
                                 <td width="150px">
-                                    <a class="btn btn-primary btn-sm" href="{{route('admin.mostrar', $complaint->id)}}">Ver denuncia</a>
+                                    <a class="btn btn-primary btn-sm" href="{{route('admin.mostrardenuncia', $complaint->id)}}">Ver denuncia</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -132,7 +133,7 @@
         </div> 
         @else 
             <div class="card body">
-                <strong>Esta es la unica denuncia a este usuario</strong>
+                <strong>Esta es la unica denuncia a este anuncio</strong>
         
             </div>   
     @endif

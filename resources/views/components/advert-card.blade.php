@@ -1,5 +1,5 @@
 <!-- component -->
-<div {{ $attributes->merge(['class'=>"max-w-sm overflow-hidden rounded border bg-white shadow mb-4 mt-4"]) }}>
+<div {{ $attributes->merge(['class'=>"max-w-sm overflow-hidden rounded border bg-white shadow mb-4 mt-4 $estado"]) }}>
     <div class="relative">
         <a href='{{ $AdvertLink }}'>
             <div class="h-48 bg-cover bg-no-repeat bg-center"

@@ -4,6 +4,8 @@ use App\Http\Controllers\advertController;
 use App\Http\Controllers\advertControllers;
 use App\Http\Controllers\advertUserController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Livewire\Adverts\AdvertsShow;
+use App\Http\Livewire\Adverts\AdvertsShowUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 
@@ -32,8 +34,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/nuevo', function () {
 })->name('nuevo');
 
 
-Route::get('advertsUser/show/f{fill?}',[advertUserController::class, 'filterUser'])->name('advertsUser');
-Route::get('adverts/show/f{fill?}',[advertUserController::class, 'filter'])->name('adverts');
+Route::get('adverts/show/f{fill?}',AdvertsShow::class)->name('adverts');
+Route::get('advertsUser/show/',AdvertsShowUser::class)->name('advertsUser');
 
 /* Route::get('advert{id}?', function ($id = null) {
     return "work $id";
@@ -56,6 +58,7 @@ Route::get('adverts/{anuncio}/edit', [advertControllers::class, 'edit'])->name('
 Route::get('/advert/{show}',[ AdvertController::class, 'show'])->name('advert.show');
 Route::middleware(['auth:sanctum', 'verified'])->post('/comment',[AdvertController::class, 'storeComment'])->name('advert.comment');
 
+Route::get('advert', [advertController::class, 'store'])->name('acomplaint.store');
 Route::get('mycategories/{id}', [CategoriaController::class, 'listarCategorias'])->name('categorias.show');
-Route::get('mycategories/{id_categoria}/{id_user}', [CategriaController::class, 'guardar'])->name('categoria.guardar');
-Route::get('mycategories/eliminar/{id}/{idUser}', [CategriaController::class, 'eliminar'])->name('categoria.eliminar');
+Route::get('mycategories/{id_categoria}/{id_user}', [CategoriaController::class, 'guardar'])->name('categoria.guardar');
+Route::get('mycategories/eliminar/{id}/{idUser}', [CategoriaController::class, 'eliminar'])->name('categoria.eliminar');

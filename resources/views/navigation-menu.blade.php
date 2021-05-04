@@ -30,7 +30,7 @@
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('categorias.show', Auth::user()->id) }}" :active="request()->routeIs('categorias.show')">
-                            {{ __('Mis categorias') }}
+                            {{ __('Suscripciones') }}
                         </x-jet-nav-link>
                     </div>
                 @endcan
@@ -178,6 +178,11 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-nav-link href="{{ route('advertsUser') }}" :active="request()->routeIs('advertsUser')">
                 {{ __('Anuncios Publicados') }}
+            </x-jet-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-nav-link href="{{ route('categorias.show', Auth::user()->id) }}" :active="request()->routeIs('categorias.show')">
+                {{ __('Suscripciones') }}
             </x-jet-nav-link>
         </div>
 

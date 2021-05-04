@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Departament;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class estadisticasController extends Controller
 {
@@ -81,5 +83,40 @@ class estadisticasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function general(){
+        return view('admin.estadistica.general');
+    }
+
+    public function usuarios(){
+
+        $meses = ['enero','febrero'];
+        $nAdverts  = [1,2];
+
+        $departamentos = DB::table('users')->select(DB::raw('departaments.id, COUNT(*) AS numero_usuarios'))
+        ->join('townshipes','townshipes.id', 'users.township_id')
+        ->join('departaments','departaments.id', 'townshipes.departament_id')
+        ->groupBy('departaments.id')
+        ->orderBy('numero_usuarios','asc')
+        ->get();
+        return view('admin.estadistica.usuarios', compact('meses','nAdverts','departamentos'));
+    }
+
+    public function categorias(){
+        return view('admin.estadistica.categorias');
+    }
+    
+    public function anuncios(){
+        return view('admin.estadistica.anuncios');
+    }
+
+    public function favoritos(){
+        return view('admin.estadistica.favoritos');
+    }
+    
+    public function denuncias(){
+        return view('admin.estadistica.denuncias');
     }
 }
