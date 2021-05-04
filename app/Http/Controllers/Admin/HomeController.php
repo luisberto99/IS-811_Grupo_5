@@ -8,6 +8,7 @@ use App\Models\AdvertComplaint;
 use App\Models\AdvertResolution;
 use App\Models\Complaint;
 use App\Models\ComplaintResolution;
+use App\Models\ModelHasRole;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -35,7 +36,10 @@ class HomeController extends Controller
                                       ->get();
         $usuarios = User::all();
         $roles =Role::find(1);
-        return view('admin.mostrar', compact('denuncia', 'denunciado', 'denunciante', 'similares', 'usuarios', 'roles'));
+        $permisos = ModelHasRole::where('role_id', 1)
+                                  ->where('model_id', $denuncia->denounced)  
+                                  ->get();
+        return view('admin.mostrar', compact('denuncia', 'denunciado', 'denunciante', 'similares', 'usuarios', 'roles', 'permisos'));
     }
 
     public function mostrardenuncia(AdvertComplaint $denuncia){
