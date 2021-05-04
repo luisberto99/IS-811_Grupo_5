@@ -39,17 +39,17 @@ class DatabaseSeeder extends Seeder
             'profile_photo_path' => 'profile-photos/user.png'
             ])->assignRole('Administrador');
 
-        User::factory(20)->create();
+        User::factory(500)->create();
         $this->call(UserTypeSeeder::class);
         $this->call(UserStatusSeeder::class);
         $this->call(CategorySeeder::class);
         Subscription::factory(90)->Create();
         $this->call(AdvertStatusSeeder::class);
 
-        Advert::factory(90)->create();
+        Advert::factory(900)->create();
         $this->call(CurrencySeeder::class);
-        Product::factory(90)->create();
-        AdvertComment::factory(10)->create();
+        Product::factory(900)->create();
+        AdvertComment::factory(100)->create();
         $this->call(AdvertPhotoSeeder::class);
 
         
