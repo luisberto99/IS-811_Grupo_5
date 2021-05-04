@@ -273,11 +273,11 @@ return [
             'icon'    => 'fas fa-chart-pie',
             'can' => 'admin.estadisticas',
             'submenu' => [
-                [
+/*                 [
                     'text' => 'General',
                     'icon' => 'fas fa-globe-americas',
                     'route'  => 'admin.estadistica.general',
-                ],
+                ], */
                 [
                     'text' => 'Usuarios',
                     'icon' => 'fas fa-fw fa-user',
@@ -293,11 +293,11 @@ return [
                     'icon' => 'fas fa-ad',
                     'route'  => 'admin.estadistica.anuncios',
                 ],
-                [
+/*                 [
                     'text' => 'Favoritos',
                     'icon' => 'fas fa-bookmark',
                     'route'  => 'admin.estadistica.favoritos',
-                ],
+                ], */
                 [
                     'text' => 'Denuncias',
                     'icon' => 'fas fa-fw fa-angry',

@@ -157,7 +157,7 @@
                     </x-slot>
 
 
-                    @if(isset($idUser))
+                    @if($userAd != 0))
                     <x-slot name="Userid">
                         {{ auth()->user()->id}}
                     </x-slot>
@@ -165,7 +165,7 @@
                         {{ auth()->user()->name}}
                     </x-slot>
                     <x-slot name="UserLink">
-                        {{ route('perfiles.show', $idUser)}}
+                        {{ route('perfiles.show', auth()->user()->id)}}
                     </x-slot>
 
                     

@@ -12,7 +12,7 @@
 
    <div class="card">
        <div class="card-header">
-            <h2 class="card-title">Usuarios por departamento</h2>
+            <h2 class="card-title">Numero de usuarios por departamento</h2>
             <div class="card-tools">
                 
             </div>
@@ -142,28 +142,11 @@
                  />
             </svg>
 
-            <div class="d-flex justify-content-evenly">
-                
-                <div class="px-2 d-flex">
-                    <span>Olancho</span>
-                    <div style="width: 40px; height: 20px; background-color: #dddddd; margin: 2px; text-aling:center" class="rounded">10</div>
-                </div>
-                <div class="px-2 d-flex">
-                    <span>Olancho</span>
-                    <div style="width: 40px; height: 20px; background-color: #dddddd; margin: 2px; text-aling:center" class="rounded">10</div>
-                </div>
-                <div class="px-2 d-flex">
-                    <span>Olancho</span>
-                    <div style="width: 40px; height: 20px; background-color: #dddddd; margin: 2px; text-aling:center" class="rounded">10</div>
-                </div>
-                <div class="px-2 d-flex">
-                    <span>Olancho</span>
-                    <div style="width: 40px; height: 20px; background-color: #dddddd; margin: 2px; text-aling:center" class="rounded">10</div>
-                </div>
+            <div id="leyendaMap" class="row justify-content-evenly">
             </div>
             
 
-            <canvas id="myChart" width="400" height="400">    </canvas>
+            {{-- <canvas id="myChart" width="400" height="400">    </canvas> --}}
 
         </div>
        </div>
@@ -173,6 +156,18 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .leyendaColor{
+            width: 40px; 
+            height: 20px;  
+            margin: 2px; 
+            text-aling: center
+        }
+
+        svg path{
+            fill: #999;
+        }
+    </style>
 @stop
 
 @section('js')
@@ -184,16 +179,21 @@ $(document).ready(function(){
 });
 
     deptosPath = ['Atlántida','Choluteca','Colón','Comayagua','Copán','Cortés','ElParaíso','FranciscoMorazán','GraciasaDios','Intibucá','IslasdelaBahía','LaPaz','Lempira','Ocotepeque','Olancho','SantaBárbara','Valle','Yoro']
-    colores =['#000000','#340000','#670000','#800000','#9a0000','#b30000','#cc0000','#e60000','#ff0000','#ff1a1a','#ff3333', '#ff4040','#ff4d4d','#ff6767','#ff8080','#ff9a9a','#ffb4b4','#ffd4d4']
+    colores =["#ffd4d4", "#ffb4b4", "#ff9a9a", "#ff8080", "#ff6767", "#ff4d4d", "#ff4040", "#ff3333", "#ff1a1a", "#ff0000", "#e60000", "#cc0000", "#b30000", "#9a0000", "#800000", "#670000", "#340000", "#000000"];
     deptos = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
     
-    const labelsMeses = <?php echo json_encode($meses); ?>;
     const usuarios = <?php echo json_encode($departamentos); ?>;
 
+    $('#leyendaMap').append()
     for (let i = 0; i < 18; i++) {
-        $('svg #'+deptosPath[i]).css('fill',colores[ usuarios[i].id - 1 ]);
+        $('svg #'+deptosPath[ usuarios[i].id - 1 ]).css('fill',colores[ i ]);
         $('svg #'+deptosPath[ usuarios[i].id - 1 ]).attr('data-content','Usuarios: ' + usuarios[i].numero_usuarios);
-        
+        $('#leyendaMap').append(`
+                <div class="px-2 d-flex">
+                    <span>${deptosPath[ usuarios[i].id - 1 ]}</span>
+                    <div style="background-color: ${ colores[ i ] };"  class="rounded leyendaColor"></div>
+                </div>
+        `)        
     }
 
     let dataset = [];
@@ -212,28 +212,5 @@ $(document).ready(function(){
         }
     }
 
-
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: deptosPath,
-        datasets: dataset
-    },
-    options: {
-        responsive: true,
-        plugins:{
-            title:{
-                display: true,
-                text: 'Publicaciones del ultimo año'
-            },
-        },
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
 </script>
 @stop
