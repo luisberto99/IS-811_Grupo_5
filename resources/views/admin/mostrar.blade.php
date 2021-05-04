@@ -32,35 +32,40 @@
         </div>
     </div>
     <div class="card">
-        <div class="card-body">
-            <p class="h5">Dar de baja al usuario:</p>
-            
-                @foreach ($denunciado as $denounced)
-                    <p class="form-control">
-                        {{$denounced->name}} 
-                    </p>
-                    {!! Form::model($denounced, ['route' => ['admin.baja', $denounced], 'method' => 'put']) !!}
-                        <div>
-                            {!! Form::hidden('idc', $denuncia->id) !!}
-                        </div>
-                        <div>
-                            <label>
-                                {!! Form::checkbox('roles[]', $roles->id, null, ['class' => 'mr-1']) !!}
-                                {{ $roles->name }}
-                            </label>
-                        <div class="form-group">
-                            {!! Form::label('resolution', 'Mensaje') !!}
-                            {!! Form::textarea('resolution', null, ['class' => 'form-control mh-50', 'placeholder' => 'Escribe la razón por que se da de baja este usurio']) !!}
-                            
-                            @error('resolution')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror
-                        </div>
-
-                        </div>
-                        {!! Form::submit('Guardar', ['class' => 'btn btn-primary mt-2']) !!}
-                    {!! Form::close() !!}
-                @endforeach
+        <div class="card-body"> 
+            @foreach ($permisos as $permiso)
+                @if ($permiso)
+                    <p class="h5">Dar de baja al usuario:</p>
+                    @foreach ($denunciado as $denounced)
+                        <p class="form-control">
+                            {{$denounced->name}} 
+                        </p>
+                        {!! Form::model($denounced, ['route' => ['admin.baja', $denounced], 'method' => 'put']) !!}
+                            <div>
+                                {!! Form::hidden('idc', $denuncia->id) !!}
+                            </div>
+                            <div>
+                                <label>
+                                    {!! Form::checkbox('roles[]', $roles->id, null, ['class' => 'mr-1']) !!}
+                                    {{ $roles->name }}
+                                </label>
+                            <div class="form-group">
+                                {!! Form::label('resolution', 'Mensaje') !!}
+                                {!! Form::textarea('resolution', null, ['class' => 'form-control mh-50', 'placeholder' => 'Escribe la razón por que se da de baja este usurio']) !!}
+                                
+                                @error('resolution')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+    
+                            </div>
+                            {!! Form::submit('Guardar', ['class' => 'btn btn-primary mt-2']) !!}
+                        {!! Form::close() !!}
+                    @endforeach
+                @else 
+                    <p class="h5 text-success">El usuario ya se dio de baja</p>
+                @endif
+            @endforeach
         </div>
     </div>
     <div class="card">
