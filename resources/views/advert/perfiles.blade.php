@@ -79,7 +79,7 @@
                         <div class="bg-transparent h-auto w-full px-3 " >
                             <div class="flex  flex-col pt-2 ">
                                 <div class="flex space-x-3 items-center">
-                                    <a href="{{route('perfiles.show', $calificacionUsers->userId)}}"><img src="https://atamashi.org/wp-content/uploads/2020/12/sesshomaru-hanyo-no-yashahime-2-1024x640.jpg" class="rounded-full h-14 w-14 bg-black " ></a>
+                                    <a href="{{route('perfiles.show', $calificacionUsers->userId)}}"><img src="{{ asset('storage/'.$calificacionUsers->profile_photo_path) }}" class="rounded-full h-14 w-14 bg-black " ></a>
                                     <div>
                                         <p class="text-blue-900 pb-0" >Por <a class="text-black hover:text-blue-500" href="{{route('perfiles.show', $calificacionUsers->userId)}}">{{$calificacionUsers->name}}</a></p>
                                         <div name="cal">
@@ -134,7 +134,7 @@
                                 <div class="bg-transparent h-auto w-full px-3 " >
                                     <div class="flex  flex-col pt-2 ">
                                         <div class="flex space-x-3 items-center">
-                                            <a href="{{route('perfiles.show', $calificacionUsers->userId)}}"><img src="https://atamashi.org/wp-content/uploads/2020/12/sesshomaru-hanyo-no-yashahime-2-1024x640.jpg" class="rounded-full h-14 w-14 bg-black " ></a>
+                                            <a href="{{route('perfiles.show', $calificacionUsers->userId)}}"><img src="{{ asset('storage/'.$calificacionUsers->profile_photo_path) }}" class="rounded-full h-14 w-14 bg-black " ></a>
                                             <div>
                                                 <p class="text-blue-900 pb-0" >Por <a class="text-black hover:text-blue-500" href="{{route('perfiles.show', $calificacionUsers->userId)}}">{{$calificacionUsers->name}}</a></p>
                                                 <div name="cal">
@@ -196,11 +196,11 @@
                                     <form action="{{route('perfiles.calificacion')}}" method="POST">
                                         @csrf
 
-                                        <div>
+                                        <div >
                                             <p>Calificación</p>
                                             @error('rating') <span name="error" value="false" class="error text-red-600">*Calificación requerida</span> @enderror
 
-                                            <div id="rateYo" value=""></div>
+                                            <div class="text-red-500" id="rateYo" value=""></div>
                                             
                                                 
                                                     
@@ -371,7 +371,7 @@
 
                 <div class="my-4"></div>
            
-                <div class="w-100 bg-blue-100">
+                <div style="colo: #ccf000" class="w-100 bg-blue-100">
                     @livewire('landing-carrousels', ['iduser' => $perfil->id])
             </div>
         </div>
@@ -398,13 +398,14 @@
             document.body.removeAttribute('style');
         }, 100);
     }
+    
 
 $(document).ready(function () {    
             
     $(function () {
         $("[name='error']").attr("value","true");
         $("#rateYo").rateYo({
-            ratedFill: "#008B8B",
+            ratedFill: "#FFFF00",
             starWidth: "20px",
 
             fullStar:true,
