@@ -4,11 +4,15 @@
             {{ __('Categorias suscritas') }}
         </h2>
     </x-slot>
-
+@if(count($idSuscrito)>0)
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">               
-                <div class="container">
+            <div class="flex justify-around bg-white overflow-hidden shadow-xl sm:rounded-lg">               
+                <div class="">
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                        {{ __('Categorias suscritas') }}
+                    </h2>
+                    <br>
                     <table>
                         <thead>
                             <tr>
@@ -28,15 +32,14 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
 
+                @if(count($idNoSuscrito)>0)
+                
+                <div class="">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Categorias no suscritas') }}
         </h2>
-
-    <div class="container">
+        <br>
         <table>
             <thead>
                 <tr>
@@ -54,4 +57,14 @@
             </tbody>
         </table>
     </div>
+
+@endif
+            </div>
+        </div>
+    </div>
+@else
+<strong>No hay suscripciones activas</strong>  
+@endif
+
+
 </x-app-layout>
