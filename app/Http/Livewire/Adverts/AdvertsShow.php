@@ -67,7 +67,7 @@ class AdvertsShow extends Component
     public function updatingNoInactivo(){
         $this->resetPage();
     }
-    public function updatingOrder(){
+    public function updatingOrden(){
         $this->resetPage();
     }
     public function render()
@@ -84,7 +84,7 @@ class AdvertsShow extends Component
 
         $this->departamentos = Departament::all();
         $this->estados = AdvertStatus::all();
-        $this->categorias = Category::all();
+        $this->categorias = Category::where('status',1)->get();
 
         $adverts = DB::table('adverts')
         ->join('products_adverts','products_adverts.advert_id','=', 'adverts.id')
@@ -93,6 +93,7 @@ class AdvertsShow extends Component
         ->join('departaments','departaments.id','=','townshipes.departament_id')
         ->join('users','adverts.user_id', 'users.id')
         ->join('adverts_photos','adverts.id','adverts_photos.advert_id')
+        ->join('categories','adverts.category_id','categories.id')
         ->select('adverts.id as advert_id', 'adverts.category_id','adverts.advert_status_id as estado', 'adverts.title as title', 'adverts.creation_date','adverts.user_id','users.profile_photo_path as imgUser','users.name as user_name','adverts_photos.photo_path as imgAdvert','products_adverts.id as product_id','products_adverts.price','townshipes.name as township','departaments.name as departament')
         ->when($this->categoria != 0 , function($query, $role){
             return $query->where('adverts.category_id', $this->categoria);
@@ -138,7 +139,7 @@ class AdvertsShow extends Component
          })
 
 
-
+        ->where('categories.status','1')
         ->where('adverts.advert_status_id', 1)
         ->where('title','LIKE','%'. $this->search . '%')
         /* ->Where('adverts.description','LIKE','%'. $this->search . '%') */

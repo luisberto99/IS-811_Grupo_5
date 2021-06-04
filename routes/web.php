@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\categoriasController;
 use App\Http\Controllers\advertController;
 use App\Http\Controllers\advertControllers;
 use App\Http\Controllers\advertUserController;
@@ -60,7 +61,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/comment',[AdvertControll
 
 Route::get('advert', [advertController::class, 'store'])->name('acomplaint.store');
 Route::get('mycategories/{id}', [CategoriaController::class, 'listarCategorias'])->name('categorias.show');
-Route::get('mycategories/{id_categoria}/{id_user}', [CategoriaController::class, 'guardar'])->name('categoria.guardar');
+Route::get('mycategories/{id_categoria}/{id_user}', [categoriasController::class, 'guardar'])->name('categoria.guardar');
 Route::get('mycategories/eliminar/{id}/{idUser}', [CategoriaController::class, 'eliminar'])->name('categoria.eliminar');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('mail/{id}', [mailCrontroller::class, 'index'])->name('mail');
